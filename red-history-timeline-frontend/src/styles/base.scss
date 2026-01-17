@@ -1,0 +1,104 @@
+/**
+ * 基础样式文件
+ * 
+ * ========== 功能要求 ==========
+ * 1. 定义全局CSS重置样式
+ * 2. 定义红色主题色彩变量
+ * 3. 定义通用工具类
+ * 4. 定义全局字体和基础样式
+ * 
+ * ========== 修改范围限制 ==========
+ * - 此文件由UI负责人维护
+ * - 禁止修改颜色变量定义（红色主题）
+ * - 可以添加新的工具类
+ * - 可以优化全局样式
+ * - 其他开发者可以添加样式，但需保持一致性
+ * 
+ * ========== 接口调用要求 ==========
+ * - 不调用任何API
+ * - 纯样式文件
+ * 
+ * ========== 函数关联要求 ==========
+ * - 被 main.js 引用（全局引入）
+ * - 被所有组件间接使用（通过全局样式）
+ */
+
+// 颜色变量（红色主题）
+$primary-red: #e74c3c;
+$dark-red: #c0392b;
+$light-red: #ec7063;
+$bg-gray: #f5f5f5;
+$text-dark: #333;
+$text-gray: #666;
+$text-light: #999;
+$border-color: #ddd;
+
+// 全局重置
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    'Microsoft YaHei', '微软雅黑', sans-serif;
+  background-color: $bg-gray;
+  color: $text-dark;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// 通用工具类
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+
+.p-1 { padding: 0.5rem; }
+.p-2 { padding: 1rem; }
+.p-3 { padding: 1.5rem; }
+
+// 链接样式
+a {
+  color: $primary-red;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: $dark-red;
+  text-decoration: underline;
+}
+
+// 按钮基础样式
+button {
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+

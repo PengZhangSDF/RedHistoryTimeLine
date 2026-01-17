@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    EventMapper的MyBatis映射文件
+    
+    ========== 功能要求 ==========
+    1. 定义事件相关的SQL语句
+    2. 与EventMapper.java接口中的方法对应
+    3. 实现事件数据的查询逻辑
+    
+    ========== 修改范围限制 ==========
+    - 此文件由数据访问层负责人维护
+    - SQL语句的ID必须与EventMapper.java中的方法名对应
+    - 禁止修改resultType（必须对应Event实体类）
+    - 可以优化SQL性能（如添加索引提示）
+    - 其他开发者如需修改SQL，需提交PR
+    
+    ========== 接口调用要求 ==========
+    - 不直接调用，由MyBatis框架自动调用
+    - SQL语句通过MyBatis执行
+    
+    ========== 函数关联要求 ==========
+    - 对应 EventMapper.java 接口
+    - 操作 events 表
+    - 返回 Event 对象或列表
+-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redhistory.mapper.EventMapper">
+    
+    <!-- 查询事件列表（支持筛选） -->
+    <!-- 功能要求：支持按时间范围和地点筛选 -->
+    <!-- SQL ID必须与EventMapper.java中的方法名对应 -->
+    <select id="selectEventList" resultType="com.redhistory.model.Event">
+        SELECT * FROM events
+        <where>
+            <if test="startDate != null and startDate != ''">
+                AND date >= #{startDate}
+            </if>
+            <if test="endDate != null and endDate != ''">
+                AND date <= #{endDate}
+            </if>
+            <if test="locationId != null and locationId != ''">
+                AND location_id = #{locationId}
+            </if>
+        </where>
+        ORDER BY date ASC
+    </select>
+    
+    <!-- 根据ID查询事件详情 -->
+    <select id="selectEventById" resultType="com.redhistory.model.Event">
+        SELECT * FROM events WHERE id = #{id}
+    </select>
+    
+    <!-- 根据地点ID查询事件列表 -->
+    <select id="selectEventsByLocation" resultType="com.redhistory.model.Event">
+        SELECT * FROM events WHERE location_id = #{locationId} ORDER BY date ASC
+    </select>
+    
+</mapper>
+

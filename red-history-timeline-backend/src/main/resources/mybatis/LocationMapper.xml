@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    LocationMapper的MyBatis映射文件
+    功能要求：定义地点相关的SQL语句，包含坐标查询
+-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redhistory.mapper.LocationMapper">
+    
+    <select id="selectAllLocations" resultType="com.redhistory.model.Location">
+        SELECT * FROM locations ORDER BY name
+    </select>
+    
+    <select id="selectLocationById" resultType="com.redhistory.model.Location">
+        SELECT * FROM locations WHERE id = #{id}
+    </select>
+    
+    <select id="selectLocationsByEvent" resultType="com.redhistory.model.Location">
+        SELECT l.* FROM locations l
+        INNER JOIN events e ON l.id = e.location_id
+        WHERE e.id = #{eventId}
+    </select>
+    
+</mapper>
+

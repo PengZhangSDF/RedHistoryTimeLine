@@ -1,0 +1,81 @@
+/**
+ * 多媒体样式文件
+ * 
+ * ========== 功能要求 ==========
+ * 1. 定义图片轮播样式
+ * 2. 定义视频播放器样式
+ * 3. 定义音频播放器样式
+ * 4. 定义媒体资源的通用样式
+ * 
+ * ========== 修改范围限制 ==========
+ * - 此文件由媒体功能负责人维护
+ * - 可以修改样式细节
+ * - 可以添加新的媒体相关样式
+ * - 其他开发者可以引用此文件，但修改需提交PR
+ * 
+ * ========== 接口调用要求 ==========
+ * - 不调用任何API
+ * - 纯样式文件
+ * 
+ * ========== 函数关联要求 ==========
+ * - 被 MediaPlayer.vue 组件引用
+ * - 可以全局引入（在main.js中）
+ */
+
+// 图片轮播样式
+.image-carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.carousel-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+// 视频播放器样式
+.video-player {
+  margin: 2rem 0;
+}
+
+.video-element {
+  width: 100%;
+  max-height: 600px;
+  border-radius: 4px;
+  background: #000;
+}
+
+// 音频播放器样式
+.audio-player {
+  margin: 1rem 0;
+}
+
+.audio-element {
+  width: 100%;
+}
+
+// 媒体列表样式
+.media-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+// 媒体缩略图样式
+.media-thumbnail {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.media-thumbnail:hover {
+  transform: scale(1.05);
+}
+

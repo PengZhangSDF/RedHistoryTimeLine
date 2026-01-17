@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    PersonMapper的MyBatis映射文件
+    功能要求：定义人物相关的SQL语句
+    修改限制：SQL ID必须与PersonMapper.java中的方法名对应
+-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redhistory.mapper.PersonMapper">
+    
+    <select id="selectPersonById" resultType="com.redhistory.model.Person">
+        SELECT * FROM persons WHERE id = #{id}
+    </select>
+    
+    <select id="selectPersonsByEvent" resultType="com.redhistory.model.Person">
+        SELECT p.* FROM persons p
+        INNER JOIN event_person ep ON p.id = ep.person_id
+        WHERE ep.event_id = #{eventId}
+    </select>
+    
+</mapper>
+

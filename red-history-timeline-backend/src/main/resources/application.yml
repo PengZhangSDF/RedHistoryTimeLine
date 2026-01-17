@@ -1,0 +1,61 @@
+# 应用配置文件
+# 
+# ========== 功能要求 ==========
+# 1. 配置应用的基本参数（端口、上下文路径等）
+# 2. 配置数据库连接（MySQL）
+# 3. 配置MyBatis设置
+# 4. 配置高德地图API Key（可选）
+# 
+# ========== 修改范围限制 ==========
+# - 此文件由项目负责人或运维人员维护
+# - 禁止修改数据库连接配置，除非数据库地址变更
+# - 禁止修改MyBatis核心配置
+# - 如需添加新配置，需团队讨论
+# - 其他开发者禁止修改此文件
+# 
+# ========== 环境变量 ==========
+# - 生产环境应使用环境变量或外部配置文件
+# - 敏感信息（如数据库密码、API Key）不应硬编码
+# 
+# ========== 配置说明 ==========
+# - server.port: 服务器端口（默认3001）
+# - spring.datasource: 数据库连接配置
+# - mybatis: MyBatis配置（映射文件路径、类型别名等）
+# - amap.key: 高德地图API Key（可选）
+
+server:
+  port: 3001
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: red-history-timeline-backend
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/red_history?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: your_password  # 请修改为实际数据库密码
+
+# MyBatis配置
+mybatis:
+  # Mapper XML文件路径
+  mapper-locations: classpath:mybatis/*.xml
+  # 类型别名包路径
+  type-aliases-package: com.redhistory.model
+  configuration:
+    # 驼峰命名转换
+    map-underscore-to-camel-case: true
+
+# 高德地图配置（可选）
+# 如果后端不需要调用高德API，可以删除此配置
+amap:
+  key: YOUR_AMAP_API_KEY  # 请替换为实际的高德地图API Key
+
+# 日志配置
+logging:
+  level:
+    com.redhistory: INFO
+    org.springframework.web: INFO
+    org.mybatis: DEBUG  # 开发环境可以开启，生产环境应关闭
+
