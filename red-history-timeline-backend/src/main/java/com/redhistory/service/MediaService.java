@@ -24,6 +24,7 @@ package com.redhistory.service;
 import com.redhistory.mapper.MediaMapper;
 import com.redhistory.model.Media;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,6 +50,46 @@ public class MediaService {
         // 功能要求：必须调用Mapper层
         // 修改限制：禁止在Service中编写SQL
         return mediaMapper.selectMediaByEvent(eventId, type);
+    }
+    
+    /**
+     * 新增媒体
+     * 功能要求：新增媒体记录
+     */
+    public int addMedia(Media media) {
+        return mediaMapper.insertMedia(media);
+    }
+    
+    /**
+     * 更新媒体
+     * 功能要求：根据ID更新媒体记录
+     */
+    public int updateMedia(Media media) {
+        return mediaMapper.updateMedia(media);
+    }
+    
+    /**
+     * 删除媒体
+     * 功能要求：根据ID删除媒体记录
+     */
+    public int deleteMedia(String id) {
+        return mediaMapper.deleteMedia(id);
+    }
+    
+    /**
+     * 根据ID获取媒体详情
+     * 功能要求：
+     * - 根据媒体ID查询完整的媒体信息
+     * - 实现缓存机制以提高查询性能
+     * - 处理媒体ID不存在的情况
+     */
+    @Cacheable(value = "media", key = "#id")
+    public Media getMediaById(String id) {
+        Media media = mediaMapper.selectMediaById(id);
+        if (media == null) {
+            throw new RuntimeException("媒体资源不存在");
+        }
+        return media;
     }
 }
 

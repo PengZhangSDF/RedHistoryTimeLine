@@ -88,5 +88,29 @@ public class EventService {
         // 功能要求：必须调用Mapper层
         return eventMapper.selectEventsByLocation(locationId);
     }
+    
+    /**
+     * 新增事件
+     * 功能要求：新增事件记录
+     */
+    public int addEvent(Event event) {
+        return eventMapper.insertEvent(event);
+    }
+    
+    /**
+     * 更新事件
+     * 功能要求：根据ID更新事件记录
+     */
+    public int updateEvent(Event event) {
+        return eventMapper.updateEvent(event);
+    }
+    
+    /**
+     * 删除事件
+     * 功能要求：根据ID删除事件记录
+     */
+    public int deleteEvent(String id) {
+        return eventMapper.deleteEvent(id);
+    }
 }
 

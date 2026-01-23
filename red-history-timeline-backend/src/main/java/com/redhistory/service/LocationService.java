@@ -66,14 +66,14 @@ public class LocationService {
         // 功能要求：如果后端需要解析地址，可以在此处调用AmapUtil
         // 修改限制：此功能为可选，如果不需要可以删除
         if (location != null && (location.getLongitude() == null || location.getLatitude() == null)) {
-            // TODO: 如果地点有地址但没有坐标，可以调用AmapUtil解析
-            // if (location.getAddress() != null && amapUtil != null) {
-            //     Double[] coordinates = amapUtil.geocodeAddress(location.getAddress());
-            //     if (coordinates != null) {
-            //         location.setLongitude(coordinates[0]);
-            //         location.setLatitude(coordinates[1]);
-            //     }
-            // }
+            // 如果地点有名称但没有坐标，可以调用AmapUtil解析
+            if (location.getName() != null && amapUtil != null) {
+                Double[] coordinates = amapUtil.geocodeAddress(location.getName());
+                if (coordinates != null) {
+                    location.setLongitude(coordinates[0]);
+                    location.setLatitude(coordinates[1]);
+                }
+            }
         }
         
         return location;
@@ -85,6 +85,30 @@ public class LocationService {
      */
     public List<Location> getLocationsByEvent(String eventId) {
         return locationMapper.selectLocationsByEvent(eventId);
+    }
+    
+    /**
+     * 新增地点
+     * 功能要求：新增地点记录
+     */
+    public int addLocation(Location location) {
+        return locationMapper.insertLocation(location);
+    }
+    
+    /**
+     * 更新地点
+     * 功能要求：根据ID更新地点记录
+     */
+    public int updateLocation(Location location) {
+        return locationMapper.updateLocation(location);
+    }
+    
+    /**
+     * 删除地点
+     * 功能要求：根据ID删除地点记录
+     */
+    public int deleteLocation(String id) {
+        return locationMapper.deleteLocation(id);
     }
 }
 

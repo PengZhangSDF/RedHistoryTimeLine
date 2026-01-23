@@ -18,5 +18,23 @@
         WHERE ep.event_id = #{eventId}
     </select>
     
+    <!-- 插入人物 -->
+    <insert id="insertPerson" parameterType="com.redhistory.model.Person">
+        INSERT INTO persons (id, name, role, description, birth_date, death_date)
+        VALUES (#{id}, #{name}, #{role}, #{description}, #{birthDate}, #{deathDate})
+    </insert>
+    
+    <!-- 更新人物 -->
+    <update id="updatePerson" parameterType="com.redhistory.model.Person">
+        UPDATE persons
+        SET name = #{name}, role = #{role}, description = #{description}, birth_date = #{birthDate}, death_date = #{deathDate}
+        WHERE id = #{id}
+    </update>
+    
+    <!-- 删除人物 -->
+    <delete id="deletePerson" parameterType="java.lang.String">
+        DELETE FROM persons WHERE id = #{id}
+    </delete>
+    
 </mapper>
 

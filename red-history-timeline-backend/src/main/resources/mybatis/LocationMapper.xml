@@ -21,5 +21,23 @@
         WHERE e.id = #{eventId}
     </select>
     
+    <!-- 插入地点 -->
+    <insert id="insertLocation" parameterType="com.redhistory.model.Location">
+        INSERT INTO locations (id, name, province, longitude, latitude, description)
+        VALUES (#{id}, #{name}, #{province}, #{longitude}, #{latitude}, #{description})
+    </insert>
+    
+    <!-- 更新地点 -->
+    <update id="updateLocation" parameterType="com.redhistory.model.Location">
+        UPDATE locations
+        SET name = #{name}, province = #{province}, longitude = #{longitude}, latitude = #{latitude}, description = #{description}
+        WHERE id = #{id}
+    </update>
+    
+    <!-- 删除地点 -->
+    <delete id="deleteLocation" parameterType="java.lang.String">
+        DELETE FROM locations WHERE id = #{id}
+    </delete>
+    
 </mapper>
 

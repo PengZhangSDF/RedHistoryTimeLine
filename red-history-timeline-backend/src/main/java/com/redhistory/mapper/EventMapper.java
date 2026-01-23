@@ -73,5 +73,23 @@ public interface EventMapper {
      * - SQL语句在EventMapper.xml中定义
      */
     List<Event> selectEventsByLocation(@Param("locationId") String locationId);
+    
+    /**
+     * 插入事件
+     * 功能要求：新增事件记录
+     */
+    int insertEvent(Event event);
+    
+    /**
+     * 更新事件
+     * 功能要求：根据ID更新事件记录
+     */
+    int updateEvent(Event event);
+    
+    /**
+     * 删除事件
+     * 功能要求：根据ID删除事件记录
+     */
+    int deleteEvent(@Param("id") String id);
 }
 

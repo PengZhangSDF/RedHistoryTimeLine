@@ -34,13 +34,19 @@ package com.redhistory.util;
  */
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 import com.redhistory.config.AmapConfig;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Map;
 
 @Component
 public class AmapUtil {
     
     @Autowired(required = false)
     private AmapConfig amapConfig;
+    
+    private final RestTemplate restTemplate = new RestTemplate();
     
     /**
      * 地理编码：根据地址获取坐标
@@ -52,16 +58,40 @@ public class AmapUtil {
      * 修改限制：
      * - 禁止修改返回格式
      * - 需要实现高德API调用逻辑
-     * 
-     * 当前状态：占位方法，需要实现
      */
     public Double[] geocodeAddress(String address) {
-        // TODO: 实现高德地图地理编码API调用
-        // 需要：
-        // 1. 添加高德地图Java SDK依赖
-        // 2. 使用AmapConfig获取API Key
-        // 3. 调用高德API
-        // 4. 解析响应，返回坐标
+        if (amapConfig == null || amapConfig.getApiKey() == null || amapConfig.getApiKey().isEmpty()) {
+            return null;
+        }
+        
+        try {
+            String encodedAddress = URLEncoder.encode(address, StandardCharsets.UTF_8);
+            String url = "https://restapi.amap.com/v3/geocode/geo?key=" + amapConfig.getApiKey() + "&address=" + encodedAddress;
+            
+            Map<?, ?> response = restTemplate.getForObject(url, Map.class);
+            if (response != null && "1".equals(response.get("status"))) {
+                Object geocodes = response.get("geocodes");
+                if (geocodes instanceof java.util.List) {
+                    java.util.List<?> geocodesList = (java.util.List<?>) geocodes;
+                    if (!geocodesList.isEmpty()) {
+                        Object geocode = geocodesList.get(0);
+                        if (geocode instanceof Map) {
+                            Map<?, ?> geocodeMap = (Map<?, ?>) geocode;
+                            Object locationObj = geocodeMap.get("location");
+                            if (locationObj != null) {
+                                String location = locationObj.toString();
+                                String[] coords = location.split(",");
+                                if (coords.length == 2) {
+                                    return new Double[]{Double.parseDouble(coords[0]), Double.parseDouble(coords[1])};
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
     
@@ -75,11 +105,29 @@ public class AmapUtil {
      * 修改限制：
      * - 禁止修改参数格式
      * - 需要实现高德API调用逻辑
-     * 
-     * 当前状态：占位方法，需要实现
      */
     public String reverseGeocode(Double longitude, Double latitude) {
-        // TODO: 实现高德地图逆地理编码API调用
+        if (amapConfig == null || amapConfig.getApiKey() == null || amapConfig.getApiKey().isEmpty()) {
+            return null;
+        }
+        
+        try {
+            String url = "https://restapi.amap.com/v3/geocode/regeo?key=" + amapConfig.getApiKey() + "&location=" + longitude + "," + latitude;
+            
+            Map<?, ?> response = restTemplate.getForObject(url, Map.class);
+            if (response != null && "1".equals(response.get("status"))) {
+                Object regeocode = response.get("regeocode");
+                if (regeocode instanceof Map) {
+                    Map<?, ?> regeocodeMap = (Map<?, ?>) regeocode;
+                    Object formattedAddressObj = regeocodeMap.get("formatted_address");
+                    if (formattedAddressObj != null) {
+                        return formattedAddressObj.toString();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }
