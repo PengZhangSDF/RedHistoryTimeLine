@@ -154,11 +154,16 @@ export default {
   background: white;
   border-radius: 8px;
   margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .time-axis h2 {
   margin-bottom: 1.5rem;
   color: #e74c3c;
+  font-size: 1.8rem;
+  text-align: center;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f0f0f0;
 }
 
 .loading,
@@ -166,6 +171,9 @@ export default {
   text-align: center;
   padding: 2rem;
   color: #666;
+  background: #f9f9f9;
+  border-radius: 8px;
+  margin: 1rem 0;
 }
 
 .axis-container {
@@ -178,18 +186,19 @@ export default {
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  padding: 1rem;
+  padding: 1.5rem;
   border: 1px solid #ddd;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
   background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .event-item:hover {
   background: #f5f5f5;
   transform: translateX(10px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .event-date {
@@ -197,12 +206,16 @@ export default {
   font-weight: bold;
   color: #e74c3c;
   font-size: 1.1rem;
+  text-align: center;
+  padding: 0.5rem;
+  background: rgba(231, 76, 60, 0.1);
+  border-radius: 4px;
 }
 
 .event-content {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
   flex: 1;
 }
 
@@ -212,17 +225,103 @@ export default {
   object-fit: cover;
   border-radius: 4px;
   border: 2px solid #ddd;
+  transition: all 0.3s ease;
+}
+
+.event-item:hover .event-image {
+  border-color: #e74c3c;
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
 }
 
 .event-info h3 {
   margin: 0 0 0.5rem 0;
   color: #333;
+  font-size: 1.1rem;
+  line-height: 1.4;
 }
 
 .event-category {
   color: #666;
   font-size: 0.9rem;
   margin: 0;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .time-axis {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .time-axis h2 {
+    font-size: 1.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .event-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+  
+  .event-date {
+    min-width: auto;
+    width: 100%;
+    text-align: left;
+    padding: 0.75rem;
+    font-size: 1rem;
+  }
+  
+  .event-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
+  }
+  
+  .event-image {
+    width: 100%;
+    height: 200px;
+    max-width: 100%;
+  }
+  
+  .event-info {
+    width: 100%;
+  }
+  
+  .event-info h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .event-item:hover {
+    transform: translateY(5px);
+    transform: translateX(5px);
+  }
+}
+
+/* 平板设备适配 */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .time-axis {
+    padding: 1.5rem;
+  }
+  
+  .event-item {
+    gap: 1.25rem;
+  }
+  
+  .event-image {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .event-date {
+    min-width: 100px;
+    font-size: 1rem;
+  }
 }
 </style>
 

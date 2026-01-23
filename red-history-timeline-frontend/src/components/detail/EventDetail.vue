@@ -91,12 +91,18 @@ export default {
   margin: 0 auto;
   background: white;
   border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
 .event-detail h1 {
   color: #e74c3c;
   margin-bottom: 1rem;
   font-size: 2rem;
+  line-height: 1.3;
+  text-align: center;
+  padding: 1rem 0;
+  border-bottom: 2px solid #f0f0f0;
 }
 
 .event-meta {
@@ -104,21 +110,26 @@ export default {
   flex-wrap: wrap;
   gap: 1rem;
   margin-bottom: 2rem;
-  padding-bottom: 1rem;
+  padding-bottom: 1.5rem;
   border-bottom: 2px solid #eee;
+  justify-content: center;
 }
 
 .event-meta .date {
   font-size: 1.1rem;
   font-weight: bold;
   color: #e74c3c;
+  padding: 0.5rem 1rem;
+  background: rgba(231, 76, 60, 0.1);
+  border-radius: 4px;
 }
 
 .event-meta .category,
 .event-meta .importance {
-  padding: 0.25rem 0.75rem;
+  padding: 0.5rem 1rem;
   border-radius: 4px;
   font-size: 0.9rem;
+  font-weight: 500;
 }
 
 .event-meta .category {
@@ -128,6 +139,7 @@ export default {
 
 .event-meta .importance {
   color: white;
+  font-weight: 600;
 }
 
 .importance-极高 {
@@ -138,11 +150,32 @@ export default {
   background: #f39c12;
 }
 
+.importance-中 {
+  background: #27ae60;
+}
+
+.importance-低 {
+  background: #3498db;
+}
+
 .event-description,
 .event-background,
 .event-process,
 .event-impact {
   margin: 2rem 0;
+  padding: 1.5rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.event-description:hover,
+.event-background:hover,
+.event-process:hover,
+.event-impact:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
 }
 
 .event-description h2,
@@ -151,8 +184,10 @@ export default {
 .event-impact h2 {
   color: #333;
   margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.75rem;
   border-bottom: 2px solid #e74c3c;
+  font-size: 1.3rem;
+  font-weight: 600;
 }
 
 .event-description p,
@@ -162,12 +197,102 @@ export default {
   line-height: 1.8;
   color: #555;
   text-align: justify;
+  font-size: 1rem;
 }
 
 .loading {
   text-align: center;
   padding: 2rem;
   color: #666;
+  background: #f9f9f9;
+  border-radius: 8px;
+  margin: 2rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .event-detail {
+    padding: 1.5rem;
+    margin: 1rem;
+    border-radius: 8px;
+  }
+  
+  .event-detail h1 {
+    font-size: 1.5rem;
+    padding: 0.75rem 0;
+    margin-bottom: 0.75rem;
+  }
+  
+  .event-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+  }
+  
+  .event-meta .date {
+    font-size: 1rem;
+    padding: 0.5rem;
+    width: 100%;
+  }
+  
+  .event-meta .category,
+  .event-meta .importance {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+  
+  .event-description,
+  .event-background,
+  .event-process,
+  .event-impact {
+    margin: 1.5rem 0;
+    padding: 1.25rem;
+  }
+  
+  .event-description h2,
+  .event-background h2,
+  .event-process h2,
+  .event-impact h2 {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+  }
+  
+  .event-description p,
+  .event-background p,
+  .event-process p,
+  .event-impact p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    text-align: left;
+  }
+  
+  .loading {
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+}
+
+/* 平板设备适配 */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .event-detail {
+    padding: 1.75rem;
+    margin: 1.5rem;
+  }
+  
+  .event-detail h1 {
+    font-size: 1.8rem;
+  }
+  
+  .event-description p,
+  .event-background p,
+  .event-process p,
+  .event-impact p {
+    font-size: 0.95rem;
+  }
 }
 </style>
 

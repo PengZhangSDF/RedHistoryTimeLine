@@ -191,11 +191,22 @@ export default {
   padding: 1.5rem;
   background: white;
   border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.amap-location:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
 }
 
 .amap-location h2 {
   color: #e74c3c;
   margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #f0f0f0;
 }
 
 .detail-map {
@@ -203,42 +214,145 @@ export default {
   height: 400px;
   border-radius: 8px;
   overflow: hidden;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   border: 2px solid #ddd;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.detail-map:hover {
+  border-color: #e74c3c;
+  box-shadow: 0 6px 12px rgba(231, 76, 60, 0.2);
+}
+
+/* 地图标记样式和动画 */
+:deep(.amap-marker) {
+  transition: all 0.3s ease;
+}
+
+:deep(.amap-marker:hover) {
+  transform: scale(1.1);
+  z-index: 1000;
+}
+
+:deep(.amap-marker:active) {
+  transform: scale(1.2);
+}
+
+:deep(.amap-info-window) {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: none;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+:deep(.amap-info-content) {
+  padding: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
 }
 
 .location-info {
-  padding: 1rem;
-  background: #f5f5f5;
-  border-radius: 4px;
+  padding: 1.5rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.location-info:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .location-name {
   font-size: 1.2rem;
   color: #333;
-  margin: 0.5rem 0;
+  margin: 0 0 1rem 0;
 }
 
 .location-name strong {
   color: #e74c3c;
+  font-weight: 600;
 }
 
 .location-province {
   color: #666;
-  margin: 0.5rem 0;
+  margin: 0 0 0.75rem 0;
+  font-size: 0.95rem;
 }
 
 .location-coordinates {
   color: #666;
   font-size: 0.9rem;
-  margin: 0.5rem 0;
+  margin: 0 0 0.75rem 0;
   font-family: monospace;
+  padding: 0.5rem;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  border-left: 3px solid #e74c3c;
 }
 
 .location-description {
   color: #555;
   line-height: 1.6;
-  margin: 0.5rem 0;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .amap-location {
+    margin: 1.5rem 0;
+    padding: 1.25rem;
+  }
+  
+  .amap-location h2 {
+    font-size: 1.3rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .detail-map {
+    height: 300px;
+    margin-bottom: 1.25rem;
+  }
+  
+  .location-info {
+    padding: 1.25rem;
+  }
+  
+  .location-name {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .location-province,
+  .location-coordinates {
+    margin-bottom: 0.5rem;
+  }
+  
+  /* 手机端地图标记缩放效果增强 */
+  :deep(.amap-marker:hover) {
+    transform: scale(1.2);
+  }
+  
+  :deep(.amap-info-content) {
+    padding: 0.75rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* 平板设备适配 */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .amap-location {
+    margin: 1.75rem 0;
+    padding: 1.4rem;
+  }
+  
+  .detail-map {
+    height: 350px;
+  }
 }
 </style>
 
