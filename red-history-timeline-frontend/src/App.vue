@@ -24,7 +24,11 @@
 -->
 <template>
   <div id="app">
-    <router-view />
+    <router-view v-slot="{ Component }">
+      <transition name="router-fade" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </div>
 </template>
 
@@ -38,6 +42,38 @@ export default {
 #app {
   width: 100%;
   height: 100vh;
+}
+
+/* 路由过渡动画 */
+.router-fade-enter-active,
+.router-fade-leave-active {
+  transition: all 0.5s ease;
+}
+
+.router-fade-enter-from {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.router-fade-leave-to {
+  opacity: 0;
+  transform: scale(1.05);
+}
+
+/* 详情页弹窗过渡效果 */
+.router-fade-enter-active.detail-page,
+.router-fade-leave-active.detail-page {
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.router-fade-enter-from.detail-page {
+  opacity: 0;
+  transform: scale(0.9) translateY(20px);
+}
+
+.router-fade-leave-to.detail-page {
+  opacity: 0;
+  transform: scale(1.1) translateY(-20px);
 }
 </style>
 

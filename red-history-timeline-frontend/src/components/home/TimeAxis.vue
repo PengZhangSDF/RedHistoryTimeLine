@@ -41,36 +41,45 @@
     <h2>历史时间轴</h2>
     <div v-if="loading" class="loading">加载中...</div>
     <div v-else-if="error" class="error">{{ error }}</div>
-    <div v-else-if="events.length === 0" class="empty-state">
-      <div class="empty-icon">📅</div>
-      <h3>暂无历史事件数据</h3>
-      <p>请稍后再试，或检查网络连接</p>
-      <button class="retry-btn" @click="loadEvents">重新加载</button>
-    </div>
     <div v-else class="axis-container">
-      <!-- ECharts 时间轴容器 -->
-      <div id="timeline-chart" ref="timelineChart" class="timeline-chart"></div>
+      <div 
+        v-for="event in events" 
+        :key="event.id" 
+        class="event-item"
+        @click="goToDetail(event.id)"
+      >
+        <div class="event-date">{{ formatDate(event.date) }}</div>
+        <div class="event-content">
+          <img :src="getEventImage(event.id)" :alt="event.title" class="event-image" />
+          <div class="event-info">
+            <h3>{{ event.title }}</h3>
+            <p class="event-category">{{ event.category }}</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
-import * as echarts from 'echarts';
 import { getEventList } from '@/api/eventApi';
-import { formatDateChinese, formatEventsForTimeline } from '@/utils/formatUtils';
-import { useRouter } from 'vue-router';
+import { formatDateChinese } from '@/utils/formatUtils';
 
 export default {
   name: 'TimeAxis',
-  setup(props, { emit }) {
-    const router = useRouter();
-    const events = ref([]);
-    const loading = ref(false);
-    const error = ref(null);
-    const timelineChart = ref(null);
-    let chartInstance = null;
-
+  data() {
+    return {
+      events: [],
+      loading: false,
+      error: null
+    };
+  },
+  mounted() {
+    // 功能要求：组件挂载时自动加载事件列表
+    // 禁止修改此调用逻辑
+    this.loadEvents();
+  },
+  methods: {
     /**
      * 加载事件列表
      * 功能要求：
@@ -82,228 +91,48 @@ export default {
      * - 禁止修改API调用方式
      * - 可以优化错误处理和加载状态显示
      */
-    const loadEvents = async () => {
-      loading.value = true;
-      error.value = null;
+    async loadEvents() {
+      this.loading = true;
+      this.error = null;
       try {
         const response = await getEventList();
         // 响应格式：{ code: 200, data: Array<Event>, total: number }
         if (response.code === 200) {
-          events.value = response.data || [];
+          this.events = response.data || [];
         } else {
-          error.value = response.msg || '加载失败';
+          this.error = response.msg || '加载失败';
         }
       } catch (error) {
         console.error('加载事件失败:', error);
-        error.value = '加载事件失败，请稍后重试';
+        this.error = '加载事件失败，请稍后重试';
       } finally {
-        loading.value = false;
+        this.loading = false;
       }
-    };
-
+    },
+    
     /**
-     * 初始化ECharts时间轴
+     * 格式化日期
+     * 功能要求：将日期字符串转换为中文格式
+     * 修改限制：禁止修改，使用工具函数
      */
-    const initTimelineChart = () => {
-      if (!timelineChart.value) return;
-
-      try {
-        // 初始化图表实例
-        chartInstance = echarts.init(timelineChart.value);
-
-        // 格式化事件数据为ECharts所需格式
-        const timelineData = formatEventsForTimeline(events.value);
-
-        // ECharts配置项
-        const option = {
-          baseOption: {
-            timeline: {
-              type: 'slider',
-              axisType: 'time',
-              autoPlay: false,
-              playInterval: 3000,
-              orient: 'horizontal',
-              center: ['50%', 'bottom'],
-              width: '90%',
-              data: timelineData.map(item => item.date),
-              label: {
-                formatter: (value) => {
-                  return formatDateChinese(value);
-                }
-              },
-              emphasis: {
-                label: {
-                  color: '#e74c3c'
-                }
-              },
-              itemStyle: {
-                color: '#e74c3c'
-              },
-              lineStyle: {
-                color: '#ddd'
-              },
-              checkpointStyle: {
-                borderColor: '#e74c3c',
-                borderWidth: 2
-              }
-            },
-            title: {
-              text: '红色历史时间轴',
-              left: 'center',
-              textStyle: {
-                color: '#e74c3c',
-                fontSize: 18,
-                fontWeight: 'bold'
-              }
-            },
-            tooltip: {
-              trigger: 'axis',
-              axisPointer: {
-                type: 'cross'
-              },
-              formatter: (params) => {
-                try {
-                  const event = timelineData[params[0].dataIndex];
-                  return `
-                    <div class="tooltip-content">
-                      <h3>${event.name}</h3>
-                      <p><strong>日期：</strong>${event.value}</p>
-                      <p><strong>类别：</strong>${event.category}</p>
-                      <p><strong>地点：</strong>${event.location || '未知'}</p>
-                      <p><strong>描述：</strong>${event.description || '暂无描述'}</p>
-                    </div>
-                  `;
-                } catch (err) {
-                  return '<div>事件信息加载失败</div>';
-                }
-              }
-            },
-            grid: {
-              left: '3%',
-              right: '4%',
-              bottom: '15%',
-              containLabel: true
-            },
-            xAxis: {
-              type: 'time',
-              boundaryGap: false,
-              axisLine: {
-                lineStyle: {
-                  color: '#e74c3c'
-                }
-              }
-            },
-            yAxis: {
-              type: 'category',
-              data: ['历史事件'],
-              axisLabel: {
-                color: '#333'
-              }
-            },
-            series: [
-              {
-                name: '历史事件',
-                type: 'scatter',
-                symbolSize: 20,
-                data: timelineData.map((item, index) => [
-                  item.date,
-                  0,
-                  index
-                ]),
-                itemStyle: {
-                  color: '#e74c3c'
-                },
-                emphasis: {
-                  itemStyle: {
-                    color: '#c0392b',
-                    borderWidth: 2,
-                    borderColor: '#fff'
-                  }
-                },
-                label: {
-                  show: true,
-                  formatter: (params) => {
-                    try {
-                      const event = timelineData[params.data[2]];
-                      return event.name;
-                    } catch (err) {
-                      return '';
-                    }
-                  },
-                  position: 'top',
-                  color: '#333',
-                  fontSize: 12,
-                  fontWeight: 'bold'
-                }
-              }
-            ]
-          },
-          options: timelineData.map(item => ({
-            title: {
-              text: item.name,
-              subtext: item.value,
-              textStyle: {
-                color: '#e74c3c',
-                fontSize: 16
-              },
-              subtextStyle: {
-                color: '#666',
-                fontSize: 12
-              }
-            },
-            series: [
-              {
-                name: '历史事件',
-                type: 'scatter',
-                symbolSize: 30,
-                data: [
-                  [item.date, 0]
-                ],
-                itemStyle: {
-                  color: '#e74c3c'
-                },
-                label: {
-                  show: true,
-                  formatter: item.name,
-                  position: 'top'
-                }
-              }
-            ]
-          }))
-        };
-
-        // 设置图表配置
-        chartInstance.setOption(option);
-
-        // 绑定点击事件
-        chartInstance.on('click', (params) => {
-          try {
-            if (params.componentType === 'series') {
-              const event = timelineData[params.data[2]];
-              if (!event) {
-                console.warn('点击事件无匹配数据');
-                return;
-              }
-              
-              goToDetail(event.id);
-              // 触发地图定位事件
-              emit('event-click', event);
-            }
-          } catch (err) {
-            console.error('处理事件点击失败:', err);
-            // 显示错误提示
-            alert('定位到事件地点失败，请稍后再试');
-          }
-        });
-
-        // 窗口大小变化时自适应
-        window.addEventListener('resize', handleResize);
-      } catch (err) {
-        console.error('初始化时间轴失败:', err);
-        error.value = '时间轴初始化失败，请稍后再试';
-      }
-    };
-
+    formatDate(dateString) {
+      return formatDateChinese(dateString);
+    },
+    
+    /**
+     * 获取事件图片路径
+     * 功能要求：根据事件ID生成图片路径
+     * 图片路径规则：/assets/images/{eventId}.jpg
+     * 
+     * 修改限制：
+     * - 禁止修改路径规则
+     * - 如需支持其他图片格式，可以扩展
+     */
+    getEventImage(eventId) {
+      // public目录下的文件在Vite中可以直接通过绝对路径访问
+      return `/assets/images/${eventId}.jpg`;
+    },
+    
     /**
      * 跳转到事件详情页
      * 功能要求：点击事件跳转到详情页
@@ -312,66 +141,9 @@ export default {
      * - 禁止修改跳转路径格式（必须 /detail/:id）
      * - 禁止修改跳转方式（必须使用router.push）
      */
-    const goToDetail = (eventId) => {
-      router.push(`/detail/${eventId}`);
-    };
-
-    /**
-     * 处理窗口大小变化
-     */
-    const handleResize = () => {
-      chartInstance && chartInstance.resize();
-    };
-
-    /**
-     * 获取事件图片路径
-     * 功能要求：根据事件ID生成图片路径
-     * 图片路径规则：/assets/images/{eventId}.jpg（public目录）
-     * 
-     * 修改限制：
-     * - 禁止修改路径规则
-     * - 如需支持其他图片格式，可以扩展
-     */
-    const getEventImage = (eventId) => {
-      // public目录下的文件在Vite中可以直接通过绝对路径访问
-      return `/assets/images/${eventId}.jpg`;
-    };
-
-    // 监听事件数据变化，重新渲染图表
-    watch(events, (newEvents) => {
-      if (newEvents.length > 0 && chartInstance) {
-        initTimelineChart();
-      }
-    }, { deep: true });
-
-    // 组件挂载时加载数据并初始化图表
-    onMounted(() => {
-      loadEvents();
-      // 延迟初始化图表，确保DOM已经渲染
-      setTimeout(() => {
-        initTimelineChart();
-      }, 100);
-    });
-
-    // 组件卸载前销毁图表实例和事件监听
-    onBeforeUnmount(() => {
-      if (chartInstance) {
-        chartInstance.dispose();
-        chartInstance = null;
-      }
-      window.removeEventListener('resize', handleResize);
-    });
-
-    return {
-      events,
-      loading,
-      error,
-      timelineChart,
-      loadEvents,
-      formatDate: formatDateChinese,
-      getEventImage,
-      goToDetail
-    };
+    goToDetail(eventId) {
+      this.$router.push(`/detail/${eventId}`);
+    }
   }
 };
 </script>
@@ -387,7 +159,6 @@ export default {
 .time-axis h2 {
   margin-bottom: 1.5rem;
   color: #e74c3c;
-  text-align: center;
 }
 
 .loading,
@@ -395,91 +166,63 @@ export default {
   text-align: center;
   padding: 2rem;
   color: #666;
-  font-size: 1.1rem;
-}
-
-.empty-state {
-  text-align: center;
-  padding: 3rem 2rem;
-  background: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  margin: 1rem 0;
-}
-
-.empty-icon {
-  font-size: 4rem;
-  margin-bottom: 1rem;
-}
-
-.empty-state h3 {
-  color: #333;
-  margin-bottom: 0.5rem;
-}
-
-.empty-state p {
-  color: #666;
-  margin-bottom: 2rem;
-}
-
-.retry-btn {
-  background: #e74c3c;
-  color: white;
-  border: none;
-  padding: 0.8rem 1.5rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.3s;
-}
-
-.retry-btn:hover {
-  background: #c0392b;
 }
 
 .axis-container {
-  width: 100%;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.timeline-chart {
-  width: 100%;
-  height: 400px;
+.event-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  background: #fafafa;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: white;
 }
 
-/* 响应式设计 */
-@media (max-width: 768px) {
-  .timeline-chart {
-    height: 300px;
-  }
-  
-  .time-axis {
-    padding: 1rem;
-  }
+.event-item:hover {
+  background: #f5f5f5;
+  transform: translateX(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* 自定义tooltip样式 */
-:deep(.tooltip-content) {
-  max-width: 400px;
-}
-
-:deep(.tooltip-content h3) {
-  margin: 0 0 10px 0;
+.event-date {
+  min-width: 120px;
+  font-weight: bold;
   color: #e74c3c;
-  font-size: 16px;
+  font-size: 1.1rem;
 }
 
-:deep(.tooltip-content p) {
-  margin: 5px 0;
-  font-size: 14px;
-  line-height: 1.5;
+.event-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
 }
 
-:deep(.tooltip-content strong) {
+.event-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 2px solid #ddd;
+}
+
+.event-info h3 {
+  margin: 0 0 0.5rem 0;
   color: #333;
+}
+
+.event-category {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0;
 }
 </style>
 
