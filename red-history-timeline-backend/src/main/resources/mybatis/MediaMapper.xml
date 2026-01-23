@@ -16,5 +16,28 @@
         ORDER BY type, id
     </select>
     
+    <!-- 插入媒体 -->
+    <insert id="insertMedia" parameterType="com.redhistory.model.Media">
+        INSERT INTO media (id, type, url, title, event_id)
+        VALUES (#{id}, #{type}, #{url}, #{title}, #{eventId})
+    </insert>
+    
+    <!-- 更新媒体 -->
+    <update id="updateMedia" parameterType="com.redhistory.model.Media">
+        UPDATE media
+        SET type = #{type}, url = #{url}, title = #{title}, event_id = #{eventId}
+        WHERE id = #{id}
+    </update>
+    
+    <!-- 删除媒体 -->
+    <delete id="deleteMedia" parameterType="java.lang.String">
+        DELETE FROM media WHERE id = #{id}
+    </delete>
+    
+    <!-- 根据ID查询媒体详情 -->
+    <select id="selectMediaById" resultType="com.redhistory.model.Media" parameterType="java.lang.String">
+        SELECT * FROM media WHERE id = #{id}
+    </select>
+    
 </mapper>
 

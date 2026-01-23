@@ -51,5 +51,29 @@ public class PersonService {
     public List<Person> getPersonsByEvent(String eventId) {
         return personMapper.selectPersonsByEvent(eventId);
     }
+    
+    /**
+     * 新增人物
+     * 功能要求：新增人物记录
+     */
+    public int addPerson(Person person) {
+        return personMapper.insertPerson(person);
+    }
+    
+    /**
+     * 更新人物
+     * 功能要求：根据ID更新人物记录
+     */
+    public int updatePerson(Person person) {
+        return personMapper.updatePerson(person);
+    }
+    
+    /**
+     * 删除人物
+     * 功能要求：根据ID删除人物记录
+     */
+    public int deletePerson(String id) {
+        return personMapper.deletePerson(id);
+    }
 }
 

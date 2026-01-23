@@ -43,5 +43,23 @@ public interface LocationMapper {
      * 功能要求：通过events表的location_id关联查询
      */
     List<Location> selectLocationsByEvent(@Param("eventId") String eventId);
+    
+    /**
+     * 插入地点
+     * 功能要求：新增地点记录
+     */
+    int insertLocation(Location location);
+    
+    /**
+     * 更新地点
+     * 功能要求：根据ID更新地点记录
+     */
+    int updateLocation(Location location);
+    
+    /**
+     * 删除地点
+     * 功能要求：根据ID删除地点记录
+     */
+    int deleteLocation(@Param("id") String id);
 }
 

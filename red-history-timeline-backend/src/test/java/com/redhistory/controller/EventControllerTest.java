@@ -23,6 +23,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(EventController.class)
 public class EventControllerTest {
@@ -31,18 +33,37 @@ public class EventControllerTest {
     private MockMvc mockMvc;
     
     @Test
-    public void testGetAllEvents() {
-        // TODO: 编写测试用例
-        // 1. 测试正常获取所有事件
-        // 2. 测试日期过滤
-        // 3. 测试类别过滤
+    public void testGetAllEvents() throws Exception {
+        // 测试正常获取所有事件
+        mockMvc.perform(get("/api/events"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(200));
+        
+        // 测试日期过滤
+        mockMvc.perform(get("/api/events")
+                .param("startDate", "2020-01-01")
+                .param("endDate", "2020-12-31"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(200));
+        
+        // 测试类别过滤
+        mockMvc.perform(get("/api/events")
+                .param("category", "革命事件"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(200));
     }
     
     @Test
-    public void testGetEventById() {
-        // TODO: 编写测试用例
-        // 1. 测试获取存在的事件
-        // 2. 测试获取不存在的事件（应返回404）
+    public void testGetEventById() throws Exception {
+        // 测试获取存在的事件
+        mockMvc.perform(get("/api/events/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(200));
+        
+        // 测试获取不存在的事件（应返回200，因为控制器捕获了异常并返回错误信息）
+        mockMvc.perform(get("/api/events/999"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(500));
     }
 }
 

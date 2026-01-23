@@ -134,5 +134,66 @@ public class EventController {
             return ResponseEntity.ok(ResponseUtil.error("获取事件列表失败：" + e.getMessage()));
         }
     }
+    
+    /**
+     * 新增事件
+     * 功能要求：
+     * - 接收事件对象并保存
+     * - 返回保存结果
+     */
+    @PostMapping
+    public ResponseEntity<Map<String, Object>> addEvent(@RequestBody Event event) {
+        try {
+            int result = eventService.addEvent(event);
+            if (result > 0) {
+                return ResponseEntity.ok(ResponseUtil.success("添加事件成功"));
+            } else {
+                return ResponseEntity.ok(ResponseUtil.error("添加事件失败"));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.ok(ResponseUtil.error("添加事件失败：" + e.getMessage()));
+        }
+    }
+    
+    /**
+     * 更新事件
+     * 功能要求：
+     * - 根据ID更新事件信息
+     * - 返回更新结果
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> updateEvent(@PathVariable String id, @RequestBody Event event) {
+        try {
+            event.setId(id); // 确保ID一致
+            int result = eventService.updateEvent(event);
+            if (result > 0) {
+                return ResponseEntity.ok(ResponseUtil.success("更新事件成功"));
+            } else {
+                return ResponseEntity.ok(ResponseUtil.error("更新事件失败"));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.ok(ResponseUtil.error("更新事件失败：" + e.getMessage()));
+        }
+    }
+    
+    /**
+     * 删除事件
+     * 功能要求：
+     * - 根据ID删除事件
+     * - 返回删除结果
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> deleteEvent(@PathVariable String id) {
+        try {
+            int result = eventService.deleteEvent(id);
+            if (result > 0) {
+                return ResponseEntity.ok(ResponseUtil.success("删除事件成功"));
+            } else {
+                return ResponseEntity.ok(ResponseUtil.error("删除事件失败"));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.ok(ResponseUtil.error("删除事件失败：" + e.getMessage()));
+        }
+    }
 }
 
