@@ -74,6 +74,16 @@ public class MediaController {
             @RequestParam(required = false) String type) {
         
         try {
+            // 参数验证：eventId不能为空
+            if (!ResponseUtil.isNotEmpty(eventId)) {
+                return ResponseEntity.ok(ResponseUtil.error("事件ID不能为空"));
+            }
+            
+            // 参数验证：media type格式检查
+            if (ResponseUtil.isNotEmpty(type) && !ResponseUtil.isValidMediaType(type)) {
+                return ResponseEntity.ok(ResponseUtil.error("媒体类型错误，只支持image/video/audio"));
+            }
+            
             // 功能要求：必须调用Service层
             // 修改限制：禁止在Controller中编写业务逻辑
             List<Media> mediaList = mediaService.getMediaByEvent(eventId, type);
@@ -98,13 +108,21 @@ public class MediaController {
     @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> getMediaDetail(@PathVariable String id) {
         try {
-            // 参数验证
-            if (id == null || id.trim().isEmpty()) {
+            // 参数验证：ID不能为空
+            if (!ResponseUtil.isNotEmpty(id)) {
                 return ResponseEntity.ok(ResponseUtil.error("媒体ID不能为空"));
             }
             
             Media media = mediaService.getMediaById(id);
-            return ResponseEntity.ok(ResponseUtil.success(media));
+            if (media != null) {
+                // 验证媒体类型有效性
+                if (!ResponseUtil.isValidMediaType(media.getType())) {
+                    return ResponseEntity.ok(ResponseUtil.error("媒体类型格式错误"));
+                }
+                return ResponseEntity.ok(ResponseUtil.success(media));
+            } else {
+                return ResponseEntity.ok(ResponseUtil.error("媒体不存在"));
+            }
         } catch (Exception e) {
             return ResponseEntity.ok(ResponseUtil.error("获取媒体详情失败：" + e.getMessage()));
         }

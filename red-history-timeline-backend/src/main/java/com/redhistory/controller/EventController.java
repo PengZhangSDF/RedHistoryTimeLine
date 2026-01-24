@@ -80,6 +80,23 @@ public class EventController {
             @RequestParam(required = false) String locationId) {
         
         try {
+            // 参数验证：时间格式检查
+            if (ResponseUtil.isNotEmpty(startDate) && !ResponseUtil.isValidDate(startDate)) {
+                return ResponseEntity.ok(ResponseUtil.error("开始日期格式错误，请使用YYYY-MM-DD格式"));
+            }
+            
+            if (ResponseUtil.isNotEmpty(endDate) && !ResponseUtil.isValidDate(endDate)) {
+                return ResponseEntity.ok(ResponseUtil.error("结束日期格式错误，请使用YYYY-MM-DD格式"));
+            }
+            
+            // 参数验证：时间范围检查
+            if (!ResponseUtil.isValidDateRange(startDate, endDate)) {
+                return ResponseEntity.ok(ResponseUtil.error("开始日期不能晚于结束日期"));
+            }
+            
+            // 注：locationId是可选参数，不需要非空验证
+            // Service层会处理null或空值的locationId
+            
             // 功能要求：必须调用Service层
             // 修改限制：禁止在Controller中编写业务逻辑
             List<Event> events = eventService.getEventList(startDate, endDate, locationId);
