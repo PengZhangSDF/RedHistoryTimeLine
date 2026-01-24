@@ -77,7 +77,16 @@ public class LocationController {
             // 功能要求：必须调用Service层
             // 修改限制：禁止在Controller中编写业务逻辑
             List<Location> locations = locationService.getAllLocations();
-            return ResponseEntity.ok(ResponseUtil.success(locations, locations.size()));
+            
+            // 数据验证：过滤无效坐标的地点，只返回坐标有效的地点
+            List<Location> validLocations = new java.util.ArrayList<>();
+            for (Location location : locations) {
+                if (ResponseUtil.isValidCoordinate(location.getLongitude(), location.getLatitude())) {
+                    validLocations.add(location);
+                }
+            }
+            
+            return ResponseEntity.ok(ResponseUtil.success(validLocations, validLocations.size()));
         } catch (Exception e) {
             // 功能要求：统一错误处理
             // 修改限制：禁止直接返回异常信息给前端
@@ -98,8 +107,17 @@ public class LocationController {
     @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> getLocationDetail(@PathVariable String id) {
         try {
+            // 参数验证：ID不能为空
+            if (!ResponseUtil.isNotEmpty(id)) {
+                return ResponseEntity.ok(ResponseUtil.error("地点ID不能为空"));
+            }
+            
             Location location = locationService.getLocationById(id);
             if (location != null) {
+                // 验证坐标有效性
+                if (!ResponseUtil.isValidCoordinate(location.getLongitude(), location.getLatitude())) {
+                    return ResponseEntity.ok(ResponseUtil.error("地点坐标格式错误"));
+                }
                 return ResponseEntity.ok(ResponseUtil.success(location));
             } else {
                 return ResponseEntity.ok(ResponseUtil.error("地点未找到"));
@@ -121,8 +139,22 @@ public class LocationController {
     @GetMapping("/event/{eventId}")
     public ResponseEntity<Map<String, Object>> getLocationsByEvent(@PathVariable String eventId) {
         try {
+            // 参数验证：eventId不能为空
+            if (!ResponseUtil.isNotEmpty(eventId)) {
+                return ResponseEntity.ok(ResponseUtil.error("事件ID不能为空"));
+            }
+            
             List<Location> locations = locationService.getLocationsByEvent(eventId);
-            return ResponseEntity.ok(ResponseUtil.success(locations, locations.size()));
+            
+            // 数据验证：过滤无效坐标的地点，只返回坐标有效的地点
+            List<Location> validLocations = new java.util.ArrayList<>();
+            for (Location location : locations) {
+                if (ResponseUtil.isValidCoordinate(location.getLongitude(), location.getLatitude())) {
+                    validLocations.add(location);
+                }
+            }
+            
+            return ResponseEntity.ok(ResponseUtil.success(validLocations, validLocations.size()));
         } catch (Exception e) {
             return ResponseEntity.ok(ResponseUtil.error("获取地点列表失败：" + e.getMessage()));
         }
