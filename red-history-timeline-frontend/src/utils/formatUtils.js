@@ -38,6 +38,7 @@
  * 功能要求：
  * - 将 "1931-09-18" 格式转换为 "1931年9月18日"
  * - 处理空值情况
+ * - 处理非法日期情况
  * - 保持日期格式的一致性
  * 
  * 修改限制：
@@ -45,8 +46,12 @@
  * - 如需支持其他日期格式，添加新函数
  */
 export function formatDateChinese(dateString) {
-  if (!dateString) return '';
+  if (!dateString || typeof dateString !== 'string') return '';
+  
   const date = new Date(dateString);
+  // 检查是否为有效日期
+  if (isNaN(date.getTime())) return '';
+  
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
@@ -61,13 +66,75 @@ export function formatDateChinese(dateString) {
  * 功能要求：
  * - 将坐标数组转换为可读的字符串格式
  * - 处理空值情况
+ * - 处理非法坐标情况
  * 
  * 修改限制：
  * - 禁止修改返回值格式
  * - 如需其他格式，添加新函数
  */
 export function formatCoordinates(coordinates) {
-  if (!coordinates || coordinates.length !== 2) return '';
+  if (!coordinates || !Array.isArray(coordinates) || coordinates.length !== 2) return '';
+  if (typeof coordinates[0] !== 'number' || typeof coordinates[1] !== 'number') return '';
   return `${coordinates[0]}, ${coordinates[1]}`;
+}
+
+/**
+ * 格式化事件数据为ECharts时间轴所需格式
+ * @param {Array<Object>} events - 事件数据数组
+ * @returns {Object} 格式化后的时间轴数据
+ * 
+ * 功能要求：
+ * - 将事件数组转换为ECharts时间轴所需的data格式
+ * - 按时间顺序排序
+ * - 处理空值情况
+ * - 处理非法事件数据情况
+ * 
+ * 使用示例：
+ * const timelineData = formatEventsForTimeline(events)
+ */
+export function formatEventsForTimeline(events) {
+  if (!events || !Array.isArray(events)) return [];
+  
+  // 按时间排序并过滤有效事件
+  const sortedEvents = [...events]
+    .filter(event => event && event.id && event.title && event.date)
+    .sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      if (isNaN(dateA.getTime())) return 1;
+      if (isNaN(dateB.getTime())) return -1;
+      return dateA - dateB;
+    });
+  
+  // 格式化为ECharts时间轴所需数据格式
+  return sortedEvents.map(event => ({
+    id: event.id,
+    name: event.title,
+    value: formatDateChinese(event.date),
+    date: event.date,
+    category: event.category || '',
+    description: event.description || '',
+    location: event.location || '',
+    coordinates: event.coordinates || null
+  }));
+}
+
+/**
+ * 格式化日期范围
+ * @param {string} startDate - 开始日期 (YYYY-MM-DD)
+ * @param {string} endDate - 结束日期 (YYYY-MM-DD)
+ * @returns {string} 格式化后的日期范围
+ * 
+ * 功能要求：
+ * - 将日期范围转换为中文格式
+ * - 处理单个日期情况
+ * - 处理空值情况
+ * - 处理非法日期情况
+ */
+export function formatDateRange(startDate, endDate) {
+  if (!startDate && !endDate) return '';
+  if (!startDate) return formatDateChinese(endDate);
+  if (!endDate) return formatDateChinese(startDate);
+  return `${formatDateChinese(startDate)} - ${formatDateChinese(endDate)}`;
 }
 
