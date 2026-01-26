@@ -159,7 +159,39 @@ export default {
       markers.length = 0;
     });
 
-    return {};
+    /**
+     * 定位地图到指定坐标
+     * @param {Array<number>} coordinates - 坐标数组 [lng, lat]
+     * @param {string} locationName - 地点名称
+     * 
+     * 功能要求：
+     * - 地图中心定位到指定坐标
+     * - 可选：添加动画效果
+     * - 可选：放大地图层级
+     */
+    const locateToCoordinate = (coordinates, locationName) => {
+      if (!map || !coordinates || coordinates.length !== 2) return;
+      
+      // 设置地图中心到指定坐标，添加动画效果
+      map.setCenter(coordinates);
+      map.setZoom(12);
+      
+      // 可选：添加弹跳动画
+      map.setCenter(coordinates, true);
+      
+      // 可选：显示信息窗口
+      const infoWindow = new AMap.InfoWindow({
+        content: `<div style="padding: 10px;"><h3>${locationName}</h3></div>`,
+        offset: new AMap.Pixel(0, -30)
+      });
+      
+      infoWindow.open(map, coordinates);
+    };
+
+    // 暴露方法给父组件
+    return {
+      locateToCoordinate
+    };
   }
 };
 </script>

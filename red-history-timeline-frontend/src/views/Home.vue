@@ -50,7 +50,7 @@
         <!-- 时间轴组件 -->
         <!-- 功能要求：显示历史事件时间轴 -->
         <!-- 修改限制：禁止删除此组件引用 -->
-        <TimeAxis />
+        <TimeAxis ref="timeAxisRef" @event-click="handleEventClick" />
         
         <!-- 事件卡片列表 -->
         <!-- 功能要求：以卡片形式展示事件 -->
@@ -73,17 +73,19 @@
         <!-- 功能要求：显示所有事件地点的地图标记 -->
         <!-- 修改限制：禁止删除此组件引用 -->
         <!-- 事件处理：监听marker-click事件，跳转到详情页 -->
-        <FullScreenMap @marker-click="handleMarkerClick" />
+        <FullScreenMap ref="mapRef" @marker-click="handleMarkerClick" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { ref, onMounted } from 'vue';
 import TimeAxis from '@/components/home/TimeAxis.vue';
 import EventCard from '@/components/home/EventCard.vue';
 import FullScreenMap from '@/components/home/FullScreenMap.vue';
 import { getEventList } from '@/api/eventApi';
+import { useRouter } from 'vue-router';
 
 export default {
   name: 'Home',
@@ -94,17 +96,12 @@ export default {
     EventCard,
     FullScreenMap
   },
-  data() {
-    return {
-      events: [] // 事件列表，传递给EventCard组件
-    };
-  },
-  mounted() {
-    // 功能要求：页面加载时获取事件列表
-    // 修改限制：禁止删除此调用
-    this.loadEvents();
-  },
-  methods: {
+  setup() {
+    const router = useRouter();
+    const events = ref([]);
+    const timeAxisRef = ref(null);
+    const mapRef = ref(null);
+
     /**
      * 加载事件列表
      * 功能要求：
@@ -115,19 +112,19 @@ export default {
      * - 禁止修改API调用方式
      * - 可以优化加载状态和错误处理
      */
-    async loadEvents() {
+    const loadEvents = async () => {
       try {
         const response = await getEventList();
         // 响应格式：{ code: 200, data: Array<Event>, total: number }
         if (response.code === 200) {
-          this.events = response.data || [];
+          events.value = response.data || [];
         }
       } catch (error) {
         console.error('加载事件失败:', error);
         // TODO: 可以添加错误提示UI
       }
-    },
-    
+    };
+
     /**
      * 处理地图标记点击事件
      * 功能要求：
@@ -139,12 +136,65 @@ export default {
      * - 禁止修改跳转方式（必须使用router.push）
      * - 参数eventId可能是事件ID或地点ID，需要处理
      */
-    handleMarkerClick(eventId) {
+    const handleMarkerClick = (eventId) => {
       // 功能要求：必须跳转到详情页
       // 如果eventId是地点ID，需要先查询该地点的事件
       // 当前实现：假设eventId是事件ID
-      this.$router.push(`/detail/${eventId}`);
-    }
+      router.push(`/detail/${eventId}`);
+    };
+
+    /**
+     * 处理时间轴事件点击事件
+     * 功能要求：
+     * - 接收TimeAxis组件触发的event-click事件
+     * - 调用地图组件的locateToCoordinate方法定位到对应地点
+     * - 实现时间轴与地图的联动
+     * - 处理地图初始化失败和无匹配地点的情况
+     */
+    const handleEventClick = (event) => {
+      if (!event) return;
+      
+      // 检查地图组件是否初始化成功
+      if (!mapRef.value) {
+        console.warn('地图组件未初始化成功，无法定位地点');
+        return;
+      }
+      
+      // 获取事件的坐标信息
+      let coordinates = null;
+      if (event.coordinates && Array.isArray(event.coordinates)) {
+        coordinates = event.coordinates;
+      } else if (event.location && event.location.longitude && event.location.latitude) {
+        coordinates = [event.location.longitude, event.location.latitude];
+      }
+      
+      // 调用地图组件的定位方法
+      if (coordinates) {
+        try {
+          mapRef.value.locateToCoordinate(coordinates, event.location || event.name);
+        } catch (err) {
+          console.error('地图定位失败:', err);
+          // 可以添加更友好的错误提示
+        }
+      } else {
+        console.warn('该事件无地点信息，无法定位');
+        // 可以添加提示信息
+      }
+    };
+
+    // 组件挂载时加载事件列表
+    onMounted(() => {
+      loadEvents();
+    });
+
+    return {
+      events,
+      timeAxisRef,
+      mapRef,
+      loadEvents,
+      handleMarkerClick,
+      handleEventClick
+    };
   }
 };
 </script>

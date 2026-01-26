@@ -62,8 +62,20 @@ import request from '@/utils/request';
  * - 禁止修改参数格式
  * - 禁止修改返回值结构
  */
-export function getEventList(params = {}) {
-  return request.get('/events', { params });
+export async function getEventList(params = {}) {
+  try {
+    const response = await request.get('/events', { params });
+    return response;
+  } catch (error) {
+    console.error('获取事件列表失败:', error);
+    // 返回友好的错误提示
+    return {
+      code: 500,
+      msg: '获取事件列表失败，请稍后重试',
+      data: [],
+      total: 0
+    };
+  }
 }
 
 /**
@@ -79,8 +91,19 @@ export function getEventList(params = {}) {
  * - 禁止修改参数格式
  * - 禁止修改返回值结构
  */
-export function getEventDetail(id) {
-  return request.get(`/events/${id}`);
+export async function getEventDetail(id) {
+  try {
+    const response = await request.get(`/events/${id}`);
+    return response;
+  } catch (error) {
+    console.error(`获取事件详情失败 (ID: ${id}):`, error);
+    // 返回友好的错误提示
+    return {
+      code: 500,
+      msg: '获取事件详情失败，请稍后重试',
+      data: null
+    };
+  }
 }
 
 /**
@@ -96,7 +119,19 @@ export function getEventDetail(id) {
  * - 禁止修改参数格式
  * - 禁止修改返回值结构
  */
-export function getEventsByLocation(locationId) {
-  return request.get(`/events/location/${locationId}`);
+export async function getEventsByLocation(locationId) {
+  try {
+    const response = await request.get(`/events/location/${locationId}`);
+    return response;
+  } catch (error) {
+    console.error(`根据地点获取事件列表失败 (LocationID: ${locationId}):`, error);
+    // 返回友好的错误提示
+    return {
+      code: 500,
+      msg: '获取地点事件列表失败，请稍后重试',
+      data: [],
+      total: 0
+    };
+  }
 }
 
