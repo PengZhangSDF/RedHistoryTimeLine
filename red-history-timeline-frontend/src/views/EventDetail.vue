@@ -40,7 +40,7 @@
   4. 子组件根据数据渲染内容
 -->
 <template>
-  <div class="event-detail-page">
+  <div class="event-detail-page detail-page">
     <!-- 返回按钮 -->
     <!-- 功能要求：提供返回首页的功能 -->
     <!-- 修改限制：禁止删除此组件 -->

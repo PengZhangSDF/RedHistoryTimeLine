@@ -39,5 +39,23 @@ public interface PersonMapper {
      * - 返回事件相关的所有人物
      */
     List<Person> selectPersonsByEvent(@Param("eventId") String eventId);
+    
+    /**
+     * 插入人物
+     * 功能要求：新增人物记录
+     */
+    int insertPerson(Person person);
+    
+    /**
+     * 更新人物
+     * 功能要求：根据ID更新人物记录
+     */
+    int updatePerson(Person person);
+    
+    /**
+     * 删除人物
+     * 功能要求：根据ID删除人物记录
+     */
+    int deletePerson(@Param("id") String id);
 }
 

@@ -201,6 +201,61 @@ export default {
   width: 100%;
   height: 100vh;
   position: relative;
+  transition: all 0.3s ease;
+}
+
+/* 地图标记样式（通过CSS变量控制，可在JS中动态修改） */
+:deep(.amap-marker) {
+  transition: all 0.3s ease;
+}
+
+:deep(.amap-marker:hover) {
+  transform: scale(1.1);
+  z-index: 1000;
+}
+
+:deep(.amap-info-window) {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: none;
+  overflow: hidden;
+}
+
+:deep(.amap-info-content) {
+  padding: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .full-screen-map {
+    height: 70vh;
+  }
+  
+  :deep(.amap-info-content) {
+    padding: 0.75rem;
+    font-size: 0.85rem;
+  }
+  
+  /* 手机端地图标记缩放效果增强 */
+  :deep(.amap-marker:hover) {
+    transform: scale(1.2);
+  }
+}
+
+/* 平板设备适配 */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .full-screen-map {
+    height: 80vh;
+  }
+}
+
+/* 小屏幕笔记本适配 */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .full-screen-map {
+    height: 90vh;
+  }
 }
 </style>
 

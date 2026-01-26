@@ -1,0 +1,1017 @@
+{
+  "metadata": {
+    "generateTime": "2026-01-21 13:05:16",
+    "dataSource": "Excel文件转换",
+    "dataCount": {
+      "eventCount": 20,
+      "personCount": 22,
+      "placeCount": 19,
+      "totalCount": 61
+    }
+  },
+  "events": [
+    {
+      "eventId": "E001",
+      "eventName": "九一八事变",
+      "eventType": "日军侵华开端",
+      "occurDate": "1931-09-18",
+      "historicalStage": "局部抗战阶段",
+      "corePersonIds": [
+        "R001"
+      ],
+      "occurPlaceIds": [
+        "P001"
+      ],
+      "eventSummary": "日军蓄意制造事端，侵占中国东北三省",
+      "detailedDescription": "日本关东军炸毁南满铁路柳条湖段，嫁祸中国军队，突袭东北军北大营。张学良执行 “不抵抗政策”，东北军撤入关内，沈阳次日沦陷，数月内东北三省被占。",
+      "sourceUrl": "https://www.thepaper.cn/newsDetail_forward_24652361",
+      "validationStatus": "已校验",
+      "remarks": "中国抗日战争起点，揭开世界反法西斯战争序幕"
+    },
+    {
+      "eventId": "E002",
+      "eventName": "一・二八事变",
+      "eventType": "正面战场局部抗战",
+      "occurDate": "1932-01-28",
+      "historicalStage": "局部抗战阶段",
+      "corePersonIds": [
+        "R014",
+        "R015"
+      ],
+      "occurPlaceIds": [
+        "P004"
+      ],
+      "eventSummary": "日军进攻上海，十九路军奋起抵抗",
+      "detailedDescription": "日军借口僧侣事件进攻上海，国民革命军第十九路军自发奋起反击，多次击退日军进攻。后因寡不敌众且援军不足，被迫撤退，双方签订《淞沪停战协定》。",
+      "sourceUrl": "https://www.krzzjn.com/show-507-73529.html",
+      "validationStatus": "已校验",
+      "remarks": "打破日军快速占领上海的企图，推动抗日救亡运动"
+    },
+    {
+      "eventId": "E003",
+      "eventName": "伪满洲国建立",
+      "eventType": "日本殖民傀儡政权",
+      "occurDate": "1932-03-01",
+      "historicalStage": "局部抗战阶段",
+      "corePersonIds": [
+        "R017"
+      ],
+      "occurPlaceIds": [
+        "P016"
+      ],
+      "eventSummary": "日本扶植傀儡政权，殖民统治东北",
+      "detailedDescription": "日本在东北扶植清朝末代皇帝溥仪，建立 “满洲国” 傀儡政权，以 “王道乐土” 为幌子，对东北人民实施残酷的政治压迫、经济掠夺和文化奴役。",
+      "sourceUrl": "https://www.zhihu.com/question/659159584",
+      "validationStatus": "已校验",
+      "remarks": "日本妄图永久侵占东北的殖民手段，遭国际反对"
+    },
+    {
+      "eventId": "E004",
+      "eventName": "长城抗战",
+      "eventType": "正面战场防御战",
+      "occurDate": "1933-01-01",
+      "historicalStage": "局部抗战阶段",
+      "corePersonIds": [
+        "R021",
+        "R022"
+      ],
+      "occurPlaceIds": [
+        "P017"
+      ],
+      "eventSummary": "中国军队坚守长城，阻击侵华日军",
+      "detailedDescription": "日军攻占山海关后向长城各关口进犯，中国军队第 29 军等部在喜峰口、古北口等地顽强抵抗，以大刀队夜袭日军，重创敌人。后防线被突破，签订《塘沽协定》。",
+      "sourceUrl": "http://www.mod.gov.cn/gfbw/gfjy_index/js_214151/4831980.html",
+      "validationStatus": "已校验",
+      "remarks": "展现中国军队保家卫国血性，推动救亡运动高涨"
+    },
+    {
+      "eventId": "E005",
+      "eventName": "察哈尔民众抗日同盟军成立",
+      "eventType": "抗日武装组建",
+      "occurDate": "1933-05-26",
+      "historicalStage": "局部抗战阶段",
+      "corePersonIds": [
+        "R012",
+        "R013"
+      ],
+      "occurPlaceIds": [
+        "P008"
+      ],
+      "eventSummary": "组建抗日同盟军，收复多伦等失地",
+      "detailedDescription": "冯玉祥联合爱国将领在张家口成立同盟军，兵力达 10 万余人，接连收复康保、宝昌、多伦等失地，打击日军气焰。后遭国民政府压迫，同盟军被迫解散。",
+      "sourceUrl": "https://baike.baidu.com/item/%E5%AF%9F%E5%93%88%E5%B0%94%E6%B0%91%E4%BC%97%E6%8A%97%E6%97%A5%E5%90%8C%E7%9B%9F%E5%86%9B/2230992",
+      "validationStatus": "已校验",
+      "remarks": "体现抗日力量团结，沉重打击日军侵略势力"
+    },
+    {
+      "eventId": "E006",
+      "eventName": "一二・九运动",
+      "eventType": "爱国学生救亡运动",
+      "occurDate": "1935-12-09",
+      "historicalStage": "局部抗战阶段",
+      "corePersonIds": [
+        "无（爱国学生主导）"
+      ],
+      "occurPlaceIds": [
+        "P018"
+      ],
+      "eventSummary": "学生游行示威，反对华北自治阴谋",
+      "detailedDescription": "面对日本策划的 “华北自治”，北平数千名学生高呼 “停止内战，一致抗日” 口号游行，遭军警镇压。运动迅速席卷全国，各地纷纷响应。",
+      "sourceUrl": "https://www.dswxyjy.org.cn/n1/2025/1212/c244516-40623229.html",
+      "validationStatus": "已校验",
+      "remarks": "揭露日本侵华阴谋，促进中华民族觉醒"
+    },
+    {
+      "eventId": "E007",
+      "eventName": "瓦窑堡会议",
+      "eventType": "中共重要会议",
+      "occurDate": "1935-12-17",
+      "historicalStage": "局部抗战阶段",
+      "corePersonIds": [
+        "R016"
+      ],
+      "occurPlaceIds": [
+        "P013"
+      ],
+      "eventSummary": "制定抗日民族统一战线的策略方针",
+      "detailedDescription": "中共中央召开会议，分析华北事变后的形势，批判 “左” 倾关门主义，确定建立抗日民族统一战线的策略方针，为第二次国共合作奠定理论基础。",
+      "sourceUrl": "https://yads.org.cn/index.php?m=home&c=View&a=index&aid=1024",
+      "validationStatus": "已校验",
+      "remarks": "标志中共政治路线成熟，推动抗日力量联合"
+    },
+    {
+      "eventId": "E008",
+      "eventName": "西安事变",
+      "eventType": "兵谏事件",
+      "occurDate": "1936-12-12",
+      "historicalStage": "局部抗战阶段",
+      "corePersonIds": [
+        "R001",
+        "R002",
+        "R020"
+      ],
+      "occurPlaceIds": [
+        "P002"
+      ],
+      "eventSummary": "扣押蒋介石，迫其停止内战联共抗日",
+      "detailedDescription": "张学良、杨虎城为劝谏蒋介石放弃 “攘外必先安内” 政策，于西安扣押蒋介石。经中共调停，事变和平解决，蒋介石同意联共抗日。",
+      "sourceUrl": "https://www.kepuchina.cn/article/articleinfo?business_type=100&ar_id=583437",
+      "validationStatus": "已校验",
+      "remarks": "结束十年内战，抗日民族统一战线初步形成"
+    },
+    {
+      "eventId": "E009",
+      "eventName": "七七事变（卢沟桥事变）",
+      "eventType": "全面抗战爆发标志",
+      "occurDate": "1937-07-07",
+      "historicalStage": "全面抗战阶段",
+      "corePersonIds": [
+        "R003",
+        "R004"
+      ],
+      "occurPlaceIds": [
+        "P003"
+      ],
+      "eventSummary": "日军挑衅，中国守军奋起全面抵抗",
+      "detailedDescription": "日军以士兵失踪为由要求进宛平城搜查，遭拒后炮轰卢沟桥。第 29 军官兵奋起反击，佟麟阁、赵登禹壮烈殉国，战争迅速蔓延全国。",
+      "sourceUrl": "https://www.qstheory.cn/20250618/dd69a06c8fa14d659a523ce69cf0e058/c.html",
+      "validationStatus": "已校验",
+      "remarks": "日本全面侵华开端，中国进入全民族抗战"
+    },
+    {
+      "eventId": "E010",
+      "eventName": "淞沪会战",
+      "eventType": "正面战场大规模会战",
+      "occurDate": "1937-08-13",
+      "historicalStage": "全面抗战阶段",
+      "corePersonIds": [
+        "R013",
+        "R019",
+        "R020"
+      ],
+      "occurPlaceIds": [
+        "P004"
+      ],
+      "eventSummary": "中日大规模会战，粉碎日军速胜妄想",
+      "detailedDescription": "中国军队投入 70 余万兵力，在上海与日军展开三个月激战，多次击退日军进攻，毙伤日军 4 万余人。后因战略调整，被迫撤退，上海沦陷。",
+      "sourceUrl": "https://www.thepaper.cn/newsDetail_forward_19442554",
+      "validationStatus": "已校验",
+      "remarks": "打破 “三个月灭亡中国” 的狂妄计划"
+    },
+    {
+      "eventId": "E011",
+      "eventName": "平型关大捷",
+      "eventType": "敌后战场首次大捷",
+      "occurDate": "1937-09-25",
+      "historicalStage": "全面抗战阶段",
+      "corePersonIds": [
+        "R005",
+        "R006"
+      ],
+      "occurPlaceIds": [
+        "P005"
+      ],
+      "eventSummary": "八路军伏击日军，取得抗战首次大捷",
+      "detailedDescription": "八路军第 115 师在平型关设伏，歼灭日军精锐第 5 师团 1000 余人，击毁汽车百余辆，缴获大批物资。这是全面抗战以来中国军队首次重大胜利。",
+      "sourceUrl": "https://www.krzzjn.com/show-1887-97273.html",
+      "validationStatus": "已校验",
+      "remarks": "打破 “日军不可战胜” 神话，鼓舞全国信心"
+    },
+    {
+      "eventId": "E012",
+      "eventName": "南京大屠杀",
+      "eventType": "日军侵华反人类暴行",
+      "occurDate": "1937-12-13",
+      "historicalStage": "全面抗战阶段",
+      "corePersonIds": [
+        "R018",
+        "R019"
+      ],
+      "occurPlaceIds": [
+        "P006"
+      ],
+      "eventSummary": "日军在南京实施大规模屠杀与暴行",
+      "detailedDescription": "日军攻占南京后，六周内对中国平民和战俘进行惨无人道的屠杀、强奸、纵火、抢劫，遇难人数超过 30 万，是震惊世界的反人类罪行。",
+      "sourceUrl": "https://baike.baidu.com/item/%E5%8D%97%E4%BA%AC%E5%A4%A7%E5%B1%A0%E6%9D%80/26188",
+      "validationStatus": "已校验",
+      "remarks": "日军侵华暴行铁证，警示后人铭记历史"
+    },
+    {
+      "eventId": "E013",
+      "eventName": "台儿庄战役",
+      "eventType": "正面战场重大胜利",
+      "occurDate": "1938-03-16",
+      "historicalStage": "全面抗战阶段",
+      "corePersonIds": [
+        "R007"
+      ],
+      "occurPlaceIds": [
+        "P007"
+      ],
+      "eventSummary": "中国军队围歼日军，获抗战以来大捷",
+      "detailedDescription": "李宗仁指挥中国军队在台儿庄地区围歼日军矶谷师团，激战月余，歼灭日军 2 万余人，缴获大批武器装备，是抗战以来正面战场最大胜利。",
+      "sourceUrl": "https://www.toutiao.com/article/7452264676223762981/",
+      "validationStatus": "已校验",
+      "remarks": "增强全国抗战信念，遏制日军进攻势头"
+    },
+    {
+      "eventId": "E014",
+      "eventName": "徐州会战",
+      "eventType": "正面战场大规模会战",
+      "occurDate": "1938-01-01",
+      "historicalStage": "全面抗战阶段",
+      "corePersonIds": [
+        "R007"
+      ],
+      "occurPlaceIds": [
+        "P014"
+      ],
+      "eventSummary": "阻击日军打通津浦线，掩护主力转移",
+      "detailedDescription": "中国军队以徐州为中心展开防御，台儿庄战役是其中关键一战。后因日军重兵合围，中国军队主动突围，徐州沦陷，但打乱了日军作战计划。",
+      "sourceUrl": "https://baike.baidu.com/item/%E5%BE%90%E5%B7%9E%E4%BC%9A%E6%88%98/13404",
+      "validationStatus": "已校验",
+      "remarks": "消耗日军有生力量，为武汉会战争取时间"
+    },
+    {
+      "eventId": "E015",
+      "eventName": "武汉会战",
+      "eventType": "正面战场战略防御战",
+      "occurDate": "1938-06-11",
+      "historicalStage": "全面抗战阶段",
+      "corePersonIds": [
+        "R020"
+      ],
+      "occurPlaceIds": [
+        "P015"
+      ],
+      "eventSummary": "大规模会战，抗战进入战略相持阶段",
+      "detailedDescription": "中国军队投入百万兵力，在武汉外围与日军展开激战，毙伤日军近 4 万人。后为保存实力主动撤退，武汉沦陷。此战使日军兵力严重消耗，无力发动大规模进攻。",
+      "sourceUrl": "https://www.krzzjn.com/show-354-110433.html",
+      "validationStatus": "已校验",
+      "remarks": "标志抗战进入战略相持阶段"
+    },
+    {
+      "eventId": "E016",
+      "eventName": "百团大战",
+      "eventType": "敌后战场大规模破袭战",
+      "occurDate": "1940-08-20",
+      "historicalStage": "战略相持阶段",
+      "corePersonIds": [
+        "R008",
+        "R009"
+      ],
+      "occurPlaceIds": [
+        "P019"
+      ],
+      "eventSummary": "八路军发动破袭战，打击日军囚笼政策",
+      "detailedDescription": "八路军出动 105 个团约 20 万人，对华北日军交通线、据点展开大规模破袭，破坏铁路公路数千公里，毙伤日伪军 4 万余人，缴获大量物资。",
+      "sourceUrl": "https://zhuanlan.zhihu.com/p/426653200",
+      "validationStatus": "已校验",
+      "remarks": "沉重打击日军气焰，振奋全国军民意志"
+    },
+    {
+      "eventId": "E017",
+      "eventName": "皖南事变",
+      "eventType": "国共摩擦事件",
+      "occurDate": "1941-01-04",
+      "historicalStage": "战略相持阶段",
+      "corePersonIds": [
+        "R010",
+        "R011"
+      ],
+      "occurPlaceIds": [
+        "P010"
+      ],
+      "eventSummary": "国民党围攻新四军，制造反共摩擦",
+      "detailedDescription": "新四军军部及所属部队 9000 余人北移时，遭国民党军 8 万余人围攻。新四军浴血奋战，除 2000 余人突围外，大部牺牲或被俘，叶挺被俘，项英牺牲。",
+      "sourceUrl": "https://zhuanlan.zhihu.com/p/593990567",
+      "validationStatus": "已校验",
+      "remarks": "暴露国民党反共阴谋，中共维护统一战线"
+    },
+    {
+      "eventId": "E018",
+      "eventName": "延安整风运动",
+      "eventType": "中共党内思想整顿",
+      "occurDate": "1941-05-01",
+      "historicalStage": "战略相持阶段",
+      "corePersonIds": [
+        "R016"
+      ],
+      "occurPlaceIds": [
+        "P009"
+      ],
+      "eventSummary": "整顿党风学风文风，统一全党思想",
+      "detailedDescription": "中共中央开展整风运动，反对主观主义、宗派主义、党八股，树立实事求是的思想路线，实现全党思想上、政治上、组织上的空前团结。",
+      "sourceUrl": "https://www.12371.cn/2022/04/25/ARTI1650885951593532.shtml",
+      "validationStatus": "已校验",
+      "remarks": "为抗战和革命胜利奠定思想基础"
+    },
+    {
+      "eventId": "E019",
+      "eventName": "豫湘桂战役",
+      "eventType": "正面战场溃败战役",
+      "occurDate": "1944-04-01",
+      "historicalStage": "战略反攻阶段",
+      "corePersonIds": [
+        "R020"
+      ],
+      "occurPlaceIds": [
+        "P011"
+      ],
+      "eventSummary": "日军发动攻势，国民党军大规模败退",
+      "detailedDescription": "日军为打通大陆交通线发动战役，国民党军因指挥失当、士气低落，在八个月内丢失大片国土，损失兵力 50 余万。但日军也付出惨重代价，无力持续进攻。",
+      "sourceUrl": "https://www.krzzjn.com/show-518-122247.html",
+      "validationStatus": "已校验",
+      "remarks": "暴露国民党消极抗日弊端，推动民主运动高涨"
+    },
+    {
+      "eventId": "E020",
+      "eventName": "日本无条件投降",
+      "eventType": "抗战胜利标志",
+      "occurDate": "1945-08-15",
+      "historicalStage": "战略反攻阶段",
+      "corePersonIds": [
+        "R016",
+        "R020"
+      ],
+      "occurPlaceIds": [
+        "P012"
+      ],
+      "eventSummary": "日本宣布投降，中国人民抗战胜利结束",
+      "detailedDescription": "1945 年 8 月 15 日，日本天皇裕仁发布《终战诏书》宣布无条件投降。9 月 2 日，日本代表在 “密苏里号” 战舰签署投降书，中国人民 14 年抗战正式结束。",
+      "sourceUrl": "https://politics.gmw.cn/2025-08/15/content_38219682.htm",
+      "validationStatus": "已校验",
+      "remarks": "中国近代反侵略首次完全胜利，提升国际地位"
+    }
+  ],
+  "persons": [
+    {
+      "personId": "R001",
+      "name": "张学良",
+      "gender": "男",
+      "nativePlace": "辽宁海城",
+      "birthDeathYear": "1901-06-03~2001-10-14",
+      "position": "国民革命军陆军一级上将，东北军总司令",
+      "relatedEventIds": [
+        "E001",
+        "E008"
+      ],
+      "personSummary": "东北军阀张作霖长子，人称“少帅”。九一八事变后因执行不抵抗政策遭诟病，后为促成抗日统一战线，与杨虎城发动西安事变，促成国共第二次合作，后被蒋介石长期软禁。",
+      "sourceUrl": "https://zhuanlan.zhihu.com/p/976895264",
+      "validationStatus": "已校验",
+      "remarks": ""
+    },
+    {
+      "personId": "R002",
+      "name": "杨虎城",
+      "gender": "男",
+      "nativePlace": "陕西蒲城",
+      "birthDeathYear": "1893-11-26~1949-09-06",
+      "position": "国民革命军陆军二级上将，第十七路军总指挥",
+      "relatedEventIds": [
+        "E008"
+      ],
+      "personSummary": "出身农民起义军，后归附国民政府，坚守抗日立场。与张学良联合发动西安事变，劝谏蒋介石联共抗日。事变后被迫辞职出国，回国后遭囚禁，1949年被国民党特务杀害。",
+      "sourceUrl": "https://hbxw.hebnews.cn/news.html?id=141313",
+      "validationStatus": "已校验",
+      "remarks": ""
+    },
+    {
+      "personId": "R003",
+      "name": "佟麟阁",
+      "gender": "男",
+      "nativePlace": "河北高阳",
+      "birthDeathYear": "1892-10-29~1937-07-28",
+      "position": "国民革命军陆军二级上将，第 29 军副军长",
+      "relatedEventIds": [
+        "E009"
+      ],
+      "personSummary": "早年投身军旅，跟随冯玉祥征战，后任第29军副军长。七七事变爆发后，坚守北平南苑阵地，率部奋勇抗击日军，1937年7月28日壮烈殉国，是全面抗战以来首位牺牲的高级将领。",
+      "sourceUrl": "https://www.qstheory.cn/20250810/7d5cb95d89e446aba2a72f57864ff787/c.html",
+      "validationStatus": "已校验",
+      "remarks": ""
+    },
+    {
+      "personId": "R004",
+      "name": "赵登禹",
+      "gender": "男",
+      "nativePlace": "山东菏泽",
+      "birthDeathYear": "1898-05-16~1937-07-28",
+      "position": "国民革命军陆军中将，第 29 军第 132 师师长",
+      "relatedEventIds": [
+        "E009"
+      ],
+      "personSummary": "出身行伍，擅长近战和大刀战术，长城抗战中率部取得喜峰口大捷。七七事变后，在北平南苑战斗中，身先士卒抗击日军，不幸中弹牺牲，牺牲后被追赠上将军衔。",
+      "sourceUrl": "http://www.mod.gov.cn/gfbw/gfjy_index/16392988.html",
+      "validationStatus": "已校验",
+      "remarks": ""
+    },
+    {
+      "personId": "R005",
+      "name": "林彪",
+      "gender": "男",
+      "nativePlace": "湖北黄冈",
+      "birthDeathYear": "1907-12-05~1971-09-13",
+      "position": "八路军第 115 师师长",
+      "relatedEventIds": [
+        "E011"
+      ],
+      "personSummary": "黄埔军校一期毕业生，无产阶级革命家、军事家。全面抗战爆发后，率领八路军第115师取得平型关大捷，打破日军不可战胜的神话，后长期在敌后领导抗日游击战争。",
+      "sourceUrl": "https://news.hbtv.com.cn/p/1973848.html",
+      "validationStatus": "已校验",
+      "remarks": ""
+    },
+    {
+      "personId": "R006",
+      "name": "聂荣臻",
+      "gender": "男",
+      "nativePlace": "重庆江津",
+      "birthDeathYear": "1899-12-29~1992-05-14",
+      "position": "八路军第 115 师副师长",
+      "relatedEventIds": [
+        "E011"
+      ],
+      "personSummary": "无产阶级革命家、军事家。抗战时期，协助林彪指挥平型关大捷，后率部创建晋察冀抗日根据地，开展敌后游击战争，为坚持华北抗战作出重要贡献。",
+      "sourceUrl": "https://taiwan.cri.cn/2025-07-16/c3c33588-d9e0-3abe-8e7f-459519383b4c.html",
+      "validationStatus": "已校验",
+      "remarks": ""
+    },
+    {
+      "personId": "R007",
+      "name": "李宗仁",
+      "gender": "男",
+      "nativePlace": "广西临桂",
+      "birthDeathYear": "1891-08-13~1969-01-30",
+      "position": "国民革命军陆军一级上将，第五战区司令长官",
+      "relatedEventIds": [
+        "E013",
+        "E014"
+      ],
+      "personSummary": "桂系军阀首领之一，坚持抗日主张。抗战时期任第五战区司令长官，指挥徐州会战，其中台儿庄战役歼灭日军2万余人，取得正面战场最大胜利，极大鼓舞全国抗战士气。",
+      "sourceUrl": "https://www.krzzjn.com/show-1475-82701.html",
+      "validationStatus": "已校验",
+      "remarks": ""
+    },
+    {
+      "personId": "R008",
+      "name": "彭德怀",
+      "gender": "男",
+      "nativePlace": "湖南湘潭",
+      "birthDeathYear": "1898-10-24~1974-11-29",
+      "position": "八路军副总司令",
+      "relatedEventIds": [
+        "E016"
+      ],
+      "personSummary": "无产阶级革命家、军事家。抗战时期任八路军副总司令，协助朱德指挥八路军开展敌后游击战争，1940年亲自指挥百团大战，大规模破袭日军交通线，沉重打击日军气焰。",
+      "sourceUrl": "https://www.krzzjn.com/show-1458-68151.html",
+      "validationStatus": "已校验",
+      "remarks": ""
+    },
+    {
+      "personId": "R009",
+      "name": "左权",
+      "gender": "男",
+      "nativePlace": "湖南醴陵",
+      "birthDeathYear": "1905-03-15~1942-05-25",
+      "position": "八路军副参谋长",
+      "relatedEventIds": [
+        "E016"
+      ],
+      "personSummary": "黄埔军校一期毕业生，杰出军事家。抗战时期任八路军副参谋长，协助彭德怀有条不紊地指挥作战，参与百团大战、黄崖洞保卫战等重要战役，1942年在反“扫荡”中壮烈殉国。",
+      "sourceUrl": "https://www.qstheory.cn/20250629/14ee0924ce144a92b9109d3d452af679/c.html",
+      "validationStatus": "已校验",
+      "remarks": ""
+    },
+    {
+      "personId": "R010",
+      "name": "叶挺",
+      "gender": "男",
+      "nativePlace": "广东惠阳",
+      "birthDeathYear": "1896-09-10~1946-04-08",
+      "position": "新四军军长",
+      "relatedEventIds": [
+        "E017"
+      ],
+      "personSummary": "北伐名将，被誉为“铁军”指挥官。抗战时期出任新四军军长，领导华中敌后抗日游击战争。1941年皖南事变中被俘，身陷囹圄多年始终坚贞不屈，1946年获释后因飞机失事遇难。",
+      "sourceUrl": "https://service.dva.gd.gov.cn/gdylw/gdyw/202409/b9aabcb52e064261a44d4f716fff27b0.shtml",
+      "validationStatus": "已校验",
+      "remarks": ""
+    },
+    {
+      "personId": "R011",
+      "name": "项英",
+      "gender": "男",
+      "nativePlace": "湖北武昌",
+      "birthDeathYear": "1898-05~1941-03-12",
+      "position": "新四军副军长，中共中央东南局书记",
+      "relatedEventIds": [
+        "E017"
+      ],
+      "personSummary": "无产阶级革命家，长期从事工人运动和革命武装斗争。抗战时期任新四军副军长，协助叶挺领导新四军抗日。1941年皖南事变后，在突围途中被叛徒杀害，遗体后被安葬于江夏区青龙山。",
+      "sourceUrl": "https://www.krzzjn.com/show-2414-116193.html",
+      "validationStatus": "已校验",
+      "remarks": ""
+    },
+    {
+      "personId": "R012",
+      "name": "吉鸿昌",
+      "gender": "男",
+      "nativePlace": "河南扶沟",
+      "birthDeathYear": "1895-10-18~1934-11-24",
+      "position": "察哈尔民众抗日同盟军第二军军长",
+      "relatedEventIds": [
+        "E005"
+      ],
+      "personSummary": "爱国将领，早年投身冯玉祥部队，坚决反对蒋介石的不抵抗政策。1933年参与组建察哈尔民众抗日同盟军，率部收复多伦等失地，后被国民党当局逮捕，1934年英勇就义，就义前高呼“我是中国人”。",
+      "sourceUrl": "https://www.krzzjn.com/show-2883-133491.html",
+      "validationStatus": "已校验",
+      "remarks": ""
+    },
+    {
+      "personId": "R013",
+      "name": "冯玉祥",
+      "gender": "男",
+      "nativePlace": "安徽巢县",
+      "birthDeathYear": "1882-11-06~1948-09-01",
+      "position": "国民革命军陆军一级上将",
+      "relatedEventIds": [
+        "E005",
+        "E010"
+      ],
+      "personSummary": "著名爱国将领，人称“基督将军”。多次反对蒋介石的独裁政策，积极主张抗日。1933年组建察哈尔民众抗日同盟军，领导抗日斗争，后参与淞沪会战等战事，1948年在回国途中因轮船失火遇难。",
+      "sourceUrl": "https://www.krzzjn.com/show-2902-132079.html",
+      "validationStatus": "已校验",
+      "remarks": ""
+    },
+    {
+      "personId": "R014",
+      "name": "蒋光鼐",
+      "gender": "男",
+      "nativePlace": "广东东莞",
+      "birthDeathYear": "1888-12-01~1967-06-08",
+      "position": "国民革命军第十九路军总指挥",
+      "relatedEventIds": [
+        "E002"
+      ],
+      "personSummary": "爱国将领，早年参加辛亥革命。1932年一·二八事变爆发后，任第十九路军总指挥，率部在上海奋勇抗击日军进攻，打破日军快速占领上海的企图，后因孤军无援被迫撤退。",
+      "sourceUrl": "https://www.krzzjn.com/show-55-148017.html",
+      "validationStatus": "已校验",
+      "remarks": ""
+    },
+    {
+      "personId": "R015",
+      "name": "蔡廷锴",
+      "gender": "男",
+      "nativePlace": "广东罗定",
+      "birthDeathYear": "1892-04-15~1968-04-25",
+      "position": "国民革命军第十九路军军长",
+      "relatedEventIds": [
+        "E002"
+      ],
+      "personSummary": "出身贫苦农民家庭，后投身军旅。一·二八事变中，任第十九路军军长，与蒋光鼐并肩作战，指挥部队顽强抵抗日军，多次击退日军进攻，展现了中国军队的抗战决心。",
+      "sourceUrl": "https://www.krzzjn.com/show-1459-94073.html",
+      "validationStatus": "已校验",
+      "remarks": ""
+    },
+    {
+      "personId": "R016",
+      "name": "毛泽东",
+      "gender": "男",
+      "nativePlace": "湖南湘潭",
+      "birthDeathYear": "1893-12-26~1976-09-09",
+      "position": "中共中央主席，中央军委主席",
+      "relatedEventIds": [
+        "E020",
+        "E018",
+        "E007"
+      ],
+      "personSummary": "中国共产党、中国人民解放军和中华人民共和国的主要缔造者和领导人。抗战时期，提出持久战战略方针，主持召开瓦窑堡会议确立抗日民族统一战线政策，领导全国人民坚持敌后抗战。",
+      "sourceUrl": "https://military.cnr.cn/zxdt/20250710/t20250710_527254779.shtml",
+      "validationStatus": "已校验",
+      "remarks": ""
+    },
+    {
+      "personId": "R017",
+      "name": "溥仪",
+      "gender": "男",
+      "nativePlace": "北京",
+      "birthDeathYear": "1906-02-07~1967-10-17",
+      "position": "清朝末代皇帝，伪满洲国 “执政",
+      "relatedEventIds": [
+        "E003"
+      ],
+      "personSummary": "1912年退位，1931年九一八事变后，在日本扶持下于1932年建立伪满洲国，充当日本殖民统治的傀儡，出卖国家主权和民族利益，抗战胜利后被苏联俘获，后回国接受改造。",
+      "sourceUrl": "https://www.lishimingren.com/all/qingchao/puyi.html",
+      "validationStatus": "已校验",
+      "remarks": ""
+    },
+    {
+      "personId": "R018",
+      "name": "谷寿夫",
+      "gender": "男",
+      "nativePlace": "日本福冈",
+      "birthDeathYear": "1882-12-23~1947-04-26",
+      "position": "日本第 6 师团师团长",
+      "relatedEventIds": [
+        "E012"
+      ],
+      "personSummary": "日本战犯，1937年率日本第6师团参加南京攻城战，进城后指挥部队实施惨无人道的大屠杀，残害大量中国平民和战俘。抗战胜利后被国民政府逮捕，1947年以战争罪、反人类罪被处决。",
+      "sourceUrl": "https://www.sohu.com/a/906448899_121161823",
+      "validationStatus": "已校验",
+      "remarks": ""
+    },
+    {
+      "personId": "R019",
+      "name": "松井石根",
+      "gender": "男",
+      "nativePlace": "日本山形",
+      "birthDeathYear": "1878-07-27~1948-12-23",
+      "position": "日本华中方面军司令官",
+      "relatedEventIds": [
+        "E012",
+        "E010"
+      ],
+      "personSummary": "日本战犯，早年参与侵华活动。1937年任日本华中方面军司令官，指挥淞沪会战和南京攻城战，纵容日军在南京实施大规模屠杀、强奸等暴行，战后被远东国际军事法庭判定为甲级战犯，1948年被执行绞刑。",
+      "sourceUrl": "https://news.qq.com/rain/a/20220725A03EL000",
+      "validationStatus": "已校验",
+      "remarks": ""
+    },
+    {
+      "personId": "R020",
+      "name": "蒋介石",
+      "gender": "男",
+      "nativePlace": "浙江奉化",
+      "birthDeathYear": "1887-10-31~1975-04-05",
+      "position": "国民党总裁、国民政府主席，抗日战争时期中国战区最高统帅",
+      "relatedEventIds": [
+        "E008",
+        "E010",
+        "E015",
+        "E019",
+        "E020"
+      ],
+      "personSummary": "原名蒋中正，早年留学日本，历任黄埔军校校长、国民政府主席等职。抗日战争时期领导正面战场抗战，先后指挥淞沪会战、徐州会战、武汉会战等战役；内战失败后退守台湾，1975 年在台北逝世。",
+      "sourceUrl": "https://baike.baidu.com/item/%E8%92%8B%E4%BB%8B%E7%9F%B3/184548",
+      "validationStatus": "已校验",
+      "remarks": ""
+    },
+    {
+      "personId": "R021",
+      "name": "宋哲元",
+      "gender": "男",
+      "nativePlace": "山东乐陵",
+      "birthDeathYear": "1885-10~1940-04-05",
+      "position": "国民党爱国将领，二十九军军长，长城抗战、七七事变主要指挥官",
+      "relatedEventIds": [
+        "E004"
+      ],
+      "personSummary": "西北军将领，1933 年率部参加长城抗战，取得喜峰口大捷；1937 年七七事变中，率二十九军在卢沟桥抵抗日军进攻，是全面抗战爆发的关键人物之一，1940 年病逝。",
+      "sourceUrl": "https://baike.baidu.com/item/%E5%AE%8B%E5%93%B2%E5%85%83/1165277",
+      "validationStatus": "已校验",
+      "remarks": ""
+    },
+    {
+      "personId": "R022",
+      "name": "傅作义",
+      "gender": "男",
+      "nativePlace": "山西荣河",
+      "birthDeathYear": "1895-06-27~1974-04-19",
+      "position": "国民党爱国将领，绥远抗战、平津战役主要指挥官，后率部起义",
+      "relatedEventIds": [
+        "E004"
+      ],
+      "personSummary": "晋绥军将领，抗日战争时期率部参加绥远抗战、百团大战等战役，取得五原大捷；1949 年平津战役中率部接受和平改编，保护北平古城，新中国成立后担任水利部部长等职。",
+      "sourceUrl": "https://baike.baidu.com/item/%E5%82%85%E4%BD%9C%E4%B9%89/285693",
+      "validationStatus": "已校验",
+      "remarks": ""
+    }
+  ],
+  "places": [
+    {
+      "placeId": "P001",
+      "placeName": "柳条湖遗址",
+      "province": "辽宁省",
+      "city": "沈阳市",
+      "detailedAddress": "皇姑区柳条湖村",
+      "coordinates": "41°48′24″N，123°24′24″E",
+      "relatedEventIds": [
+        "E001"
+      ],
+      "placeSummary": "南满铁路途经地，日军在此自爆铁轨嫁祸中国军队，是九一八事变的导火索发生地，见证日本侵华开端。",
+      "sourceUrl": "https://www.toutiao.com/article/7190373830534283816/?wid=1768894776749",
+      "validationStatus": "已校验",
+      "remarks": "九一八事变导火索发生地、红色旅游景点、爱国主义教育基地"
+    },
+    {
+      "placeId": "P002",
+      "placeName": "华清池",
+      "province": "陕西省",
+      "city": "西安市",
+      "detailedAddress": "临潼区华清路38号",
+      "coordinates": "34°20′56″N，109°16′29″E",
+      "relatedEventIds": [
+        "E008"
+      ],
+      "placeSummary": "唐代皇家园林，1936年张学良、杨虎城在此扣押蒋介石，发动“兵谏”，最终促成西安事变和平解决，为抗日民族统一战线奠定基础",
+      "sourceUrl": "https://www.toutiao.com/article/7480772111745729033/",
+      "validationStatus": "已校验",
+      "remarks": "西安事变发生地、红色旅游景点、全国重点文物保护单位"
+    },
+    {
+      "placeId": "P003",
+      "placeName": "卢沟桥",
+      "province": "北京市",
+      "city": "北京市",
+      "detailedAddress": "丰台区卢沟桥城南街77号",
+      "coordinates": "39°51′07″N，116°12′49″E",
+      "relatedEventIds": [
+        "E009"
+      ],
+      "placeSummary": "始建于金代的古石桥，横跨永定河，1937年日军以士兵失踪为借口挑起冲突，中国守军奋起抵抗，是全面抗战爆发的标志性地点。",
+      "sourceUrl": "https://baike.baidu.com/item/%E5%8D%A2%E6%B2%9F%E6%A1%A5/300560",
+      "validationStatus": "已校验",
+      "remarks": "全面抗战爆发地、红色旅游景点、全国重点文物保护单位"
+    },
+    {
+      "placeId": "P004",
+      "placeName": "上海抗战遗址群",
+      "province": "上海市",
+      "city": "上海市",
+      "detailedAddress": "虹口公园、四行仓库、闸北战场等",
+      "coordinates": "31°14′00″N，121°29′00″E",
+      "relatedEventIds": [
+        "E002",
+        "E010"
+      ],
+      "placeSummary": "涵盖多个抗战遗址，1932年、1937年两次大规模抗日战役在此打响，中国军队浴血奋战，打破日军“三个月灭亡中国”的妄想。",
+      "sourceUrl": "https://www.thepaper.cn/newsDetail_forward_31148591",
+      "validationStatus": "已校验",
+      "remarks": "两次抗战战役纪念地、红色旅游景点、爱国主义教育基地集群"
+    },
+    {
+      "placeId": "P005",
+      "placeName": "平型关战役遗址",
+      "province": "山西省",
+      "city": "大同市",
+      "detailedAddress": "灵丘县白崖台乡平型关村",
+      "coordinates": "39°23′00″N，113°51′00″E",
+      "relatedEventIds": [
+        "E011"
+      ],
+      "placeSummary": "晋东北咽喉要道，地势险要、易守难攻，1937年八路军第115师在此伏击日军精锐第5师团，取得全面抗战以来首次重大胜利。",
+      "sourceUrl": "https://m.thepaper.cn/baijiahao_31443234",
+      "validationStatus": "已校验",
+      "remarks": "平型关大捷发生地、红色旅游景点、全国重点文物保护单位"
+    },
+    {
+      "placeId": "P006",
+      "placeName": "侵华日军南京大屠杀遇难同胞纪念馆",
+      "province": "江苏省",
+      "city": "南京市",
+      "detailedAddress": "建邺区水西门大街418号",
+      "coordinates": "32°03′00″N，118°45′00″E",
+      "relatedEventIds": [
+        "E012"
+      ],
+      "placeSummary": "选址于南京大屠杀江东门集体屠杀遗址及遇难者丛葬地，见证1937年日军攻占南京后长达六周的反人类暴行，是铭记历史的核心场所。",
+      "sourceUrl": "https://dsb.nanjing.gov.cn/xxcb/201311/t20131105_2084215.html",
+      "validationStatus": "已校验",
+      "remarks": "南京大屠杀纪念地、红色旅游景点、全国爱国主义教育示范基地"
+    },
+    {
+      "placeId": "P007",
+      "placeName": "台儿庄大战纪念馆",
+      "province": "山东省",
+      "city": "枣庄市",
+      "detailedAddress": "台儿庄区沿河南路6号",
+      "coordinates": "34°33′00″N，117°46′00″E",
+      "relatedEventIds": [
+        "E013"
+      ],
+      "placeSummary": "坐落于台儿庄古城内，1938年李宗仁指挥中国军队在此围歼日军，取得抗战以来正面战场最大胜利，纪念馆完整留存战役相关史料。",
+      "sourceUrl": "https://www.baike.com/wikiid/7258503953007165481?anchor=lkv9yx0z1axf",
+      "validationStatus": "已校验",
+      "remarks": "台儿庄战役纪念地、红色旅游景点、全国爱国主义教育示范基地"
+    },
+    {
+      "placeId": "P008",
+      "placeName": "张家口抗日同盟军纪念馆",
+      "province": "河北省",
+      "city": "张家口市",
+      "detailedAddress": "桥西区明德北街",
+      "coordinates": "40°48′00″N，114°52′00″E",
+      "relatedEventIds": [
+        "E005"
+      ],
+      "placeSummary": "原为察哈尔省政府旧址，1933年冯玉祥在此组建察哈尔民众抗日同盟军，收复多伦等失地，是爱国力量团结抗日的重要见证地。",
+      "sourceUrl": "https://www.krzzjn.com/show-904-57961.html",
+      "validationStatus": "已校验",
+      "remarks": "抗日同盟军活动纪念地、红色旅游景点、爱国主义教育基地"
+    },
+    {
+      "placeId": "P009",
+      "placeName": "延安革命纪念馆",
+      "province": "陕西省",
+      "city": "延安市",
+      "detailedAddress": "宝塔区西北川路",
+      "coordinates": "36°36′00″N，109°36′00″E",
+      "relatedEventIds": [
+        "E018"
+      ],
+      "placeSummary": "抗日战争时期中共中央所在地，是敌后战场战略总后方，瓦窑堡会议确定抗日民族统一战线方针，延安整风运动统一全党思想。",
+      "sourceUrl": "https://baike.baidu.com/item/%E5%BB%B6%E5%AE%89%E9%9D%A9%E5%91%BD%E9%81%97%E5%9D%80/7607514",
+      "validationStatus": "已校验",
+      "remarks": "革命圣地、红色旅游核心景点、全国重点文物保护单位"
+    },
+    {
+      "placeId": "P010",
+      "placeName": "皖南事变烈士陵园",
+      "province": "安徽省",
+      "city": "宣城市",
+      "detailedAddress": "泾县茂林镇",
+      "coordinates": "30°26′00″N，118°24′00″E",
+      "relatedEventIds": [
+        "E017"
+      ],
+      "placeSummary": "位于茂林镇山区，1941年新四军北移途中在此遭国民党军围攻，大部牺牲或被俘，陵园为纪念遇难新四军将士而建。",
+      "sourceUrl": "https://www.krzzjn.com/show-427-91920.html",
+      "validationStatus": "已校验",
+      "remarks": "皖南事变纪念地、红色旅游景点、爱国主义教育基地"
+    },
+    {
+      "placeId": "P011",
+      "placeName": "豫湘桂战役遗址群",
+      "province": "河南省，湖南省，广西省",
+      "city": "洛阳市，长沙市，桂林市",
+      "detailedAddress": "多地",
+      "coordinates": "30°26′00″N，118°24′00″E",
+      "relatedEventIds": [
+        "E019"
+      ],
+      "placeSummary": "贯穿中原、华中、华南的交通要道集群，1944年日军为打通大陆交通线发动进攻，国民党军在此出现大规模败退，遗址留存战役相关痕迹。",
+      "sourceUrl": "https://www.krzzjn.com/show-518-110491.html",
+      "validationStatus": "已校验",
+      "remarks": "豫湘桂战役纪念地、多地爱国主义教育基地"
+    },
+    {
+      "placeId": "P012",
+      "placeName": "日本东京湾密苏里号战舰（遗址关联）",
+      "province": "外国（日本）",
+      "city": "东京都",
+      "detailedAddress": "日本东京湾海域",
+      "coordinates": "35°39′00″N，139°44′00″E",
+      "relatedEventIds": [
+        "E020"
+      ],
+      "placeSummary": "1945年9月2日，日本代表在此战舰上签署投降书，标志中国人民抗日战争暨世界反法西斯战争正式结束，是抗战胜利的核心见证地。",
+      "sourceUrl": "https://www.xinhuanet.com/20250829/8f7402119b6641dab0c80d28dfbf4ba9/c.html",
+      "validationStatus": "已校验",
+      "remarks": "抗战胜利签署地、世界反法西斯战争纪念遗址"
+    },
+    {
+      "placeId": "P013",
+      "placeName": "瓦窑堡会议旧址",
+      "province": "陕西省",
+      "city": "延安市",
+      "detailedAddress": "子长市瓦窑堡镇",
+      "coordinates": "37°01′00″N，109°47′00″E",
+      "relatedEventIds": [
+        "E007"
+      ],
+      "placeSummary": "1935年中共中央在此召开瓦窑堡会议，批判“左”倾关门主义，确定建立抗日民族统一战线的策略方针，为第二次国共合作奠定理论基础。",
+      "sourceUrl": "https://www.hongsehui.cn/service/venue/457/",
+      "validationStatus": "已校验",
+      "remarks": "瓦窑堡会议召开地、红色旅游景点、全国重点文物保护单位"
+    },
+    {
+      "placeId": "P014",
+      "placeName": "徐州会战纪念馆",
+      "province": "江苏省",
+      "city": "徐州市",
+      "detailedAddress": "泉山区湖西路",
+      "coordinates": "34°16′00″N，117°16′00″E",
+      "relatedEventIds": [
+        "E014"
+      ],
+      "placeSummary": "以徐州为中心的大规模防御战，台儿庄战役是其中关键战役，纪念馆展示了中国军队阻击日军、消耗其有生力量的抗战史实。",
+      "sourceUrl": "https://www.hongsehui.cn/service/venue/559/",
+      "validationStatus": "已校验",
+      "remarks": "徐州会战纪念地、红色旅游景点、爱国主义教育基地"
+    },
+    {
+      "placeId": "P015",
+      "placeName": "武汉会战遗址群",
+      "province": "湖北省",
+      "city": "武汉市",
+      "detailedAddress": "江夏区、黄陂区、新洲区等多地",
+      "coordinates": "30°35′00″N，114°17′00″E",
+      "relatedEventIds": [
+        "E015"
+      ],
+      "placeSummary": "1938年中国军队投入百万兵力在此展开激战，毙伤日军近4万人，战后抗战进入战略相持阶段，遗址群留存大量战场遗迹。",
+      "sourceUrl": "https://www.toutiao.com/article/7410308803834561033/",
+      "validationStatus": "已校验",
+      "remarks": "武汉会战纪念地、红色旅游景点、湖北省爱国主义教育基地"
+    },
+    {
+      "placeId": "P016",
+      "placeName": "伪满洲国皇宫旧址",
+      "province": "吉林省",
+      "city": "长春市",
+      "detailedAddress": "宽城区光复北路 5 号",
+      "coordinates": "43°54′25″N，125°19′26″E",
+      "relatedEventIds": [
+        "E003"
+      ],
+      "placeSummary": "1932-1945 年溥仪充当傀儡皇帝的居所，分内外廷，见证日本殖民统治",
+      "sourceUrl": "http://www.sanyamuseum.com/a/3/2022/1201/1666.html",
+      "validationStatus": "已校验",
+      "remarks": "伪满洲国殖民统治铁证、全国重点文物保护单位、爱国主义教育基地"
+    },
+    {
+      "placeId": "P017",
+      "placeName": "长城抗战遗址群",
+      "province": "河北省",
+      "city": "唐山市",
+      "detailedAddress": "迁西县喜峰口村",
+      "coordinates": "40°11′00″N，118°30′00″E",
+      "relatedEventIds": [
+        "E004"
+      ],
+      "placeSummary": "1933 年中国军队在喜峰口、古北口阻击日军，第 29 军大刀队重创敌人",
+      "sourceUrl": "https://www.bjmy.gov.cn/stmy/mywl/hsly/202301/t20230103_95267.html",
+      "validationStatus": "已校验",
+      "remarks": "长城抗战主战场、红色旅游景点、全国重点文物保护单位"
+    },
+    {
+      "placeId": "P018",
+      "placeName": "一二・九运动相关纪念地",
+      "province": "北京市",
+      "city": "北京市",
+      "detailedAddress": "西城区府右街丙 27 号",
+      "coordinates": "39°54′00″N，116°23′00″E",
+      "relatedEventIds": [
+        "E006"
+      ],
+      "placeSummary": "依托北平学生游行路线与历史资料建成，展示 1935 年爱国学生救亡运动历程",
+      "sourceUrl": "https://baike.baidu.com/reference/65079233/533aYdO6cr3_z3kATKCIyv34YS7HP4z9v7XRW7NzzqIPmGapB4P1FJ836c828Ll2BUXIv5Utc5k-g8TneRJF5q1vI-luEc8gmyKsGy6j",
+      "validationStatus": "已校验",
+      "remarks": "一二・九运动纪念地、红色旅游景点、全国爱国主义教育示范基地"
+    },
+    {
+      "placeId": "P019",
+      "placeName": "百团大战纪念馆（碑）",
+      "province": "山西省",
+      "city": "阳泉市",
+      "detailedAddress": "狮脑山森林公园",
+      "coordinates": "37°50′00″N，113°30′00″E",
+      "relatedEventIds": [
+        "E016"
+      ],
+      "placeSummary": "1940 年八路军在此指挥百团大战，纪念馆陈列战役文物与史料，纪念碑镌刻参战部队名称",
+      "sourceUrl": "https://www.thepaper.cn/newsDetail_forward_31466076",
+      "validationStatus": "已校验",
+      "remarks": "百团大战指挥中心纪念地、红色旅游景点、全国爱国主义教育示范基地"
+    }
+  ]
+}

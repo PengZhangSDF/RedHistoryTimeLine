@@ -37,5 +37,29 @@ public interface MediaMapper {
         @Param("eventId") String eventId,
         @Param("type") String type
     );
+    
+    /**
+     * 插入媒体
+     * 功能要求：新增媒体记录
+     */
+    int insertMedia(Media media);
+    
+    /**
+     * 更新媒体
+     * 功能要求：根据ID更新媒体记录
+     */
+    int updateMedia(Media media);
+    
+    /**
+     * 删除媒体
+     * 功能要求：根据ID删除媒体记录
+     */
+    int deleteMedia(@Param("id") String id);
+    
+    /**
+     * 根据ID查询媒体详情
+     * 功能要求：根据媒体ID查询完整的媒体信息
+     */
+    Media selectMediaById(@Param("id") String id);
 }
 

@@ -49,24 +49,33 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         
-        // 功能要求：开发环境允许所有来源
-        // 修改限制：生产环境必须修改为具体的前端地址
-        // 例如：config.addAllowedOrigin("https://your-frontend-domain.com");
+        // 开发环境：允许所有来源（包括localhost和127.0.0.1）
+        // 生产环境配置示例（需要根据实际部署情况修改）：
+        // config.addAllowedOrigin("https://your-frontend-domain.com");
+        // config.addAllowedOrigin("https://www.your-frontend-domain.com");
         config.addAllowedOriginPattern("*");
         
-        // 功能要求：允许所有HTTP方法
-        // 修改限制：禁止修改，除非有特殊需求
-        config.addAllowedMethod("*");
+        // 允许的HTTP方法：GET、POST、PUT、DELETE、OPTIONS等
+        config.addAllowedMethod("GET");
+        config.addAllowedMethod("POST");
+        config.addAllowedMethod("PUT");
+        config.addAllowedMethod("DELETE");
+        config.addAllowedMethod("OPTIONS");
+        config.addAllowedMethod("HEAD");
         
-        // 功能要求：允许所有请求头
-        // 修改限制：禁止修改，除非有特殊需求
+        // 允许的请求头（* 表示允许所有请求头）
         config.addAllowedHeader("*");
         
-        // 功能要求：允许携带凭证（如cookie）
-        // 修改限制：禁止修改
+        // 允许携带凭证（如cookie、session）
         config.setAllowCredentials(true);
         
+        // 预检请求的缓存时间（单位：秒）
+        // 设置为1小时，减少不必要的预检请求
+        config.setMaxAge(3600L);
+        
+        // 注册CORS配置到所有路径
         source.registerCorsConfiguration("/**", config);
+        
         return new CorsFilter(source);
     }
 }

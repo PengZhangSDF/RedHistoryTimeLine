@@ -56,5 +56,24 @@
         SELECT * FROM events WHERE location_id = #{locationId} ORDER BY date ASC
     </select>
     
+    <!-- 插入事件 -->
+    <insert id="insertEvent" parameterType="com.redhistory.model.Event">
+        INSERT INTO events (id, title, date, category, description, background, process, impact, location_id)
+        VALUES (#{id}, #{title}, #{date}, #{category}, #{description}, #{background}, #{process}, #{impact}, #{locationId})
+    </insert>
+    
+    <!-- 更新事件 -->
+    <update id="updateEvent" parameterType="com.redhistory.model.Event">
+        UPDATE events
+        SET title = #{title}, date = #{date}, category = #{category}, description = #{description},
+            background = #{background}, process = #{process}, impact = #{impact}, location_id = #{locationId}
+        WHERE id = #{id}
+    </update>
+    
+    <!-- 删除事件 -->
+    <delete id="deleteEvent" parameterType="java.lang.String">
+        DELETE FROM events WHERE id = #{id}
+    </delete>
+    
 </mapper>
 

@@ -73,5 +73,66 @@ public class PersonController {
             return ResponseEntity.ok(ResponseUtil.error("获取人物列表失败：" + e.getMessage()));
         }
     }
+    
+    /**
+     * 新增人物
+     * 功能要求：
+     * - 接收人物对象并保存
+     * - 返回保存结果
+     */
+    @PostMapping
+    public ResponseEntity<Map<String, Object>> addPerson(@RequestBody Person person) {
+        try {
+            int result = personService.addPerson(person);
+            if (result > 0) {
+                return ResponseEntity.ok(ResponseUtil.success("添加人物成功"));
+            } else {
+                return ResponseEntity.ok(ResponseUtil.error("添加人物失败"));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.ok(ResponseUtil.error("添加人物失败：" + e.getMessage()));
+        }
+    }
+    
+    /**
+     * 更新人物
+     * 功能要求：
+     * - 根据ID更新人物信息
+     * - 返回更新结果
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> updatePerson(@PathVariable String id, @RequestBody Person person) {
+        try {
+            person.setId(id); // 确保ID一致
+            int result = personService.updatePerson(person);
+            if (result > 0) {
+                return ResponseEntity.ok(ResponseUtil.success("更新人物成功"));
+            } else {
+                return ResponseEntity.ok(ResponseUtil.error("更新人物失败"));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.ok(ResponseUtil.error("更新人物失败：" + e.getMessage()));
+        }
+    }
+    
+    /**
+     * 删除人物
+     * 功能要求：
+     * - 根据ID删除人物
+     * - 返回删除结果
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> deletePerson(@PathVariable String id) {
+        try {
+            int result = personService.deletePerson(id);
+            if (result > 0) {
+                return ResponseEntity.ok(ResponseUtil.success("删除人物成功"));
+            } else {
+                return ResponseEntity.ok(ResponseUtil.error("删除人物失败"));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.ok(ResponseUtil.error("删除人物失败：" + e.getMessage()));
+        }
+    }
 }
 
