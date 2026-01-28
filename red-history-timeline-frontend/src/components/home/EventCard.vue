@@ -92,48 +92,249 @@ export default {
 </script>
 
 <style scoped>
+// ========== 事件卡片样式（滑出效果） ==========
+
 .event-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  position: fixed;
+  top: 50%;
+  right: -400px;
+  transform: translateY(-50%);
+  width: 400px;
+  max-height: 80vh;
+  background: var(--bg-white, #FFFFFF);
+  border-radius: var(--radius-lg, 12px) 0 0 var(--radius-lg, 12px);
+  box-shadow: var(--shadow-card, 0 2px 8px rgba(0, 0, 0, 0.1));
+  border: 1px solid var(--border-light, #eeeeee);
+  border-right: none;
+  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
   overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s;
-  background: white;
+  display: flex;
+  flex-direction: column;
 }
 
-.event-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+.event-card.active {
+  right: 0;
 }
 
-.card-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  display: block;
+// 卡片头部
+.card-header {
+  background: var(--gradient-red-primary, linear-gradient(135deg, #E74C3C 0%, #C0392B 100%));
+  padding: var(--spacing-lg, 1.5rem);
+  color: var(--text-white, #FFFFFF);
+  flex-shrink: 0;
 }
 
+.card-title {
+  font-size: var(--font-xl, 1.25rem);
+  font-weight: 700;
+  margin: 0 0 var(--spacing-xs, 0.25rem) 0;
+  line-height: 1.4;
+}
+
+.card-subtitle {
+  font-size: var(--font-sm, 0.875rem);
+  opacity: 0.9;
+  margin: 0;
+  font-weight: 400;
+}
+
+// 卡片内容区
 .card-content {
-  padding: 1rem;
+  padding: var(--spacing-lg, 1.5rem);
+  flex: 1;
+  overflow-y: auto;
+  background: var(--bg-white, #FFFFFF);
 }
 
-.card-content h3 {
-  margin: 0 0 0.5rem 0;
-  color: #333;
-  font-size: 1.1rem;
+.card-description {
+  color: var(--text-dark, #333333);
+  font-size: var(--font-base, 1rem);
+  line-height: 1.7;
+  margin: 0 0 var(--spacing-lg, 1.5rem) 0;
+  text-align: justify;
 }
 
-.card-date {
-  color: #e74c3c;
-  font-weight: bold;
-  margin: 0.5rem 0;
-  font-size: 0.9rem;
+.card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm, 0.5rem);
+  margin-bottom: var(--spacing-lg, 1.5rem);
 }
 
-.card-category {
-  color: #666;
-  font-size: 0.85rem;
-  margin: 0.5rem 0 0 0;
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm, 0.5rem);
+  font-size: var(--font-sm, 0.875rem);
+  color: var(--text-gray, #666666);
+}
+
+.meta-label {
+  font-weight: 600;
+  color: var(--text-dark, #333333);
+  white-space: nowrap;
+}
+
+// 卡片底部操作区
+.card-footer {
+  padding: var(--spacing-lg, 1.5rem);
+  border-top: 1px solid var(--border-light, #eeeeee);
+  background: var(--bg-light, #f8f9fa);
+  flex-shrink: 0;
+}
+
+.map-button {
+  width: 100%;
+  padding: var(--spacing-md, 1rem) var(--spacing-xl, 2rem);
+  background: var(--gradient-red-primary, linear-gradient(135deg, #E74C3C 0%, #C0392B 100%));
+  color: var(--text-white, #FFFFFF);
+  border: none;
+  border-radius: var(--radius-md, 8px);
+  font-size: var(--font-base, 1rem);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm, 0.5rem);
+}
+
+.map-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+}
+
+.map-button:active {
+  transform: translateY(0);
+}
+
+// 关闭按钮
+.close-button {
+  position: absolute;
+  top: var(--spacing-md, 1rem);
+  right: var(--spacing-md, 1rem);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-white, #FFFFFF);
+  font-size: var(--font-lg, 1.125rem);
+  transition: background 0.3s ease;
+  z-index: 10;
+}
+
+.close-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+// 遮罩层
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+// ========== 响应式设计 ==========
+
+@media (max-width: 1280px) {
+  .event-card {
+    width: 350px;
+    right: -350px;
+  }
+  
+  .card-header {
+    padding: var(--spacing-md, 1rem);
+  }
+  
+  .card-title {
+    font-size: var(--font-lg, 1.125rem);
+  }
+  
+  .card-content {
+    padding: var(--spacing-md, 1rem);
+  }
+  
+  .card-description {
+    font-size: var(--font-sm, 0.875rem);
+  }
+  
+  .card-footer {
+    padding: var(--spacing-md, 1rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .event-card {
+    width: 100%;
+    right: -100%;
+    border-radius: 0;
+    max-height: 100vh;
+  }
+  
+  .card-header {
+    padding: var(--spacing-lg, 1.5rem);
+  }
+  
+  .card-title {
+    font-size: var(--font-xl, 1.25rem);
+  }
+  
+  .card-content {
+    padding: var(--spacing-lg, 1.5rem);
+  }
+  
+  .card-description {
+    font-size: var(--font-base, 1rem);
+  }
+}
+
+// ========== 动画效果 ==========
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-slideIn {
+  animation: slideInRight 0.4s ease-out;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
 }
 </style>
 
