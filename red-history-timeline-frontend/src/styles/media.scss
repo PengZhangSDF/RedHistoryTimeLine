@@ -24,7 +24,7 @@
 
 // 全局媒体变量
 :root {
-  // 主色调
+  // 主色调（使用base.scss中的变量）
   --media-primary-color: #e74c3c;
   --media-primary-dark: #c0392b;
   --media-primary-light: #fadbd8;

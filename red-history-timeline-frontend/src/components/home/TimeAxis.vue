@@ -414,6 +414,7 @@ export default {
 
 // ========== 响应式设计 ==========
 
+// 大屏设备适配
 @media (max-width: 1280px) {
   .time-axis {
     padding: var(--spacing-lg, 1.5rem);
@@ -445,7 +446,217 @@ export default {
     font-size: var(--font-xs, 0.75rem);
     max-width: 100px;
   }
+}
 
+// 平板设备适配
+@media (max-width: 1024px) {
+  .time-axis {
+    padding: var(--spacing-md, 1rem);
+  }
+  
+  .nav-title {
+    font-size: var(--font-xl, 1.25rem);
+  }
+  
+  .nav-subtitle {
+    font-size: var(--font-sm, 0.875rem);
+  }
+  
+  .filter-select,
+  .filter-input {
+    min-width: 150px;
+  }
+  
+  .axis-container {
+    padding: var(--spacing-xl, 2rem) 0 var(--spacing-lg, 1.5rem) 0;
+  }
+}
+
+// 移动端适配（纵向时间轴）
+@media (max-width: 768px) {
+  .time-axis {
+    padding: var(--spacing-md, 1rem);
+    margin-bottom: var(--spacing-lg, 1.5rem);
+  }
+  
+  .nav-bar {
+    padding: var(--spacing-lg, 1.5rem) var(--spacing-md, 1rem);
+  }
+  
+  .nav-title {
+    font-size: var(--font-xl, 1.25rem);
+    letter-spacing: 1px;
+  }
+  
+  .filter-section {
+    gap: var(--spacing-md, 1rem);
+    margin-bottom: var(--spacing-xl, 2rem);
+    padding: var(--spacing-md, 1rem);
+  }
+  
+  .filter-label {
+    font-size: var(--font-sm, 0.875rem);
+  }
+  
+  .filter-select,
+  .filter-input {
+    padding: var(--spacing-sm, 0.5rem);
+    font-size: var(--font-sm, 0.875rem);
+    min-width: 100%;
+  }
+  
+  .filter-button {
+    padding: var(--spacing-sm, 0.5rem) var(--spacing-lg, 1.5rem);
+    font-size: var(--font-sm, 0.875rem);
+  }
+  
+  // 纵向时间轴布局
+  .axis-container {
+    position: relative;
+    padding: var(--spacing-lg, 1.5rem) var(--spacing-md, 1rem);
+    overflow-x: hidden;
+    overflow-y: auto;
+    min-height: 400px;
+  }
+  
+  .axis-line {
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border-gray, #CCCCCC);
+  }
+  
+  // 年份刻度样式（纵向排列）
+  .year-labels {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xxl, 3rem);
+    padding: 0 0 0 var(--spacing-xl, 2rem);
+  }
+  
+  .year-label {
+    position: relative;
+    font-size: var(--font-base, 1rem);
+    margin-bottom: var(--spacing-lg, 1.5rem);
+  }
+  
+  // 事件节点列表（纵向排列）
+  .event-nodes {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xxl, 3rem);
+    padding: 0 0 0 var(--spacing-xl, 2rem);
+  }
+  
+  // 事件节点样式（纵向）
+  .event-node {
+    position: relative;
+    min-width: auto;
+    align-items: flex-start;
+  }
+  
+  .node-dot {
+    position: absolute;
+    left: -48px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+  }
+  
+  .event-node:hover .node-dot {
+    width: 14px;
+    height: 14px;
+    transform: scale(1.2);
+    box-shadow: 0 0 0 4px rgba(255, 149, 0, 0.2);
+  }
+  
+  .event-node.active .node-dot {
+    width: 14px;
+    height: 14px;
+    box-shadow: 0 0 0 3px var(--node-white, #FFFFFF), 0 0 0 6px var(--node-red, #E74C3C);
+  }
+  
+  // 悬浮事件名样式（纵向）
+  .node-tooltip {
+    position: relative;
+    bottom: auto;
+    margin-bottom: var(--spacing-sm, 0.5rem);
+    opacity: 1;
+    visibility: visible;
+    box-shadow: none;
+    border: none;
+    padding: 0;
+    background: transparent;
+  }
+  
+  .event-node:hover .node-tooltip {
+    bottom: auto;
+  }
+  
+  .node-tooltip::after {
+    display: none;
+  }
+  
+  // 事件名称（节点右侧）
+  .node-label {
+    position: relative;
+    bottom: auto;
+    font-size: var(--font-sm, 0.875rem);
+    max-width: 100%;
+    text-align: left;
+    margin-top: var(--spacing-sm, 0.5rem);
+  }
+  
+  // 底部统计信息
+  .footer-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm, 0.5rem);
+    padding-top: var(--spacing-lg, 1.5rem);
+    margin-top: var(--spacing-lg, 1.5rem);
+  }
+  
+  .stat-info,
+  .hint-info {
+    font-size: var(--font-sm, 0.875rem);
+  }
+  
+  // 加载和错误状态
+  .loading,
+  .error {
+    padding: var(--spacing-lg, 1.5rem);
+    margin: var(--spacing-sm, 0.5rem) 0;
+  }
+}
+
+// 小屏移动端适配
+@media (max-width: 480px) {
+  .nav-title {
+    font-size: var(--font-lg, 1.125rem);
+  }
+  
+  .filter-section {
+    gap: var(--spacing-sm, 0.5rem);
+  }
+  
+  .axis-container {
+    padding: var(--spacing-md, 1rem);
+  }
+  
+  .year-labels,
+  .event-nodes {
+    gap: var(--spacing-xl, 2rem);
+    padding: 0 0 0 var(--spacing-lg, 1.5rem);
+  }
+  
+  .node-dot {
+    left: -40px;
+  }
+}
 
 @keyframes fadeIn {
   from {
