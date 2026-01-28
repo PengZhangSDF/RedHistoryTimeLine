@@ -263,14 +263,16 @@ export default {
 <style scoped>
 /* 主容器样式 */
 .media-player {
-  margin: 2rem 0;
-  padding: 2rem;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin: var(--spacing-xl, 2rem) 0;
+  padding: var(--spacing-xl, 2rem);
+  background: var(--bg-white, #FFFFFF);
+  border-radius: var(--radius-lg, 12px);
+  box-shadow: var(--shadow-md, 0 4px 8px rgba(0, 0, 0, 0.12));
+  border: 1px solid var(--border-light, #eeeeee);
+  transition: all var(--transition-normal, 0.3s ease);
   position: relative;
   overflow: hidden;
+  animation: fadeIn 0.6s ease-out;
 }
 
 .media-player::before {
@@ -283,7 +285,7 @@ export default {
   background: linear-gradient(90deg, #e74c3c, #3498db);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform var(--transition-slow, 0.5s ease);
 }
 
 .media-player:hover::before {
@@ -291,21 +293,21 @@ export default {
 }
 
 .media-player:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-lg, 0 8px 16px rgba(0, 0, 0, 0.15));
   transform: translateY(-2px);
 }
 
 /* 标题样式 */
 .media-player-title {
-  color: #e74c3c;
-  margin-bottom: 2rem;
-  font-size: 1.8rem;
+  color: var(--text-red, #e74c3c);
+  margin-bottom: var(--spacing-xl, 2rem);
+  font-size: var(--font-2xl, 1.5rem);
   font-weight: 700;
   text-align: center;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: var(--spacing-md, 1rem);
+  border-bottom: 2px solid var(--border-light, #eeeeee);
   position: relative;
-  transition: all 0.3s ease;
+  transition: all var(--transition-normal, 0.3s ease);
 }
 
 .media-player-title::after {
@@ -316,10 +318,10 @@ export default {
   transform: translateX(-50%);
   width: 100px;
   height: 2px;
-  background: #e74c3c;
+  background: var(--text-red, #e74c3c);
   transform: scaleX(0);
   transform-origin: center;
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-normal, 0.3s ease);
 }
 
 .media-player:hover .media-player-title::after {
@@ -328,15 +330,16 @@ export default {
 
 /* 图片轮播样式 */
 .image-carousel {
-  margin-bottom: 2rem;
-  border-radius: 12px;
+  margin-bottom: var(--spacing-xl, 2rem);
+  border-radius: var(--radius-lg, 12px);
   overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  box-shadow: var(--shadow-md, 0 4px 8px rgba(0, 0, 0, 0.12));
+  transition: all var(--transition-normal, 0.3s ease);
+  animation: fadeIn 0.6s ease-out 0.2s both;
 }
 
 .image-carousel:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-lg, 0 8px 16px rgba(0, 0, 0, 0.15));
 }
 
 .carousel-wrapper {
@@ -344,14 +347,14 @@ export default {
   width: 100%;
   height: 500px;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: var(--radius-lg, 12px);
   background: #000;
 }
 
 /* 轮播过渡动画 */
 .carousel-fade-enter-active,
 .carousel-fade-leave-active {
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all var(--transition-slow, 0.5s ease);
 }
 
 .carousel-fade-enter-from {
@@ -369,7 +372,7 @@ export default {
   height: 100%;
   object-fit: contain;
   display: block;
-  transition: all 0.3s ease;
+  transition: all var(--transition-normal, 0.3s ease);
 }
 
 /* 图片标题 */
@@ -378,14 +381,14 @@ export default {
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 1.5rem;
+  padding: var(--spacing-lg, 1.5rem);
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-  color: white;
-  font-size: 1.1rem;
+  color: var(--text-white, #FFFFFF);
+  font-size: var(--font-lg, 1.125rem);
   font-weight: 600;
   text-align: center;
   transform: translateY(100%);
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-normal, 0.3s ease);
 }
 
 .carousel-wrapper:hover .carousel-caption {
@@ -397,13 +400,14 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
-  margin-top: 1rem;
-  padding: 1rem;
-  background: rgba(0, 0, 0, 0.05);
-  border-radius: 8px;
+  gap: var(--spacing-md, 1rem);
+  margin-top: var(--spacing-md, 1rem);
+  padding: var(--spacing-md, 1rem);
+  background: var(--bg-light, #f8f9fa);
+  border-radius: var(--radius-md, 8px);
   position: relative;
   overflow: hidden;
+  border: 1px solid var(--border-light, #eeeeee);
 }
 
 .carousel-controls::before {
@@ -414,7 +418,7 @@ export default {
   width: 100%;
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(231, 76, 60, 0.1), transparent);
-  transition: left 0.6s ease;
+  transition: left var(--transition-slow, 0.5s ease);
 }
 
 .carousel-controls:hover::before {
@@ -422,22 +426,22 @@ export default {
 }
 
 .control-btn {
-  padding: 0.75rem 1.5rem;
-  background: #e74c3c;
-  color: white;
+  padding: var(--spacing-sm, 0.5rem) var(--spacing-lg, 1.5rem);
+  background: var(--text-red, #e74c3c);
+  color: var(--text-white, #FFFFFF);
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-md, 8px);
   cursor: pointer;
-  font-size: 1rem;
+  font-size: var(--font-base, 1rem);
   font-weight: 500;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+  transition: all var(--transition-normal, 0.3s ease);
+  box-shadow: var(--shadow-red, 0 4px 12px rgba(231, 76, 60, 0.3));
   position: relative;
   overflow: hidden;
   z-index: 1;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--spacing-sm, 0.5rem);
 }
 
 .control-btn::before {
@@ -450,7 +454,7 @@ export default {
   background: rgba(255, 255, 255, 0.2);
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  transition: width 0.6s ease, height 0.6s ease;
+  transition: width var(--transition-slow, 0.5s ease), height var(--transition-slow, 0.5s ease);
   z-index: -1;
 }
 
@@ -460,22 +464,22 @@ export default {
 }
 
 .control-btn:hover:not(:disabled) {
-  background: #c0392b;
+  background: var(--text-red-dark, #c0392b);
   transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+  box-shadow: var(--shadow-red-hover, 0 6px 20px rgba(231, 76, 60, 0.4));
 }
 
 .control-btn:disabled {
-  background: #ccc;
+  background: var(--text-light, #999999);
   cursor: not-allowed;
   box-shadow: none;
   transform: none;
 }
 
 .btn-icon {
-  font-size: 1.2rem;
+  font-size: var(--font-lg, 1.125rem);
   font-weight: bold;
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-normal, 0.3s ease);
 }
 
 .control-btn:hover:not(:disabled) .btn-icon {
@@ -495,37 +499,39 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--spacing-sm, 0.5rem);
   flex: 1;
 }
 
 .image-counter {
   font-weight: 700;
-  color: #666;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
+  color: var(--text-gray, #666666);
+  font-size: var(--font-base, 1rem);
+  padding: var(--spacing-sm, 0.5rem) var(--spacing-md, 1rem);
   background: rgba(255, 255, 255, 0.9);
   border-radius: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm, 0 2px 4px rgba(0, 0, 0, 0.1));
+  transition: all var(--transition-normal, 0.3s ease);
+  border: 1px solid var(--border-light, #eeeeee);
 }
 
 .carousel-controls:hover .image-counter {
   background: rgba(255, 255, 255, 1);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-md, 0 4px 8px rgba(0, 0, 0, 0.12));
+  transform: scale(1.05);
 }
 
 /* 自动播放按钮 */
 .auto-play-btn {
-  padding: 0.5rem 1rem;
+  padding: var(--spacing-sm, 0.5rem) var(--spacing-md, 1rem);
   background: #3498db;
-  color: white;
+  color: var(--text-white, #FFFFFF);
   border: none;
   border-radius: 20px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: var(--font-sm, 0.875rem);
   font-weight: 500;
-  transition: all 0.3s ease;
+  transition: all var(--transition-normal, 0.3s ease);
   box-shadow: 0 2px 4px rgba(52, 152, 219, 0.3);
 }
 
@@ -536,25 +542,26 @@ export default {
 }
 
 .auto-play-btn.active {
-  background: #e74c3c;
-  box-shadow: 0 2px 4px rgba(231, 76, 60, 0.3);
+  background: var(--text-red, #e74c3c);
+  box-shadow: var(--shadow-red, 0 4px 12px rgba(231, 76, 60, 0.3));
 }
 
 .auto-play-btn.active:hover {
-  background: #c0392b;
-  box-shadow: 0 4px 8px rgba(231, 76, 60, 0.4);
+  background: var(--text-red-dark, #c0392b);
+  box-shadow: var(--shadow-red-hover, 0 6px 20px rgba(231, 76, 60, 0.4));
 }
 
 /* 图片缩略图列表 */
 .image-list {
   display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
+  gap: var(--spacing-md, 1rem);
+  margin-top: var(--spacing-lg, 1.5rem);
   overflow-x: auto;
-  padding: 1rem 0;
+  padding: var(--spacing-md, 1rem) 0;
   scrollbar-width: thin;
-  scrollbar-color: #e74c3c transparent;
+  scrollbar-color: var(--text-red, #e74c3c) transparent;
   position: relative;
+  animation: fadeIn 0.6s ease-out 0.4s both;
 }
 
 .image-list::after {
@@ -583,23 +590,23 @@ export default {
 
 .image-list::-webkit-scrollbar {
   height: 6px;
-  margin-top: 0.5rem;
+  margin-top: var(--spacing-sm, 0.5rem);
 }
 
 .image-list::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 3px;
+  background: var(--bg-light, #f8f9fa);
+  border-radius: var(--radius-sm, 4px);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .image-list::-webkit-scrollbar-thumb {
-  background: #e74c3c;
-  border-radius: 3px;
-  transition: all 0.3s ease;
+  background: var(--text-red, #e74c3c);
+  border-radius: var(--radius-sm, 4px);
+  transition: all var(--transition-normal, 0.3s ease);
 }
 
 .image-list::-webkit-scrollbar-thumb:hover {
-  background: #c0392b;
+  background: var(--text-red-dark, #c0392b);
   transform: scaleY(1.2);
 }
 
@@ -607,15 +614,15 @@ export default {
   width: 100px;
   height: 100px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: var(--radius-md, 8px);
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all var(--transition-normal, 0.3s ease);
   border: 2px solid transparent;
   opacity: 0.7;
   flex-shrink: 0;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-sm, 0 2px 4px rgba(0, 0, 0, 0.1));
   z-index: 0;
 }
 
@@ -628,7 +635,7 @@ export default {
   height: 100%;
   background: linear-gradient(135deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
   transform: translateX(-100%);
-  transition: transform 0.6s ease;
+  transition: transform var(--transition-slow, 0.5s ease);
   z-index: 1;
   pointer-events: none;
 }
@@ -639,16 +646,16 @@ export default {
 
 .image-thumbnail:hover {
   opacity: 1;
-  border-color: #e74c3c;
+  border-color: var(--text-red, #e74c3c);
   transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow-md, 0 4px 8px rgba(0, 0, 0, 0.12));
   z-index: 10;
 }
 
 .image-thumbnail.active {
   opacity: 1;
-  border-color: #e74c3c;
-  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+  border-color: var(--text-red, #e74c3c);
+  box-shadow: var(--shadow-red, 0 4px 12px rgba(231, 76, 60, 0.3));
   transform: scale(1.05);
   z-index: 5;
 }
@@ -667,13 +674,14 @@ export default {
 
 /* 章节标题样式 */
 .section-title {
-  color: #333;
-  margin-bottom: 1.5rem;
-  font-size: 1.3rem;
+  color: var(--text-dark, #333333);
+  margin-bottom: var(--spacing-lg, 1.5rem);
+  font-size: var(--font-xl, 1.25rem);
   font-weight: 700;
   position: relative;
-  padding-left: 1rem;
-  transition: all 0.3s ease;
+  padding-left: var(--spacing-md, 1rem);
+  transition: all var(--transition-normal, 0.3s ease);
+  animation: slideInLeft 0.6s ease-out 0.2s both;
 }
 
 .section-title::before {
@@ -685,35 +693,43 @@ export default {
   width: 4px;
   height: 70%;
   background: #3498db;
-  border-radius: 2px;
-  transition: all 0.3s ease;
+  border-radius: var(--radius-sm, 4px);
+  transition: all var(--transition-normal, 0.3s ease);
 }
 
 .section-title:hover::before {
   height: 100%;
   background: #2980b9;
+  transform: translateY(-50%) scaleX(1.2);
+}
+
+.section-title:hover {
+  color: #3498db;
+  transform: translateX(5px);
 }
 
 /* 媒体项标题 */
 .media-item-title {
-  margin: 0 0 1rem 0;
-  color: #333;
-  font-size: 1.1rem;
+  margin: 0 0 var(--spacing-md, 1rem) 0;
+  color: var(--text-dark, #333333);
+  font-size: var(--font-lg, 1.125rem);
   font-weight: 600;
-  transition: all 0.3s ease;
+  transition: all var(--transition-normal, 0.3s ease);
 }
 
 /* 视频播放样式 */
 .video-player,
 .audio-player {
-  margin-top: 2.5rem;
-  padding: 2rem;
-  background: #f9f9f9;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  margin-top: var(--spacing-xxl, 3rem);
+  padding: var(--spacing-xl, 2rem);
+  background: var(--bg-light, #f8f9fa);
+  border-radius: var(--radius-lg, 12px);
+  box-shadow: var(--shadow-md, 0 4px 8px rgba(0, 0, 0, 0.12));
+  transition: all var(--transition-normal, 0.3s ease);
   position: relative;
   overflow: hidden;
+  border: 1px solid var(--border-light, #eeeeee);
+  animation: fadeIn 0.6s ease-out 0.3s both;
 }
 
 .video-player::before,
@@ -725,7 +741,7 @@ export default {
   width: 100%;
   height: 4px;
   background: linear-gradient(90deg, #3498db, #e74c3c);
-  transition: left 0.6s ease;
+  transition: left var(--transition-slow, 0.5s ease);
 }
 
 .video-player:hover::before,
@@ -735,7 +751,7 @@ export default {
 
 .video-player:hover,
 .audio-player:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-lg, 0 8px 16px rgba(0, 0, 0, 0.15));
   transform: translateY(-2px);
 }
 
@@ -743,18 +759,19 @@ export default {
 .audio-list {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--spacing-lg, 1.5rem);
 }
 
 .video-item,
 .audio-item {
-  padding: 1.5rem;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: var(--spacing-lg, 1.5rem);
+  background: var(--bg-white, #FFFFFF);
+  border-radius: var(--radius-md, 8px);
+  box-shadow: var(--shadow-sm, 0 2px 4px rgba(0, 0, 0, 0.1));
+  transition: all var(--transition-normal, 0.3s ease);
   position: relative;
   overflow: hidden;
+  animation: fadeIn 0.6s ease-out 0.4s both;
 }
 
 .video-item::before,
@@ -768,7 +785,7 @@ export default {
   background: #3498db;
   transform: scaleY(0);
   transform-origin: top;
-  transition: transform 0.6s ease;
+  transition: transform var(--transition-slow, 0.5s ease);
 }
 
 .video-item:hover::before,
@@ -778,7 +795,7 @@ export default {
 
 .video-item:hover,
 .audio-item:hover {
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-md, 0 4px 8px rgba(0, 0, 0, 0.12));
   transform: translateY(-4px);
 }
 
@@ -790,23 +807,23 @@ export default {
 /* 视频容器 */
 .video-container {
   position: relative;
-  border-radius: 8px;
+  border-radius: var(--radius-md, 8px);
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
+  box-shadow: var(--shadow-md, 0 4px 8px rgba(0, 0, 0, 0.12));
+  transition: all var(--transition-normal, 0.3s ease);
 }
 
 .video-container:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-lg, 0 8px 16px rgba(0, 0, 0, 0.15));
   transform: scale(1.02);
 }
 
 .video-element {
   width: 100%;
   max-height: 600px;
-  border-radius: 8px;
+  border-radius: var(--radius-md, 8px);
   background: #000;
-  transition: all 0.3s ease;
+  transition: all var(--transition-normal, 0.3s ease);
 }
 
 /* 音频容器 */
@@ -814,7 +831,7 @@ export default {
   position: relative;
   width: 100%;
   max-width: 500px;
-  transition: all 0.3s ease;
+  transition: all var(--transition-normal, 0.3s ease);
 }
 
 .audio-item:hover .audio-container {
@@ -824,26 +841,28 @@ export default {
 .audio-element {
   width: 100%;
   height: 40px;
-  transition: all 0.3s ease;
+  transition: all var(--transition-normal, 0.3s ease);
 }
 
 .audio-element:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-sm, 0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 /* 无媒体提示 */
 .no-media {
   text-align: center;
-  color: #999;
+  color: var(--text-light, #999999);
   font-style: italic;
-  padding: 4rem;
-  background: #f9f9f9;
-  border-radius: 12px;
-  margin: 2rem 0;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  padding: var(--spacing-xxl, 3rem);
+  background: var(--bg-light, #f8f9fa);
+  border-radius: var(--radius-lg, 12px);
+  margin: var(--spacing-xl, 2rem) 0;
+  box-shadow: var(--shadow-md, 0 4px 8px rgba(0, 0, 0, 0.12));
+  transition: all var(--transition-normal, 0.3s ease);
   position: relative;
   overflow: hidden;
+  border: 1px solid var(--border-light, #eeeeee);
+  animation: fadeIn 0.6s ease-out;
 }
 
 .no-media::before {
@@ -853,19 +872,19 @@ export default {
   left: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, #e74c3c, #3498db);
+  background: linear-gradient(90deg, var(--text-red, #e74c3c), #3498db);
 }
 
 .no-media:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-lg, 0 8px 16px rgba(0, 0, 0, 0.15));
   transform: translateY(-2px);
-  background: #f5f5f5;
+  background: var(--bg-gray, #F5F5F5);
 }
 
 .no-media-icon {
   font-size: 3rem;
-  margin-bottom: 1rem;
-  transition: all 0.3s ease;
+  margin-bottom: var(--spacing-md, 1rem);
+  transition: all var(--transition-normal, 0.3s ease);
 }
 
 .no-media:hover .no-media-icon {
@@ -874,26 +893,26 @@ export default {
 
 .no-media p {
   margin: 0;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
+  font-size: var(--font-lg, 1.125rem);
+  transition: all var(--transition-normal, 0.3s ease);
 }
 
 .no-media:hover p {
-  color: #666;
+  color: var(--text-gray, #666666);
 }
 
 /* 响应式设计 */
 @media (max-width: 768px) {
   /* 主容器 */
   .media-player {
-    padding: 1.5rem;
-    margin: 1rem 0;
+    padding: var(--spacing-lg, 1.5rem);
+    margin: var(--spacing-md, 1rem) 0;
   }
   
   .media-player-title {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.75rem;
+    font-size: var(--font-xl, 1.25rem);
+    margin-bottom: var(--spacing-lg, 1.5rem);
+    padding-bottom: var(--spacing-sm, 0.5rem);
   }
   
   /* 轮播组件 */
@@ -903,20 +922,20 @@ export default {
   
   .carousel-controls {
     flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
+    gap: var(--spacing-md, 1rem);
+    padding: var(--spacing-md, 1rem);
   }
   
   .control-btn {
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
+    padding: var(--spacing-sm, 0.5rem) var(--spacing-md, 1rem);
+    font-size: var(--font-sm, 0.875rem);
     width: 100%;
     max-width: 200px;
   }
   
   .carousel-info {
     flex-direction: row;
-    gap: 1rem;
+    gap: var(--spacing-md, 1rem);
     width: 100%;
     justify-content: center;
   }
@@ -928,15 +947,15 @@ export default {
   }
   
   .image-list {
-    gap: 0.75rem;
-    padding: 0.75rem 0;
+    gap: var(--spacing-sm, 0.5rem);
+    padding: var(--spacing-sm, 0.5rem) 0;
   }
   
   /* 播放器组件 */
   .video-player,
   .audio-player {
-    padding: 1.5rem;
-    margin: 1.5rem 0;
+    padding: var(--spacing-lg, 1.5rem);
+    margin: var(--spacing-lg, 1.5rem) 0;
   }
   
   .video-element {
@@ -954,27 +973,27 @@ export default {
   /* 媒体项 */
   .video-item,
   .audio-item {
-    padding: 1.25rem;
+    padding: var(--spacing-lg, 1.5rem);
   }
   
   .media-item-title {
-    font-size: 1rem;
-    margin-bottom: 0.75rem;
+    font-size: var(--font-base, 1rem);
+    margin-bottom: var(--spacing-sm, 0.5rem);
   }
   
   /* 无媒体提示 */
   .no-media {
-    padding: 3rem;
-    margin: 1.5rem 0;
+    padding: var(--spacing-xl, 2rem);
+    margin: var(--spacing-lg, 1.5rem) 0;
   }
   
   .no-media-icon {
     font-size: 2.5rem;
-    margin-bottom: 0.75rem;
+    margin-bottom: var(--spacing-sm, 0.5rem);
   }
   
   .no-media p {
-    font-size: 1rem;
+    font-size: var(--font-base, 1rem);
   }
 }
 

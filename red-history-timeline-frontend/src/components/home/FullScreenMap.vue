@@ -202,29 +202,61 @@ export default {
   height: 100vh;
   position: relative;
   transition: all 0.3s ease;
+  animation: mapFadeIn 0.6s ease-out;
 }
 
 /* 地图标记样式（通过CSS变量控制，可在JS中动态修改） */
 :deep(.amap-marker) {
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center bottom;
 }
 
 :deep(.amap-marker:hover) {
   transform: scale(1.1);
   z-index: 1000;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+/* 地图标记点击缩放动画 */
+:deep(.amap-marker:active) {
+  transform: scale(0.95);
+  transition: all 0.1s ease;
+}
+
+/* 地图标记选中状态 */
+:deep(.amap-marker.active) {
+  transform: scale(1.2);
+  filter: drop-shadow(0 6px 12px rgba(231, 76, 60, 0.4));
 }
 
 :deep(.amap-info-window) {
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   border: none;
   overflow: hidden;
+  transition: all 0.3s ease;
+  transform-origin: center bottom;
+}
+
+:deep(.amap-info-window:hover) {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
 }
 
 :deep(.amap-info-content) {
-  padding: 1rem;
-  font-size: 0.9rem;
-  line-height: 1.4;
+  padding: 1.25rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  background: #ffffff;
+  border-radius: 12px;
+}
+
+/* 信息窗口标题样式 */
+:deep(.amap-info-content h3) {
+  margin: 0 0 0.5rem 0;
+  color: #e74c3c;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.3;
 }
 
 /* 响应式设计 */
@@ -234,13 +266,23 @@ export default {
   }
   
   :deep(.amap-info-content) {
-    padding: 0.75rem;
-    font-size: 0.85rem;
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+  
+  :deep(.amap-info-content h3) {
+    font-size: 1rem;
   }
   
   /* 手机端地图标记缩放效果增强 */
   :deep(.amap-marker:hover) {
     transform: scale(1.2);
+  }
+  
+  /* 手机端信息窗口适配 */
+  :deep(.amap-info-window) {
+    max-width: 90vw;
+    min-width: 250px;
   }
 }
 
@@ -249,12 +291,74 @@ export default {
   .full-screen-map {
     height: 80vh;
   }
+  
+  :deep(.amap-info-content) {
+    padding: 1.1rem;
+    font-size: 0.92rem;
+  }
 }
 
 /* 小屏幕笔记本适配 */
 @media (min-width: 1025px) and (max-width: 1440px) {
   .full-screen-map {
     height: 90vh;
+  }
+}
+
+/* 大屏设备适配 */
+@media (min-width: 1441px) {
+  .full-screen-map {
+    height: 95vh;
+  }
+  
+  :deep(.amap-info-content) {
+    padding: 1.5rem;
+    font-size: 1rem;
+  }
+  
+  :deep(.amap-info-content h3) {
+    font-size: 1.2rem;
+  }
+}
+
+/* 动画效果 */
+@keyframes mapFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 地图加载动画 */
+.full-screen-map::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border: 3px solid rgba(231, 76, 60, 0.3);
+  border-radius: 50%;
+  border-top-color: #e74c3c;
+  animation: mapLoading 1s ease-in-out infinite;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.full-screen-map.loading::before {
+  opacity: 1;
+}
+
+@keyframes mapLoading {
+  to {
+    transform: rotate(360deg);
   }
 }
 </style>
