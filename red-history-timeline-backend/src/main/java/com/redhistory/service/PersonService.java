@@ -24,6 +24,7 @@ package com.redhistory.service;
 import com.redhistory.mapper.PersonMapper;
 import com.redhistory.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,6 +39,7 @@ public class PersonService {
      * 根据ID获取人物详情
      * 功能要求：根据人物ID查询完整人物信息
      */
+    @Cacheable(value = "person", key = "#id")
     public Person getPersonById(String id) {
         return personMapper.selectPersonById(id);
     }
@@ -48,6 +50,7 @@ public class PersonService {
      * - 通过关联表查询事件相关的人物
      * - 返回人物列表
      */
+    @Cacheable(value = "personsByEvent", key = "#eventId")
     public List<Person> getPersonsByEvent(String eventId) {
         return personMapper.selectPersonsByEvent(eventId);
     }

@@ -34,6 +34,15 @@ import java.util.Map;
 public class GlobalExceptionHandler {
     
     /**
+     * 处理运行时异常（如媒体资源不存在）
+     * 功能要求：处理RuntimeException类型的异常
+     */
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Map<String, Object>> handleRuntimeException(RuntimeException e) {
+        return ResponseEntity.ok(ResponseUtil.error(e.getMessage()));
+    }
+    
+    /**
      * 处理数据库操作异常
      * 功能要求：处理SQL执行过程中的异常
      */

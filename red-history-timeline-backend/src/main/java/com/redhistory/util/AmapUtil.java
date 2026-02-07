@@ -46,7 +46,8 @@ public class AmapUtil {
     @Autowired(required = false)
     private AmapConfig amapConfig;
     
-    private final RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    private RestTemplate restTemplate;
     
     /**
      * 地理编码：根据地址获取坐标
