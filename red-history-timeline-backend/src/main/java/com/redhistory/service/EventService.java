@@ -31,6 +31,7 @@ package com.redhistory.service;
 import com.redhistory.mapper.EventMapper;
 import com.redhistory.model.Event;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -53,6 +54,7 @@ public class EventService {
      * - 可以优化筛选逻辑
      * - 可以添加缓存
      */
+    @Cacheable(value = "events", key = "#startDate + '_' + #endDate + '_' + #locationId")
     public List<Event> getEventList(String startDate, String endDate, String locationId) {
         // 功能要求：必须调用Mapper层
         // 修改限制：禁止在Service中编写SQL
@@ -69,6 +71,7 @@ public class EventService {
      * - 禁止修改Mapper调用方式
      * - 可以添加关联查询（如关联人物、地点、媒体）
      */
+    @Cacheable(value = "event", key = "#id")
     public Event getEventById(String id) {
         // 功能要求：必须调用Mapper层
         // 修改限制：禁止直接查询数据库
@@ -84,6 +87,7 @@ public class EventService {
      * 修改限制：
      * - 禁止修改Mapper调用方式
      */
+    @Cacheable(value = "eventsByLocation", key = "#locationId")
     public List<Event> getEventsByLocation(String locationId) {
         // 功能要求：必须调用Mapper层
         return eventMapper.selectEventsByLocation(locationId);

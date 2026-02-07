@@ -28,6 +28,7 @@ import com.redhistory.mapper.LocationMapper;
 import com.redhistory.model.Location;
 import com.redhistory.util.AmapUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,6 +46,7 @@ public class LocationService {
      * 获取所有地点列表（包含坐标）
      * 功能要求：返回所有地点数据，用于首页地图标记
      */
+    @Cacheable(value = "locations")
     public List<Location> getAllLocations() {
         return locationMapper.selectAllLocations();
     }
@@ -59,6 +61,7 @@ public class LocationService {
      * - 禁止修改Mapper调用方式
      * - 坐标解析逻辑可以优化
      */
+    @Cacheable(value = "location", key = "#id")
     public Location getLocationById(String id) {
         Location location = locationMapper.selectLocationById(id);
         
@@ -83,6 +86,7 @@ public class LocationService {
      * 根据事件ID获取关联地点列表
      * 功能要求：通过事件表查询事件发生地点
      */
+    @Cacheable(value = "locationsByEvent", key = "#eventId")
     public List<Location> getLocationsByEvent(String eventId) {
         return locationMapper.selectLocationsByEvent(eventId);
     }

@@ -46,6 +46,7 @@ public class MediaService {
      * - 禁止修改Mapper调用方式
      * - 可以优化筛选逻辑
      */
+    @Cacheable(value = "mediaByEvent", key = "#eventId + '_' + #type")
     public List<Media> getMediaByEvent(String eventId, String type) {
         // 功能要求：必须调用Mapper层
         // 修改限制：禁止在Service中编写SQL
