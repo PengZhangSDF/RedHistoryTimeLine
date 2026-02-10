@@ -42,8 +42,15 @@
             :src="currentImage.url" 
             :alt="currentImage.title || '事件图片'"
             class="carousel-image"
+            @load="handleImageLoad"
+            @error="handleImageError"
           />
         </transition>
+        <!-- 图片加载状态 -->
+        <div v-if="imageLoading" class="image-loading">
+          <div class="loading-spinner"></div>
+          <p>加载中...</p>
+        </div>
         <!-- 图片标题 -->
         <div class="carousel-caption" v-if="currentImage.title">
           {{ currentImage.title }}
@@ -85,7 +92,13 @@
         <div v-for="(video, index) in videos" :key="video.id" class="video-item" :data-index="index">
           <h4 v-if="video.title" class="media-item-title">{{ video.title }}</h4>
           <div class="video-container">
-            <video :src="video.url" controls class="video-element"></video>
+            <video 
+              :src="video.url" 
+              controls 
+              class="video-element"
+              @play="handleVideoPlay"
+              @pause="handleVideoPause"
+            ></video>
           </div>
         </div>
       </div>
@@ -98,7 +111,13 @@
         <div v-for="(audio, index) in audios" :key="audio.id" class="audio-item" :data-index="index">
           <h4 v-if="audio.title" class="media-item-title">{{ audio.title }}</h4>
           <div class="audio-container">
-            <audio :src="audio.url" controls class="audio-element"></audio>
+            <audio 
+              :src="audio.url" 
+              controls 
+              class="audio-element"
+              @play="handleAudioPlay"
+              @pause="handleAudioPause"
+            ></audio>
           </div>
         </div>
       </div>
@@ -140,7 +159,10 @@ export default {
     return {
       currentImageIndex: 0, // 当前显示的图片索引
       autoPlay: false, // 是否自动播放
-      autoPlayTimer: null // 自动播放定时器
+      autoPlayTimer: null, // 自动播放定时器
+      playingVideo: null, // 当前播放的视频元素
+      playingAudio: null, // 当前播放的音频元素
+      imageLoading: true // 图片加载状态
     };
   },
   computed: {
@@ -250,6 +272,97 @@ export default {
      * 功能要求：根据索引跳转到指定图片
      */
     goToImage(index) {
+      this.currentImageIndex = index;
+      // 重置自动播放定时器
+      if (this.autoPlay) {
+        this.startAutoPlay();
+      }
+    },
+    
+    /**
+     * 处理视频播放
+     * 功能要求：确保同一时间只有一个视频在播放
+     * @param {Event} event - 播放事件
+     */
+    handleVideoPlay(event) {
+      const videoElement = event.target;
+      // 暂停其他正在播放的视频
+      if (this.playingVideo && this.playingVideo !== videoElement) {
+        this.playingVideo.pause();
+      }
+      // 暂停正在播放的音频
+      if (this.playingAudio) {
+        this.playingAudio.pause();
+      }
+      // 更新当前播放的视频
+      this.playingVideo = videoElement;
+    },
+    
+    /**
+     * 处理视频暂停
+     * 功能要求：更新当前播放的视频状态
+     * @param {Event} event - 暂停事件
+     */
+    handleVideoPause(event) {
+      const videoElement = event.target;
+      if (this.playingVideo === videoElement) {
+        this.playingVideo = null;
+      }
+    },
+    
+    /**
+     * 处理音频播放
+     * 功能要求：确保同一时间只有一个音频在播放
+     * @param {Event} event - 播放事件
+     */
+    handleAudioPlay(event) {
+      const audioElement = event.target;
+      // 暂停其他正在播放的音频
+      if (this.playingAudio && this.playingAudio !== audioElement) {
+        this.playingAudio.pause();
+      }
+      // 暂停正在播放的视频
+      if (this.playingVideo) {
+        this.playingVideo.pause();
+      }
+      // 更新当前播放的音频
+      this.playingAudio = audioElement;
+    },
+    
+    /**
+     * 处理音频暂停
+     * 功能要求：更新当前播放的音频状态
+     * @param {Event} event - 暂停事件
+     */
+    handleAudioPause(event) {
+      const audioElement = event.target;
+      if (this.playingAudio === audioElement) {
+        this.playingAudio = null;
+      }
+    },
+    
+    /**
+     * 处理图片加载完成
+     * 功能要求：图片加载完成后隐藏加载状态
+     */
+    handleImageLoad() {
+      this.imageLoading = false;
+    },
+    
+    /**
+     * 处理图片加载失败
+     * 功能要求：图片加载失败后隐藏加载状态
+     */
+    handleImageError() {
+      this.imageLoading = false;
+    },
+    
+    /**
+     * 跳转到指定图片时重置加载状态
+     * 功能要求：确保每次切换图片时都显示加载状态
+     */
+    goToImage(index) {
+      this.imageLoading = true;
       this.currentImageIndex = index;
       // 重置自动播放定时器
       if (this.autoPlay) {
@@ -373,6 +486,43 @@ export default {
   object-fit: contain;
   display: block;
   transition: all var(--transition-normal, 0.3s ease);
+}
+
+/* 图片加载状态 */
+.image-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  color: white;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.image-loading p {
+  margin: 0;
+  font-size: 1.1rem;
 }
 
 /* 图片标题 */
