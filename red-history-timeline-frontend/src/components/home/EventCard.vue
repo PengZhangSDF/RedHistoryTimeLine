@@ -91,7 +91,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 // ========== 事件卡片样式（滑出效果） ==========
 
 .event-card {

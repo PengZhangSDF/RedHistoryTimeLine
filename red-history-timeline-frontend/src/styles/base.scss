@@ -27,9 +27,10 @@
 
 // 蓝紫渐变主题（导航栏）
 $primary-blue: #4A6CF7;
-$primary-blue-rgb: 74, 108, 247;
+// 使用 rgb() 定义为「颜色」而非数字列表，便于与 rgba() 组合
+$primary-blue-rgb: rgb(74, 108, 247);
 $primary-purple: #7B61FF;
-$primary-purple-rgb: 123, 97, 255;
+$primary-purple-rgb: rgb(123, 97, 255);
 
 // 蓝紫渐变
 $gradient-nav: linear-gradient(90deg, $primary-blue 0%, $primary-purple 100%);
@@ -37,30 +38,30 @@ $gradient-button: linear-gradient(135deg, $primary-blue 0%, $primary-purple 100%
 
 // 时间轴节点颜色
 $node-orange: #FF9500;
-$node-orange-rgb: 255, 149, 0;
+$node-orange-rgb: rgb(255, 149, 0);
 $node-red: #E74C3C;
-$node-red-rgb: 231, 76, 60;
+$node-red-rgb: rgb(231, 76, 60);
 $node-white: #FFFFFF;
 
 // 主色调（中国红）
 $primary-red: #e74c3c;
-$primary-red-rgb: 231, 76, 60;
+$primary-red-rgb: rgb(231, 76, 60);
 
 // 深色系
 $dark-red: #c0392b;
-$dark-red-rgb: 192, 57, 43;
+$dark-red-rgb: rgb(192, 57, 43);
 $deep-red: #a93226;
-$deep-red-rgb: 169, 50, 38;
+$deep-red-rgb: rgb(169, 50, 38);
 $crimson-red: #922b21;
-$crimson-red-rgb: 146, 43, 33;
+$crimson-red-rgb: rgb(146, 43, 33);
 
 // 浅色系
 $light-red: #ec7063;
-$light-red-rgb: 236, 112, 99;
+$light-red-rgb: rgb(236, 112, 99);
 $pale-red: #f1948a;
-$pale-red-rgb: 241, 148, 138;
+$pale-red-rgb: rgb(241, 148, 138);
 $soft-red: #fadbd8;
-$soft-red-rgb: 250, 219, 216;
+$soft-red-rgb: rgb(250, 219, 216);
 
 // 渐变色
 $gradient-red-primary: linear-gradient(135deg, $primary-red 0%, $dark-red 100%);

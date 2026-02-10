@@ -35,7 +35,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/red_history?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
-    password: your_password  # 请修改为实际数据库密码
+    password: 12345555  # 请修改为实际数据库密码
 
 # MyBatis配置
 mybatis:
@@ -50,7 +50,7 @@ mybatis:
 # 高德地图配置（可选）
 # 如果后端不需要调用高德API，可以删除此配置
 amap:
-  key: YOUR_AMAP_API_KEY  # 请替换为实际的高德地图API Key
+  key: 8b32b5bec8feb5ffee48cb4cf2941ce7  # 请替换为实际的高德地图API Key
 
 # 日志配置
 logging:

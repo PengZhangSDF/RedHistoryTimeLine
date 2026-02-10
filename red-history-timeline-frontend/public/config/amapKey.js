@@ -22,7 +22,7 @@
  * - 被 AmapLocation.vue 间接引用（通过amapUtils）
  */
 export default {
-  key: 'YOUR_AMAP_API_KEY', // 请替换为实际的高德地图API Key
+  key: '8b32b5bec8feb5ffee48cb4cf2941ce7', // 请替换为实际的高德地图API Key
   version: '2.0',
   plugins: ['AMap.Marker', 'AMap.InfoWindow', 'AMap.Geocoder']
 };

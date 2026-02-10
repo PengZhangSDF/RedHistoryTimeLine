@@ -148,7 +148,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 // ========== 水平时间轴样式 ==========
 
 .time-axis {
