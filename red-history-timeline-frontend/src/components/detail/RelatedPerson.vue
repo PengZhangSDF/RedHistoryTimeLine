@@ -50,6 +50,26 @@
       </div>
     </div>
     <p v-else class="no-person">暂无相关人物</p>
+    
+    <!-- 人物详情弹窗 -->
+    <div v-if="showDetailDialog" class="person-detail-dialog" @click="closeDetailDialog">
+      <div class="person-detail-content" @click.stop>
+        <div class="dialog-header">
+          <h3>{{ selectedPerson.name }}</h3>
+          <button class="close-btn" @click="closeDetailDialog">&times;</button>
+        </div>
+        <div class="dialog-body">
+          <p v-if="selectedPerson.role" class="detail-role"><strong>角色：</strong>{{ selectedPerson.role }}</p>
+          <p v-if="selectedPerson.description" class="detail-desc"><strong>简介：</strong>{{ selectedPerson.description }}</p>
+          <p v-if="selectedPerson.birthDate" class="detail-birth"><strong>出生日期：</strong>{{ selectedPerson.birthDate }}</p>
+          <p v-if="selectedPerson.deathDate" class="detail-death"><strong>逝世日期：</strong>{{ selectedPerson.deathDate }}</p>
+          <p v-if="selectedPerson.achievements" class="detail-achievements"><strong>主要成就：</strong>{{ selectedPerson.achievements }}</p>
+        </div>
+        <div class="dialog-footer">
+          <button class="close-button" @click="closeDetailDialog">关闭</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -71,7 +91,9 @@ export default {
     return {
       persons: [],
       loading: false,
-      error: null
+      error: null,
+      showDetailDialog: false,
+      selectedPerson: {}
     };
   },
   mounted() {
@@ -126,21 +148,29 @@ export default {
      * 修改限制：
      * - 可以修改展示方式（弹窗/跳转/展开）
      * - 如需跳转到人物详情页，需先创建路由和页面
-     * - 当前实现为简单alert，可以优化为弹窗组件
+     * - 当前实现为弹窗组件
      */
     async showPersonDetail(personId) {
       try {
         // 获取人物详情
         const response = await getPersonDetail(personId);
         if (response.code === 200) {
-          const person = response.data;
-          // TODO: 可以优化为弹窗组件或跳转到人物详情页
-          alert(`人物详情：\n姓名：${person.name}\n角色：${person.role}\n简介：${person.description}`);
+          this.selectedPerson = response.data;
+          this.showDetailDialog = true;
         }
       } catch (error) {
         console.error('获取人物详情失败:', error);
         alert('获取人物详情失败');
       }
+    },
+    
+    /**
+     * 关闭人物详情弹窗
+     * 功能要求：关闭弹窗并重置选中人物
+     */
+    closeDetailDialog() {
+      this.showDetailDialog = false;
+      this.selectedPerson = {};
     }
   }
 };
@@ -152,6 +182,7 @@ export default {
   padding: 1.5rem;
   background: white;
   border-radius: 8px;
+  position: relative;
 }
 
 .related-person h2 {
@@ -216,6 +247,160 @@ export default {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* 人物详情弹窗样式 */
+.person-detail-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.person-detail-content {
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.3s ease;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #eee;
+  background: #f9f9f9;
+  border-radius: 12px 12px 0 0;
+}
+
+.dialog-header h3 {
+  margin: 0;
+  color: #e74c3c;
+  font-size: 1.3rem;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+
+.close-btn:hover {
+  background: #eee;
+  color: #333;
+}
+
+.dialog-body {
+  padding: 2rem;
+  line-height: 1.6;
+}
+
+.detail-role,
+.detail-desc,
+.detail-birth,
+.detail-death,
+.detail-achievements {
+  margin: 1rem 0;
+  color: #555;
+}
+
+.detail-desc {
+  white-space: pre-line;
+}
+
+.dialog-footer {
+  padding: 1.5rem;
+  border-top: 1px solid #eee;
+  background: #f9f9f9;
+  border-radius: 0 0 12px 12px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close-button {
+  padding: 0.75rem 1.5rem;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.close-button:hover {
+  background: #c0392b;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .person-detail-content {
+    width: 95%;
+    margin: 1rem;
+  }
+  
+  .dialog-header,
+  .dialog-body,
+  .dialog-footer {
+    padding: 1rem;
+  }
+  
+  .dialog-header h3 {
+    font-size: 1.1rem;
+  }
+  
+  .detail-role,
+  .detail-desc,
+  .detail-birth,
+  .detail-death,
+  .detail-achievements {
+    font-size: 0.9rem;
+  }
 }
 </style>
 

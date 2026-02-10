@@ -41,7 +41,7 @@ import AMapLoader from '@amap/amap-jsapi-loader';
 
 // 高德地图配置（从环境变量或配置文件获取）
 const amapConfig = {
-  key: import.meta.env.VITE_AMAP_KEY || 'YOUR_AMAP_API_KEY',
+  key: import.meta.env.VITE_AMAP_KEY || window.amapKey?.key || 'YOUR_AMAP_API_KEY',
   version: '2.0',
   plugins: ['AMap.Marker', 'AMap.InfoWindow', 'AMap.Geocoder']
 };
