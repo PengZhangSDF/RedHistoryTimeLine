@@ -92,13 +92,26 @@
         <div v-for="(video, index) in videos" :key="video.id" class="video-item" :data-index="index">
           <h4 v-if="video.title" class="media-item-title">{{ video.title }}</h4>
           <div class="video-container">
-            <video 
-              :src="video.url" 
-              controls 
-              class="video-element"
-              @play="handleVideoPlay"
-              @pause="handleVideoPause"
-            ></video>
+            <!-- 如果是 B 站链接，用 iframe 嵌入播放器；否则用原生 video -->
+            <template v-if="isBilibili(video.url)">
+              <iframe
+                class="video-element bilibili-iframe"
+                :src="toBilibiliEmbed(video.url)"
+                frameborder="0"
+                allowfullscreen
+                scrolling="no"
+                sandbox="allow-scripts allow-same-origin allow-presentation"
+              ></iframe>
+            </template>
+            <template v-else>
+              <video 
+                :src="video.url" 
+                controls 
+                class="video-element"
+                @play="handleVideoPlay"
+                @pause="handleVideoPause"
+              ></video>
+            </template>
           </div>
         </div>
       </div>
@@ -193,6 +206,24 @@ export default {
     this.clearAutoPlayTimer();
   },
   methods: {
+    /**
+     * 判断是否为 B 站视频链接
+     */
+    isBilibili(url) {
+      return typeof url === 'string' && url.includes('bilibili.com/video/');
+    },
+
+    /**
+     * 将普通 B 站链接转换为可嵌入的播放器地址
+     * 例如：https://www.bilibili.com/video/BVxxxx → https://player.bilibili.com/player.html?bvid=BVxxxx&page=1
+     */
+    toBilibiliEmbed(url) {
+      if (!this.isBilibili(url)) return url;
+      const match = url.match(/\/video\/(BV[0-9A-Za-z]+)/);
+      const bvid = match ? match[1] : '';
+      if (!bvid) return url;
+      return `https://player.bilibili.com/player.html?bvid=${bvid}&page=1&high_quality=1&danmaku=0`;
+    },
     /**
      * 初始化自动播放
      * 功能要求：如果有多个图片，默认开启自动播放
@@ -458,7 +489,8 @@ export default {
 .carousel-wrapper {
   position: relative;
   width: 100%;
-  height: 500px;
+  /* 高度扩大一倍，突出多媒体视觉区域 */
+  height: 1000px;
   overflow: hidden;
   border-radius: var(--radius-lg, 12px);
   background: #000;
@@ -961,6 +993,8 @@ export default {
   overflow: hidden;
   box-shadow: var(--shadow-md, 0 4px 8px rgba(0, 0, 0, 0.12));
   transition: all var(--transition-normal, 0.3s ease);
+  /* 桌面端固定高度，让视频真正放大显示 */
+  height: 600px;
 }
 
 .video-container:hover {
@@ -970,10 +1004,19 @@ export default {
 
 .video-element {
   width: 100%;
-  max-height: 600px;
+  /* 让视频填满容器高度，真正变大 */
+  height: 100%;
+  max-height: none;
   border-radius: var(--radius-md, 8px);
   background: #000;
   transition: all var(--transition-normal, 0.3s ease);
+}
+
+/* B站 iframe 播放器占满容器 */
+.bilibili-iframe {
+  border: none;
+  width: 100%;
+  height: 100%;
 }
 
 /* 音频容器 */
@@ -1067,7 +1110,7 @@ export default {
   
   /* 轮播组件 */
   .carousel-wrapper {
-    height: 300px;
+    height: 600px;
   }
   
   .carousel-controls {
@@ -1108,8 +1151,8 @@ export default {
     margin: var(--spacing-lg, 1.5rem) 0;
   }
   
-  .video-element {
-    max-height: 400px;
+  .video-container {
+    height: 300px;
   }
   
   .audio-container {
@@ -1150,11 +1193,11 @@ export default {
 /* 平板设备响应式设计 */
 @media (min-width: 769px) and (max-width: 1024px) {
   .carousel-wrapper {
-    height: 400px;
+    height: 800px;
   }
   
-  .video-element {
-    max-height: 500px;
+  .video-container {
+    height: 450px;
   }
   
   .audio-container {
@@ -1165,7 +1208,7 @@ export default {
 /* 大屏幕设备响应式设计 */
 @media (min-width: 1025px) {
   .carousel-wrapper {
-    height: 550px;
+    height: 1100px;
   }
   
   .video-element {

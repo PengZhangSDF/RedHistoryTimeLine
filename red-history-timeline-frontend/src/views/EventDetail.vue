@@ -112,6 +112,7 @@ import LinkJump from '@/components/common/LinkJump.vue';
 import { getEventDetail } from '@/api/eventApi';
 import { getLocationDetail } from '@/api/locationApi';
 import { getMediaByEvent } from '@/api/mediaApi';
+import { getMaterialsByEvent } from '@/api/materialApi';
 
 export default {
   name: 'EventDetailPage',
@@ -165,9 +166,10 @@ export default {
         // 并行加载所有数据
         // 功能要求：必须调用这些API
         // 修改限制：禁止修改API调用方式
-        const [eventResponse, mediaResponse] = await Promise.all([
+        const [eventResponse, mediaResponse, materialsResponse] = await Promise.all([
           getEventDetail(eventId),
-          getMediaByEvent(eventId)
+          getMediaByEvent(eventId),
+          getMaterialsByEvent(eventId)
         ]);
 
         // 处理事件数据
@@ -187,8 +189,20 @@ export default {
             }
           }
           
-          // 处理相关资料
-          relatedLinks.value = event.value.relatedMaterials || [];
+          // 处理相关资料：
+          // 1) 优先使用后端 materials 表返回的数据
+          // 2) 如果没有，则退回事件对象中的 relatedMaterials 字段（兼容旧数据）
+          if (materialsResponse && materialsResponse.code === 200) {
+            const materials = materialsResponse.data || [];
+            relatedLinks.value = materials.map((m) => ({
+              id: m.id,
+              title: m.title,
+              url: m.url,
+              type: m.type || '其他'
+            }));
+          } else {
+            relatedLinks.value = event.value.relatedMaterials || [];
+          }
         } else {
           error.value = eventResponse.msg || '加载事件失败';
         }

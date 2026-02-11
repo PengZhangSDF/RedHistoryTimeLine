@@ -104,6 +104,31 @@ export default {
       const coordinates = getCoordinates();
       if (!coordinates || coordinates.length !== 2) {
         console.warn('地点坐标无效，无法显示地图');
+        const container = document.getElementById('detail-map');
+        if (container) {
+          container.innerHTML = `
+            <div style="display: flex; align-items: center; justify-content: center; height: 100%; 
+                        background: #f5f5f5; color: #666; font-size: 14px; text-align: center;">
+              地点坐标无效，无法显示地图
+            </div>
+          `;
+        }
+        return;
+      }
+
+      // 验证坐标是否为有效数字
+      if (typeof coordinates[0] !== 'number' || typeof coordinates[1] !== 'number' ||
+          isNaN(coordinates[0]) || isNaN(coordinates[1])) {
+        console.warn('地点坐标格式错误:', coordinates);
+        const container = document.getElementById('detail-map');
+        if (container) {
+          container.innerHTML = `
+            <div style="display: flex; align-items: center; justify-content: center; height: 100%; 
+                        background: #f5f5f5; color: #666; font-size: 14px; text-align: center;">
+              地点坐标格式错误
+            </div>
+          `;
+        }
         return;
       }
 
@@ -129,6 +154,18 @@ export default {
         );
       } catch (error) {
         console.error('地图初始化失败:', error);
+        const container = document.getElementById('detail-map');
+        if (container) {
+          container.innerHTML = `
+            <div style="display: flex; align-items: center; justify-content: center; height: 100%; 
+                        background: #f5f5f5; color: #e74c3c; font-size: 14px; text-align: center; padding: 20px;">
+              <div>
+                <p style="margin: 0 0 10px 0; font-weight: bold;">地图加载失败</p>
+                <p style="margin: 0; font-size: 12px; color: #666;">${error.message || '请检查网络连接或刷新页面重试'}</p>
+              </div>
+            </div>
+          `;
+        }
       }
     };
 

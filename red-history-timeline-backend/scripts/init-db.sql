@@ -72,6 +72,17 @@ CREATE TABLE IF NOT EXISTS media (
     INDEX idx_type (type) COMMENT '类型索引'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='媒体资源表';
 
+-- 事件相关资料表（外部权威链接等）
+CREATE TABLE IF NOT EXISTS materials (
+    id VARCHAR(50) PRIMARY KEY COMMENT '资料唯一标识',
+    event_id VARCHAR(50) NOT NULL COMMENT '关联事件ID',
+    title VARCHAR(300) NOT NULL COMMENT '资料标题',
+    url VARCHAR(500) NOT NULL COMMENT '资料链接',
+    type VARCHAR(50) NOT NULL COMMENT '资料类型（历史文献/新闻报道/官方网站/百科条目等）',
+    INDEX idx_event (event_id),
+    CONSTRAINT fk_material_event FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='事件相关资料表';
+
 -- 事件-人物关联表
 CREATE TABLE IF NOT EXISTS event_person (
     event_id VARCHAR(50) COMMENT '事件ID',

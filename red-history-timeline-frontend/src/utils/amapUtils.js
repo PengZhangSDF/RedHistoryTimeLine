@@ -62,19 +62,39 @@ const amapConfig = {
  * - 禁止修改返回值的结构
  */
 export async function initMap(containerId, options = {}) {
-  const AMap = await AMapLoader.load({
-    key: amapConfig.key,
-    version: amapConfig.version,
-    plugins: amapConfig.plugins
-  });
-  
-  const map = new AMap.Map(containerId, {
-    zoom: 10,
-    center: [116.397428, 39.90923], // 默认中心点（北京）
-    ...options
-  });
-  
-  return { map, AMap };
+  // 检查容器是否存在
+  const container = document.getElementById(containerId);
+  if (!container) {
+    throw new Error(`地图容器不存在: #${containerId}`);
+  }
+
+  // 检查 API Key 是否有效
+  if (!amapConfig.key || amapConfig.key === 'YOUR_AMAP_API_KEY') {
+    console.error('高德地图 API Key 未配置或无效，请检查 index.html 或环境变量');
+    throw new Error('高德地图 API Key 未配置');
+  }
+
+  try {
+    const AMap = await AMapLoader.load({
+      key: amapConfig.key,
+      version: amapConfig.version,
+      plugins: amapConfig.plugins
+    });
+    
+    const map = new AMap.Map(containerId, {
+      zoom: 10,
+      center: [116.397428, 39.90923], // 默认中心点（北京）
+      ...options
+    });
+    
+    return { map, AMap };
+  } catch (error) {
+    console.error('地图初始化失败:', error);
+    if (error.message && error.message.includes('key')) {
+      throw new Error('高德地图 API Key 无效或已过期，请检查配置');
+    }
+    throw error;
+  }
 }
 
 /**
@@ -95,10 +115,12 @@ export async function initMap(containerId, options = {}) {
  * - 禁止修改标记的创建方式
  * - 如需修改标记样式，需团队讨论
  */
-export function addMarker(map, AMap, position, title, onClick) {
+export function addMarker(map, AMap, position, title, onClick, options = {}) {
   const marker = new AMap.Marker({
     position: position,
-    title: title
+    title: title,
+    // 允许可选扩展：自定义内容/偏移/zIndex等（不改变“创建Marker”的核心逻辑）
+    ...(options || {})
   });
   
   if (onClick) {

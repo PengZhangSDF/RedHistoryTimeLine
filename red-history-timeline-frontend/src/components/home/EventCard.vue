@@ -18,7 +18,7 @@
   - 不直接调用API接口
   - 接收父组件传入的event数据
   - 事件数据格式：{ id, title, date, category, ... }
-  - 图片路径：/assets/images/{eventId}.jpg
+  - 图片路径：/assets/images/{eventId}.png
   
   ========== 函数关联要求 ==========
   - 被 Home.vue 引用（首页事件卡片列表）
@@ -28,7 +28,19 @@
 -->
 <template>
   <div class="event-card" @click="goToDetail">
-    <img :src="imageUrl" :alt="event.title" class="card-image" />
+    <div class="card-image-wrapper">
+      <img 
+        :src="imageUrl" 
+        :alt="event.title" 
+        class="card-image"
+        @error="handleImageError"
+        @load="handleImageLoad"
+      />
+      <div v-if="imageError" class="image-placeholder">
+        <span class="placeholder-icon">📷</span>
+        <span class="placeholder-text">图片加载失败</span>
+      </div>
+    </div>
     <div class="card-content">
       <h3>{{ event.title }}</h3>
       <p class="card-date">{{ formatDate(event.date) }}</p>
@@ -54,16 +66,21 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      imageError: false
+    };
+  },
   computed: {
     /**
      * 获取事件图片URL
      * 功能要求：根据事件ID生成图片路径
-     * 路径规则：/assets/images/{eventId}.jpg
+     * 路径规则：/assets/images/{eventId}.png
      * 
      * 修改限制：禁止修改路径规则
      */
     imageUrl() {
-      return `/assets/images/${this.event.id}.jpg`;
+      return `/assets/images/${this.event.id}.png`;
     }
   },
   methods: {
@@ -74,6 +91,22 @@ export default {
      */
     formatDate(dateString) {
       return formatDateChinese(dateString);
+    },
+    
+    /**
+     * 处理图片加载错误
+     * 功能要求：当图片加载失败时，显示占位符
+     */
+    handleImageError() {
+      this.imageError = true;
+    },
+    
+    /**
+     * 处理图片加载成功
+     * 功能要求：确保图片显示
+     */
+    handleImageLoad() {
+      this.imageError = false;
     },
     
     /**
@@ -95,22 +128,62 @@ export default {
 // ========== 事件卡片样式（滑出效果） ==========
 
 .event-card {
-  position: fixed;
-  top: 50%;
-  right: -400px;
-  transform: translateY(-50%);
-  width: 400px;
-  max-height: 80vh;
   background: var(--bg-white, #FFFFFF);
-  border-radius: var(--radius-lg, 12px) 0 0 var(--radius-lg, 12px);
+  border-radius: var(--radius-lg, 12px);
   box-shadow: var(--shadow-card, 0 2px 8px rgba(0, 0, 0, 0.1));
   border: 1px solid var(--border-light, #eeeeee);
-  border-right: none;
-  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 1000;
+  transition: all 0.3s ease;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-card, 0 4px 16px rgba(0, 0, 0, 0.15));
+  }
+}
+
+.card-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: #f5f5f5;
+  
+  .card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .image-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #f5f5f5;
+    color: #999;
+    
+    .placeholder-icon {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .placeholder-text {
+      font-size: 0.875rem;
+    }
+  }
+  
+  &:hover .card-image {
+    transform: scale(1.05);
+  }
 }
 
 .event-card.active {
