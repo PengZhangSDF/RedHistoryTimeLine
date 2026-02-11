@@ -40,7 +40,7 @@
 <template>
   <div class="home-page">
     <header class="page-header">
-      <h1>红色历史时间轴</h1>
+      <h1>抗日战争时间轴</h1>
       <p class="subtitle">重温历史，铭记初心</p>
     </header>
     
@@ -73,7 +73,11 @@
         <!-- 功能要求：显示所有事件地点的地图标记 -->
         <!-- 修改限制：禁止删除此组件引用 -->
         <!-- 事件处理：监听marker-click事件，跳转到详情页 -->
-        <FullScreenMap ref="mapRef" @marker-click="handleMarkerClick" />
+        <FullScreenMap
+          ref="mapRef"
+          @marker-click="handleMarkerClick"
+          @marker-image-click="handleMarkerImageClick"
+        />
       </div>
     </div>
   </div>
@@ -129,17 +133,60 @@ export default {
      * 处理地图标记点击事件
      * 功能要求：
      * - 接收FullScreenMap组件触发的marker-click事件
-     * - 跳转到对应事件的详情页
+     * - 点击地图标记后，时间轴自动滚动到对应事件位置
+     * - 不跳转到详情页，只滚动时间轴
      * 
      * 修改限制：
      * - 禁止修改跳转路径格式（必须 /detail/:id）
      * - 禁止修改跳转方式（必须使用router.push）
-     * - 参数eventId可能是事件ID或地点ID，需要处理
+     * - 参数可能是事件ID、地点ID或地点对象，需要处理
      */
-    const handleMarkerClick = (eventId) => {
-      // 功能要求：必须跳转到详情页
-      // 如果eventId是地点ID，需要先查询该地点的事件
-      // 当前实现：假设eventId是事件ID
+    const handleMarkerClick = (data) => {
+      // 点击地图标记后，时间轴自动滚动到对应位置
+      if (!data) return;
+      
+      let locationId = null;
+      let locationName = null;
+      let eventId = null;
+      
+      // 解析数据，获取地点ID、地点名称和事件ID
+      if (typeof data === 'string') {
+        if (data.startsWith('E')) {
+          // 如果是事件ID，需要先找到对应的地点ID
+          // 这里暂时只处理地点ID的情况
+          return;
+        } else {
+          // 地点ID
+          locationId = data;
+        }
+      } else if (typeof data === 'object') {
+        // 如果是对象，提取地点信息和事件ID
+        locationId = data.locationId;
+        locationName = data.locationName;
+        eventId = data.eventId;
+      }
+      
+      // 关键修复：点击地图钉点不再“筛选/锁定”时间轴（不替换事件列表），只做定位滚动
+      if (!timeAxisRef.value) return;
+
+      // 优先按事件ID滚动（最精确）
+      if (eventId && typeof timeAxisRef.value.scrollToEvent === 'function') {
+        timeAxisRef.value.scrollToEvent(eventId);
+        return;
+      }
+
+      // 没有事件ID时，按地点ID在完整事件列表中查找并滚动到该地点的第一个事件
+      if (locationId && typeof timeAxisRef.value.scrollToLocation === 'function') {
+        timeAxisRef.value.scrollToLocation(locationId, locationName || null);
+      }
+    };
+
+    /**
+     * 点击“标记上方图片”进入详情页（钉点点击联动时间轴不变）
+     */
+    const handleMarkerImageClick = (payload) => {
+      const eventId = payload && typeof payload === 'object' ? payload.eventId : null;
+      if (!eventId) return;
       router.push(`/detail/${eventId}`);
     };
 
@@ -193,6 +240,7 @@ export default {
       mapRef,
       loadEvents,
       handleMarkerClick,
+      handleMarkerImageClick,
       handleEventClick
     };
   }
@@ -209,21 +257,26 @@ export default {
 }
 
 .page-header {
-  padding: 1.5rem 2rem;
+  /* 调小标题栏高度与内边距 */
+  padding: 0.8rem 1.5rem;
   background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
   color: white;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .page-header h1 {
-  margin: 0 0 0.5rem 0;
-  font-size: 2rem;
+  margin: 0;
+  font-size: 1.6rem;
 }
 
 .subtitle {
   margin: 0;
   opacity: 0.9;
-  font-size: 1rem;
+  font-size: 0.95rem;
+  text-align: right;
 }
 
 .home-content {

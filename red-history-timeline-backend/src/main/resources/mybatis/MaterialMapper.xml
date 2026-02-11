@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redhistory.mapper.MaterialMapper">
+
+    <!-- 根据事件 ID 查询相关资料列表 -->
+    <select id="selectMaterialsByEvent" resultType="com.redhistory.model.Material">
+        SELECT
+            id,
+            event_id AS eventId,
+            title,
+            url,
+            type
+        FROM materials
+        WHERE event_id = #{eventId}
+        ORDER BY id
+    </select>
+
+    <!-- 新增资料 -->
+    <insert id="insertMaterial" parameterType="com.redhistory.model.Material">
+        INSERT INTO materials (id, event_id, title, url, type)
+        VALUES (#{id}, #{eventId}, #{title}, #{url}, #{type})
+    </insert>
+
+    <!-- 更新资料 -->
+    <update id="updateMaterial" parameterType="com.redhistory.model.Material">
+        UPDATE materials
+        SET
+            event_id = #{eventId},
+            title = #{title},
+            url = #{url},
+            type = #{type}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除资料 -->
+    <delete id="deleteMaterial" parameterType="java.lang.String">
+        DELETE FROM materials WHERE id = #{id}
+    </delete>
+
+    <!-- 根据 ID 查询单条资料 -->
+    <select id="selectMaterialById" resultType="com.redhistory.model.Material" parameterType="java.lang.String">
+        SELECT
+            id,
+            event_id AS eventId,
+            title,
+            url,
+            type
+        FROM materials
+        WHERE id = #{id}
+    </select>
+
+</mapper>
+

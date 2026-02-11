@@ -48,10 +48,11 @@
 import { onMounted, onUnmounted } from 'vue';
 import { initMap, addMarker } from '@/utils/amapUtils';
 import { getAllLocations } from '@/api/locationApi';
+import { getEventList } from '@/api/eventApi';
 
 export default {
   name: 'FullScreenMap',
-  emits: ['marker-click'], // 定义组件事件
+  emits: ['marker-click', 'marker-image-click'], // 定义组件事件
   setup(props, { emit }) {
     let map = null;
     let AMap = null;
@@ -83,6 +84,19 @@ export default {
         await loadLocations();
       } catch (error) {
         console.error('地图初始化失败:', error);
+        // 显示用户友好的错误提示
+        const container = document.getElementById('full-screen-map');
+        if (container) {
+          container.innerHTML = `
+            <div style="display: flex; align-items: center; justify-content: center; height: 100%; 
+                        background: #f5f5f5; color: #e74c3c; font-size: 16px; text-align: center; padding: 20px;">
+              <div>
+                <p style="margin: 0 0 10px 0; font-weight: bold;">地图加载失败</p>
+                <p style="margin: 0; font-size: 14px; color: #666;">${error.message || '请检查网络连接或刷新页面重试'}</p>
+              </div>
+            </div>
+          `;
+        }
       }
     });
 
@@ -100,11 +114,30 @@ export default {
      */
     const loadLocations = async () => {
       try {
+        if (!map || !AMap) {
+          console.warn('地图未初始化，无法加载地点数据');
+          return;
+        }
+
+        // 为了在钉点上方显示“历史事件图片”，需要知道地点对应的事件ID
+        // 后端 locations 接口目前不返回 relatedEvents，因此这里额外拉取一次事件列表做关联
+        const eventResp = await getEventList();
+        const events = eventResp && eventResp.code === 200 ? (eventResp.data || []) : [];
+        const firstEventIdByLocationId = new Map();
+        events.forEach(ev => {
+          const lid = ev && ev.locationId;
+          if (lid && !firstEventIdByLocationId.has(lid)) {
+            firstEventIdByLocationId.set(lid, ev.id);
+          }
+        });
+
         const response = await getAllLocations();
         // 响应格式：{ code: 200, data: Array<Location>, total: number }
         if (response.code === 200) {
           const locations = response.data || [];
+          console.log(`成功加载 ${locations.length} 个地点`);
           
+          let validCount = 0;
           locations.forEach(location => {
             // 获取坐标（支持两种格式）
             let coordinates = null;
@@ -114,32 +147,92 @@ export default {
               coordinates = [location.longitude, location.latitude];
             }
             
-            if (coordinates && coordinates.length === 2) {
-              // 添加标记
-              // 功能要求：必须使用amapUtils.addMarker
-              // 修改限制：禁止直接创建AMap.Marker
-              const marker = addMarker(
-                map,
-                AMap,
-                coordinates,
-                location.name,
-                () => {
-                  // 点击标记的处理
-                  // 功能要求：必须触发marker-click事件
-                  // 修改限制：禁止直接跳转，必须通过事件通知父组件
-                  if (location.relatedEvents && location.relatedEvents.length > 0) {
-                    // 如果地点关联了事件，触发事件并传递第一个事件ID
-                    emit('marker-click', location.relatedEvents[0]);
-                  } else if (location.id) {
-                    // 如果没有关联事件，可以传递地点ID（需要父组件处理）
-                    // 或者通过locationId查询事件
-                    emit('marker-click', location.id);
+            if (coordinates && coordinates.length === 2 && 
+                typeof coordinates[0] === 'number' && typeof coordinates[1] === 'number') {
+              // 验证坐标范围（中国境内大致范围）
+              if (coordinates[0] >= 73 && coordinates[0] <= 135 && 
+                  coordinates[1] >= 18 && coordinates[1] <= 54) {
+                // 添加标记
+                // 功能要求：必须使用amapUtils.addMarker
+                // 修改限制：禁止直接创建AMap.Marker
+                const pinMarker = addMarker(
+                  map,
+                  AMap,
+                  coordinates,
+                  location.name,
+                  () => {
+                    // 点击标记的处理
+                    // 功能要求：必须触发marker-click事件
+                    // 修改限制：禁止直接跳转，必须通过事件通知父组件
+                    const eventId = location.id ? firstEventIdByLocationId.get(location.id) : null;
+                    if (eventId) {
+                      emit('marker-click', { locationId: location.id, locationName: location.name, eventId });
+                    } else if (location.id) {
+                      emit('marker-click', { locationId: location.id, locationName: location.name });
+                    }
                   }
+                );
+                markers.push(pinMarker);
+                validCount++;
+
+                // 叠加一层“事件图片标记”（点击图片进详情；不影响钉点交互）
+                const eventId = location.id ? firstEventIdByLocationId.get(location.id) : null;
+                if (eventId) {
+                  const imgUrl = `/assets/images/${eventId}.png`;
+                  // 注意：地图覆盖物 DOM 不在 Vue scoped 样式作用域内，不能依赖 SFC scoped CSS
+                  // 因此这里使用内联样式，确保一定可见
+                  const el = document.createElement('div');
+                  el.innerHTML = `
+                    <div
+                      style="
+                        width:80px;height:80px;border-radius:12px;overflow:hidden;
+                        border:2px solid rgba(255,255,255,.9);
+                        box-shadow:0 8px 20px rgba(0,0,0,.28);
+                        background:#fff;cursor:pointer;
+                      "
+                    >
+                      <img
+                        src="${imgUrl}"
+                        alt="${location.name}"
+                        style="width:100%;height:100%;object-fit:cover;display:block;"
+                        onerror="this.parentElement.style.display='none'"
+                      />
+                    </div>
+                  `;
+
+                  const imageMarker = addMarker(
+                    map,
+                    AMap,
+                    coordinates,
+                    `${location.name}-image`,
+                    () => {
+                      emit('marker-image-click', { eventId, locationId: location.id, locationName: location.name });
+                    },
+                    {
+                      content: el.firstElementChild,
+                      // 让更大的图片出现在钉点上方，再向上抬约 1/3 图片高度
+                      offset: new AMap.Pixel(-40, -120),
+                      zIndex: 2000
+                    }
+                  );
+                  markers.push(imageMarker);
                 }
-              );
-              markers.push(marker);
+              } else {
+                console.warn(`地点 ${location.name} 的坐标超出有效范围:`, coordinates);
+              }
+            } else {
+              console.warn(`地点 ${location.name} 的坐标格式无效:`, coordinates);
             }
           });
+          
+          console.log(`成功添加 ${validCount} 个地图标记`);
+          
+          // 如果有标记，调整地图视野以包含所有标记
+          if (validCount > 0 && markers.length > 0) {
+            map.setFitView(markers, false, [50, 50, 50, 50]);
+          }
+        } else {
+          console.error('获取地点列表失败:', response.msg || '未知错误');
         }
       } catch (error) {
         console.error('加载地点数据失败:', error);
@@ -203,6 +296,25 @@ export default {
   position: relative;
   transition: all 0.3s ease;
   animation: mapFadeIn 0.6s ease-out;
+}
+
+/* 叠加在钉点上方的小图片标记 */
+:deep(.rhtl-marker-image) {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  background: #fff;
+  cursor: pointer;
+}
+
+:deep(.rhtl-marker-image__img) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* 地图标记样式（通过CSS变量控制，可在JS中动态修改） */
