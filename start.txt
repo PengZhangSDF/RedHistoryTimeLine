@@ -1,0 +1,4 @@
+cd E:\Red-History-TimeLine\red-history-timeline-frontend
+npm run dev
+cd E:\Red-History-TimeLine\red-history-timeline-backend
+mvn spring-boot:run

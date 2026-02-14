@@ -5,6 +5,7 @@
 --   mysql -u root -p red_history < red-history-timeline-backend/scripts/import-materials-from-md.sql
 
 USE red_history;
+SET NAMES utf8mb4;
 
 -- 九一八事变（E001）
 INSERT INTO materials (id, event_id, title, url, type) VALUES

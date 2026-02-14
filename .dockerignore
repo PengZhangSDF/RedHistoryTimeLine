@@ -1,0 +1,15 @@
+# 通用忽略：不需要进入 Docker 构建上下文的内容
+.git
+.gitignore
+.idea
+.vscode
+*.log
+node_modules
+
+# 前端本地依赖与构建产物（容器内部会重新 npm install / 构建）
+red-history-timeline-frontend/node_modules
+red-history-timeline-frontend/dist
+
+# 后端构建产物（容器内部由 Maven 重新打包）
+red-history-timeline-backend/target
+

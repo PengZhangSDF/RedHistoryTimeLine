@@ -33,9 +33,10 @@ spring:
     name: red-history-timeline-backend
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/red_history?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
-    username: root
-    password: 12345555  # 请修改为实际数据库密码
+    # 优先从环境变量读取（用于 Docker 部署），本地开发可使用默认值
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/red_history?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai}
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:12345555}  # 本地开发时可按需修改
 
 # MyBatis配置
 mybatis:

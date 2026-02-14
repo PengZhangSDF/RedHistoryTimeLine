@@ -1,5 +1,6 @@
 -- 由 json_to_sql.py 自动生成，基于 data/historical_data.json
 USE red_history;
+SET NAMES utf8mb4;
 
 SET FOREIGN_KEY_CHECKS = 0;
 TRUNCATE TABLE event_person;

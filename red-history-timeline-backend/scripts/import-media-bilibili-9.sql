@@ -3,6 +3,7 @@
 --   mysql -u root -p red_history < scripts/import-media-bilibili-9.sql
 
 USE red_history;
+SET NAMES utf8mb4;
 
 INSERT INTO media (id, type, url, title, event_id) VALUES
 ('media-bv-001', 'video', 'https://www.bilibili.com/video/BV1TFF5egEMs/', '九一八事变 B站资料', 'E001'),
